@@ -1,4 +1,4 @@
-"# PLSG" 
+# PLSG - The Python Learning Support Group of SEA-India
 
 This is the documentation for the PLSG (Python Learning Support Group) built using [Zensical](https://zensical.org).
 
