@@ -6,12 +6,15 @@
 2. Answers to queries asked in person or sent in advance
 3. VS Code IDE, its features and use
     * User interface: Main menu,Toolbar, Primary Side Bar, Secondary Side Bar, Panel, Status Bar
-    * File explorer, Extensions, Settings, Source Control
+    * Toolbar: File explorer, Extensions, Settings, Source Control
     * Installing Microsoft Python extension
 4. Writing Python code in VS Code and executing code in a file
-5. Purpose of programming computers
-6. Principles of designing programs to run on computers
-7. Program design paradigms
+
+Here are some theoretical concepts that must be pondered upon before embarking on programming:
+
+1. Purpose of programming computers
+2. Principles of designing programs to run on computers
+3. Program design paradigms
 
 
 ## Why program computers?
@@ -69,6 +72,11 @@ Typically, higher level components are more complex and abstract as they accompl
 Implementation starts with the simplest and the most independent components (functions) of the program and test them before you proceed to implement the higher level components that will use the implemented and tested lower level components.
 
 In the procedural paradigm, the primary focus is on organizing functions (algorithms) and data is considered as flowing into and out of functions until the required output is obtained.
+
+<hr style="height:2px; background:black;">
+
+
+<span style="color:red"><b>You can safely ignore the rest of this page until we learn more about Python and OO programming in Python</b></span>
 
 ### Object oriented paradigm (OO paradigm)
 The primary focus in OO paradigm is on organizing the data to represent the information and algorithms are considered part of the data. Data is transformed from one state to the next by passing messages to the data objects in the correct sequence until the required output is reached.
