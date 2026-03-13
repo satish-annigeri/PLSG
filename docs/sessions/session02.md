@@ -1,14 +1,51 @@
 # Session 2: Planned Date 2026-03-14 Saturday
-#### From 4:00 pm to 6:00 pm
+#### From 4:30 pm to 6:30 pm
 ## Agenda
 
 1. Review of previous session
 2. Answers to queries asked in person or sent in advance
-3. VS Code IDE, its features and use
+3. Objects and memory locations
+4. Logical operations
+5. VS Code IDE, its features and use
     * User interface: Main menu,Toolbar, Primary Side Bar, Secondary Side Bar, Panel, Status Bar
     * Toolbar: File explorer, Extensions, Settings, Source Control
     * Installing Microsoft Python extension
-4. Writing Python code in VS Code and executing code in a file
+6. Writing Python code in VS Code and executing code in a file
+
+## Objects and memory locations
+Python is said to be easy to learn and use because it keeps complex concepts such as memory address, pointers etc. hidden from the prorammer. It automatically allocates and deallocates memory to objects without the programmer having to consider this aspect. However, it offers a function `id()` to display the memory addresses. Here are a few examples:
+``` pycon
+>>> a = 10
+>>> id(a)
+140705796281752
+```
+**Note:** The memory location is not the same for everyone, and is not the same you execute this statement in a different session.
+
+``` pycon
+>>> b = 20
+>>> id(b)
+140705796282072
+```
+Obviously, this is a different object and therefore has a different memory address.
+
+## Logical Operations
+
+The logical operators are: `<`, `>`, `<=`, `>=`, `==`, `!=`, `and`, `or`, `not`. There are only two possible values for a logical operation, either `True` or `False`. Thus, the result of the expression `2 < 3` is `True` while that of `2 > 3` is `False`. Such results can be stored in an object, for example `#!python a = 2 < 3` and the value of `a` if True.
+``` pycon
+>>> a = 2 < 3
+>>> a
+True
+>>> b = 2 > 3
+>>> b
+False
+>>> 2 < 3 and 5 > 2
+True
+>>> x = 10; y = 20
+>>> x, y
+(10, 20)
+>>> (x < y) and (x >= 0)
+True
+```
 
 Here are some theoretical concepts that must be pondered upon before embarking on programming:
 
