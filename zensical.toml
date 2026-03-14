@@ -68,6 +68,7 @@ Copyright &copy; 2026 Satish Annigeri
         "sessions/index.md", 
         {"Session 1" = "sessions/session01.md"},
         {"Session 2" = "sessions/session02.md"},
+        {"Session 3" = "sessions/session03.md"},
    ]},
    { "About" = [
         "about/index.md",
