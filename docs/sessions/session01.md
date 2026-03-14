@@ -1,4 +1,5 @@
-# Session 1: 2026-03-07
+# Session 1: 2026-03-07 Saturday
+#### From 4:00 pm to 6:00 pm
 
 ## Python REPL
 
@@ -17,7 +18,7 @@ Hello, world!
 ```
 Note the presence of `'` around the value in the first line of output and their absence in the seconf line of output.
 
-## Python Buil-in Data Types
+## Python Built-in Data Types
 You can inquire the data type of a constant or an object with the `type()` function. Here are a few examples to try out in the Python REPL:
 
 ### Inquiring the type of the constant or object

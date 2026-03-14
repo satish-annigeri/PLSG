@@ -1,4 +1,4 @@
-# Session 2: Planned Date 2026-03-14 Saturday
+# Session 2: 2026-03-14 Saturday
 #### From 4:30 pm to 6:30 pm
 ## Agenda
 
