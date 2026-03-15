@@ -1,9 +1,0 @@
-{
-  "name": "zensical-site",
-  "scripts": {
-    "build": "zensical build"
-  },
-  "devDependencies": {
-    "zensical": "^1.0.0"
-  }
-}
