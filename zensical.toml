@@ -66,9 +66,13 @@ Copyright &copy; 2026 Satish Annigeri
    ]},
    { "Sessions" = [
         "sessions/index.md", 
-        {"Session 1" = "sessions/session01.md"},
-        {"Session 2" = "sessions/session02.md"},
-        {"Session 3" = "sessions/session03.md"},
+        { "Session 1" = "sessions/session01.md" },
+        { "Session 2" = "sessions/session02.md" },
+        { "Session 3" = "sessions/session03.md" },
+   ]},
+   { "Assignments" = [
+        "assignments/index.md",
+        { "Assignment 1" = "assignments/assignment01.md" },
    ]},
    { "About" = [
         "about/index.md",
@@ -346,6 +350,8 @@ toggle.name = "Switch to light mode"
 #link = "https://github.com/user/repo"
 
 
+[project.markdown_extensions.admonition]
+[project.markdown_extensions.pymdownx.details]
 [project.markdown_extensions.pymdownx.snippets]
 auto_append = ["includes/abbreviations.md"]
 [project.markdown_extensions.abbr]
