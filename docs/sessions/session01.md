@@ -190,7 +190,7 @@ File "<python-input-30>", line 1, in <module>
 IndexError: list index out of range
 ```
 
-Here are some examples of slicing in the **forward** direction (from start to end), using the same object `a` defined above. Before we start, one important rule for the end index: **The end index itself is not included in the range, whereas the start eindex is included**.
+Here are some examples of slicing in the **forward** direction (from start to end), using the same object `a` defined above. Before we start, one important rule for the end index: **The end index itself is not included in the range, whereas the start index is included**.
 
 ``` pycon
 >>> a[0:2]  # a[0] and a[1]. a[2] not included. A list with two elements
@@ -212,6 +212,7 @@ Here are some examples of slicing in the **forward** direction (from start to en
 ```
 
 Here are some examples of slicing in the **reverse** direction (end to from start)
+
 ``` pycon
 >>> a[-1:-3:-1]  # a[-1] and a[-2], a[-3] is not included. Return as list
 [10, 9]
@@ -228,6 +229,7 @@ Here are some examples of slicing in the **reverse** direction (end to from star
 ```
 
 Finally, you can create an empty list with no elements.
+
 ``` pycon
 >>> b = []
 >>> b
