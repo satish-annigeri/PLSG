@@ -272,6 +272,42 @@ range(1, 10, 2)
 0 5 1
 ```
 
+In Python, the data type of the object returned by the `range()` functin call is `<class range>`. You can learn more by studying the following code in the REPL:
+``` pycon
+>>> type(range(5))
+<class range>
+>>> print(range(5))
+range(0, 5)
+>>> print(range(1, 10, 2))
+range(1, 10, 2)
+>>> r = range(1, 10, 2)
+>>> print(r.start, r.stop, r.step)
+1 10 2
+>>> list(r)
+[1, 3, 5, 7, 9]
+```
+Note these points:
+
+1. An object of type `<class range>` has three fields `start`, `stop` and `step` using which a range of integers can be generated
+2. The `<calss range>` object generates one item at a time instead of generating all the items at once. This saves memory when the number of the items in the range is large and would take up considerable memory
+3. It is possible to generate a `list` or a `tuple` and generate all the items at once by giving the `range` as an argument to `list()` or `tuple()`
+4. Like `list` and `tuple`, `range` is also a *Sequence Type*. Consequently, `range` supports slicing, indexing, negative indexing and element index lookup operations.
+
+``` pycon
+>>> len(range(5))
+5
+>>> len(range(1, 10, 2))
+5
+>>> 3 in range(5)
+True
+>>> 4 in range(1, 10, 2)
+False
+>>> range(1, 6)[3]
+4
+>>> range(1, 6)[-1]
+5
+```
+
 ## Program flow control - `for` loop
 
 The `for` loop iterates over the elements of any *iterable*, such as a list, tuple, text sequence (such as a string).
