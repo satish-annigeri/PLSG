@@ -6,10 +6,124 @@
 
 1. Review of previous sessions
 2. Answers to queries
-3. `range()` to generate a sequence of integers
-4. Program flow control: `for` loop, `if -then - elif - else`
-5. Function signatures
-6. Designing functions
+3. Some operations on `list`
+4. Some operations on `str`
+5. `range()` to generate a sequence of integers
+6. Program flow control: `for` loop, `if -then - elif - else`
+7. Function signatures
+8. Designing functions
+
+## Some operations on `list`
+
+The `list` data type is mutable and is a container data type, that is, it is a container for other elements. The elements of a list can be of any valid type, including built-in types as well as user defined types. In fact, an element of a list can itself be another list. Unlike an array, elements of a list can be of different types. This leads to the concept of multi-dimensioned lists, that is two-dimensioned (consisting of rows and columns) or three-dimensioned (consisting of cards each of which consists of rows and columns) etc. However, unlike an array, the number of columns in the rows need not be the same.
+
+Here is an example of a list containing elements of different data types:
+``` pycon
+>>> a = [10, 2.5, 'Hello, world", [1, 2.0]]
+>>> len(a)
+4
+>>> type(a[0])
+<class int>
+>>> type(a[1])
+<class float>
+>>> type(a[2])
+<class str>
+>>> type(a[3])
+<class list>
+>>> len(a[3])
+2
+>>> type(a[3][0])
+<class int>
+>>> type(a[3][1])
+<class float>
+```
+
+Note the following points:
+
+1. The elements of the list `a` are of different types, as shown with the output of the `type()` function
+2. Element `a[3]` is itself a list with two elements
+3. The elements within `a[3]` can be accessed using index of the element within as shown: `a[3][0]` for element with index `0` of element `a[3]` and `a[3][1]` for the element with index `1` of `a[3]`.
+4. If we consider the list as being two dimensioned (because one of its elements is itself a list), all the rows except row with index `3` have only one column and row `a[3]` has two columns.
+
+A list being mutable, you can change its elements:
+``` pycon
+>>> a[0] = 20
+>>> a
+[20, 2.5, 'Hello, world", [1, 2.0]]
+>>> a[3][0] = 10
+>>> a
+[20, 2.5, 'Hello, world", [10, 2.0]]
+```
+
+Other than changing values of the elements of list, there are several operations we can perform on a list:
+``` pycon
+>>> a.append(50)
+>>> a
+[20, 2.5, 'Hello, world', [10, 2.0], 50]
+>>> len(a)
+5
+>>> a[4]
+50
+>>> a.append((10, 20, 30))
+>>> a
+[20, 2.5, 'Hello, world', [10, 2.0], 50, (10, 20, 30)]
+>>> len(a)
+6
+>>> len(a[5])
+3
+```
+This is what we did:
+
+1. We appended the element `50`, which is an integer to the list `a`. This increased the length of the list to `5`
+2. Subsequently, we appended a tuple `(10, 20, 30)` to the list and increased its length to `6`.
+
+We can insert an element (say the integer `100`) at any chosen index (say `1`):
+``` pycon
+>>> a.insert(1, 100)
+>>> a
+[20, 100, 2.5, 'Hello, world', [10, 2.0], 50, (10, 20, 30)]
+```
+
+Note the following points about `list.insert(i, element)`:
+
+1. If `i = 0`, the element is inserted at the start of the list
+2. If `i = len(a)`, the element is appended to the list, same as `a.append(element)`
+3. If `i > len(a)`, the element is appended to the list, same as `a.append(element)`. No error is raised and the list is not expanded to the specified length
+4. If `i < 0`, then it is converted to a non-negative insertion position `i = max(0, len(a) + i)`. For example, if `len(a)` is 10, `a.insert(-1, 500)` inserts the element `500` at index $i = max(0, 10 - 1) = 9$, which turns out to be the lremove(x)    | ast but oneRemove the first item in the list whose value is equal to `x` |position after inserting the element tresulting in a length of `11` elements.
+
+Other operations on lists are shown in the table below:
+
+|  Method | Action |
+|:------------------|:----------------------------------------------|
+|`list.pop([i])`                 |Repme the item at the position in the list, and return it. If `i` is not specified, the last item is popped. |
+|`list.clear()`                  |Remove all items from the list. Equivalent to `del a[:]` |
+|`list.remove(x)`                |Remove the first item in the list whose value is equal to `x` |
+|`list.count(x)`                 |Return the number of times `x` appears in the list  |
+|`list.index(x[, start[, end]])` |Return zero-based index in the list of the first item whose value is `x`. Raises a ValueError if there is no such item. |
+|`list.count(x)`                 |Return the number of times `x` appears in the list |
+|`list.sort(*, key=None, reverse=False)` |Sort the items of the list in place. `key` specifies a function of one argument that is used to extract a comparison key from each element in iterable (for example, key=str.lower). The default value is None (compare the elements directly). `reverse` is a boolean value. If set to True, then the list elements are sorted as if each comparison were reversed. |
+|`list.reverse()`  |Reverse the elements of the list in place  |
+|`list.copy()`     |Return a shallow copy of the list. Equivalent to a[:]  |
+
+**Note:** The square brackets `[ ]` around `i` in the method signature `list.pop([i])` denote that the parameter is **optional**, not that you should type square brackets in that position. So is the case with `start` and `end` in the method `index(x[, start[, end]])`. When they are not provided, default values defined in the method definition are used.
+
+For more information, refer the Python documentation page: [More on lists](https://docs.python.org/3.10/tutorial/datastructures.html#more-on-lists).
+
+## Some operations on `str`
+A Python `str` has a number of very useful methods which you will find useful when you have to process text.
+
+|  Method | Action |
+|:------------------|:----------------------------------------------|
+|`str.capitalise()` |Return a copy of the string with the first character capitalized and the rest lowercased |
+|`str.casefold()`   |Return a casefolded copy of the string. Casefolding is similar to lowercasing but is more aggressive, specifically with non-English language characters |
+|`str.center(width[, fillchar])` |Return centered in a string of length width. Padding is done using the specified fillchar (default is an ASCII space). The original string is returned if width is less than or equal to len(s) |
+|`str.count(sub[, start[, end]])` |Return the number of non-overlapping occurrences of substring sub in the range [start, end]. Optional arguments start and end are interpreted as in slice notation.<br> If sub is empty, returns the number of empty strings between characters which is the length of the string plus one. |
+|`str.endswith(suffix[, start[, end]])` |Return True if the string ends with the specified suffix, otherwise return False. suffix can also be a tuple of suffixes to look for. With optional start, test beginning at that position. With optional end, stop comparing at that position. |
+|`str.find(sub[, start[, end]])` |Return the lowest index in the string where substring sub is found within the slice s[start:end]. Optional arguments start and end are interpreted as in slice notation. Return -1 if sub is not found. |
+|`str.lower()` |Return a copy of the string with all the cased characters 4 converted to lowercase |
+|`str.upper()` |eturn a copy of the string with all the cased characters 4 converted to uppercase |
+
+There are many more and you should study all of them from the Python documentation page: [Text Sequence Type - `str`](https://docs.python.org/3.10/library/stdtypes.html?highlight=str#text-sequence-type-str)
 
 ## `range()` to generate a sequence of integers
 Let us try this in the Python REPL before we attempt to understand `range()` and what it does:
