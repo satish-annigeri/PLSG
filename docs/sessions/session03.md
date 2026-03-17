@@ -106,7 +106,8 @@ Other operations on lists are shown in the table below:
 |`list.reverse()`  |Reverse the elements of the list in place  |
 |`list.copy()`     |Return a shallow copy of the list. Equivalent to a[:]  |
 
-**Note:** The square brackets `[ ]` around `i` in the method signature `list.pop([i])` denote that the parameter is **optional**, not that you should type square brackets in that position. So is the case with `start` and `end` in the method `index(x[, start[, end]])`. When they are not provided, default values defined in the method definition are used.
+!!! note
+    The square brackets `[ ]` around `i` in the method signature `list.pop([i])` denote that the parameter is **optional**, not that you should type square brackets in that position. So is the case with `start` and `end` in the method `index(x[, start[, end]])`. When they are not provided, default values defined in the method definition are used.
 
 For more information, refer the Python documentation page: [More on lists](https://docs.python.org/3.10/tutorial/datastructures.html#more-on-lists).
 
