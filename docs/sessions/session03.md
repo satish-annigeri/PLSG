@@ -9,9 +9,10 @@
 3. Some operations on `list`
 4. Some operations on `str`
 5. `range()` to generate a sequence of integers
-6. Program flow control: `for` loop, `if -then - elif - else`
-7. Function signatures
-8. Designing functions
+6. Program flow control - `for` loop
+7. Program flow control - `if - elif - else`
+8. Function signatures
+9. Designing functions
 
 ## Some operations on `list`
 
@@ -95,7 +96,7 @@ Other operations on lists are shown in the table below:
 
 |  Method | Action |
 |:------------------|:----------------------------------------------|
-|`list.pop([i])`                 |Repme the item at the position in the list, and return it. If `i` is not specified, the last item is popped. |
+|`list.pop([i])`                 |Remove the item at the position in the list, and return it. If `i` is not specified, the last item is popped. |
 |`list.clear()`                  |Remove all items from the list. Equivalent to `del a[:]` |
 |`list.remove(x)`                |Remove the first item in the list whose value is equal to `x` |
 |`list.count(x)`                 |Return the number of times `x` appears in the list  |
@@ -108,6 +109,85 @@ Other operations on lists are shown in the table below:
 **Note:** The square brackets `[ ]` around `i` in the method signature `list.pop([i])` denote that the parameter is **optional**, not that you should type square brackets in that position. So is the case with `start` and `end` in the method `index(x[, start[, end]])`. When they are not provided, default values defined in the method definition are used.
 
 For more information, refer the Python documentation page: [More on lists](https://docs.python.org/3.10/tutorial/datastructures.html#more-on-lists).
+
+### Illustrative examples
+``` pycon
+>>> a = [1, 2, 3, 4, 5]
+>>> a
+[1, 2, 3, 4, 5]
+>>> a.pop(0)
+1
+>>> a
+[2, 3, 4, 5]
+>>> a.pop()
+5
+>>> a
+[2, 3, 4]
+>>> a.pop(10)
+Traceback (most recent call last):
+  File "<python-input-4>", line 1, in <module>
+    a.pop(10)
+    ~~~~~^^^^
+IndexError: pop index out of range
+>>> a.clear()
+>>> a
+[]
+```
+Note:
+
+1. The removed item is returned, and therefore displayed on the next line.
+2. If the index `i` is invalid, *IndexError* is raised
+
+Let us see more examples:
+``` pycon
+>>> a = [1, 2, 3, 4, 5, 4]
+>>> a.remove(4)
+>>> a
+[1, 2, 3, 5, 4]
+>>> a.append(5)
+>>> a
+[1, 2, 3, 5, 4, 5]
+>>> a.count(2)
+1
+>>> a.count(5)
+2
+>>> a.index(5)
+3
+>>> a.index(5, 4)
+5
+>>> a.index(6)
+Traceback (most recent call last):
+  File "<python-input-23>", line 1, in <module>
+    a.index(6)
+    ~~~~~~~^^^
+ValueError: list.index(x): x not in list
+```
+Note:
+
+1. Attempting to determine the index of a value not in the list raises a *ValueError*.
+2. When you determine the index of a value starting from an index other than `0`, and the value is found, the reported index is computed from relative to the beginning of the full sequencerather than the `start` argument.
+
+``` pycon
+>>> a = [10, 7, 2, 4, 6, 7]
+>>> a.sort()
+>>> a
+[2, 4, 6, 7, 7, 10]
+>>> a.reverse()
+[10, 7, 7, 6, 4, 2]
+>>> x = [1, 2, 3]
+>>> y = x
+>>> z = x.copy()  # or z = x[:]
+>>> x is y
+True
+>>> x is z
+False
+```
+Note the following points:
+
+1. `a.sort()` sorts the elements of `a` inplace, and does not return anything
+2. `a.reverse()` reverses the list inplace, nothing is returned
+3. `y = x` creates the alias of `x` but both objects point to the same values in memory. Therefore `x is y` returns `True`.
+4. `z = x.copy()` creates a copy of the values in a separate location in memory > Therefore `x is z` returns `False`.
 
 ## Some operations on `str`
 A Python `str` has a number of very useful methods which you will find useful when you have to process text.
@@ -125,6 +205,59 @@ A Python `str` has a number of very useful methods which you will find useful wh
 
 There are many more and you should study all of them from the Python documentation page: [Text Sequence Type - `str`](https://docs.python.org/3.10/library/stdtypes.html?highlight=str#text-sequence-type-str)
 
+### Illustrative examples
+
+``` pycon
+>>> a = 'abracadabra'
+>>> b= a.capitalize()
+>>> b
+'Abracadabra'
+>>> c = b.upper()
+>>> c
+'ABRACADABRA'
+>>> c.lower()
+'abracadabra'
+>>> a = "this is a sentence with several words"
+>>> a.title()
+'This Is A Sentence With Several Words'
+>>> a.center(60)
+'           this is a sentence with several words            '
+>>> a.center(60, '-')
+'-----------this is a sentence with several words------------'
+>>> a.startswith('thi')
+True
+>>> a.endswith("words")
+True
+>>> a.replace(" ", "_")
+'this_is_a_sentence_with_several_words'
+>>> x = "  hello, world  "
+>>> x
+'  hello, world  '
+>>> x.strip()
+'hello, world'
+>>> x.lstrip()
+'hello, world  '
+>>> x.rstrip()
+'  hello, world'
+>>> x.strip()
+>>> y = "This is just the beginning."
+>>> y.rstrip(".")
+'This is just the beginning'
+```
+
+Here are some interesting methods:
+``` pycon
+>>> a = ["apple", "orange", "banana", "grapes"]
+>>> a
+["apple", "orange", "banana", "grapes"]
+>>> " ".join(a)
+'apple orange banana grapes'
+>>> ", ".join(a)
+'apple, orange, banana, grapes'
+```
+
+There are many more `str` methods and they will prove very useful. Make the effort to learn them.
+
 ## `range()` to generate a sequence of integers
 Let us try this in the Python REPL before we attempt to understand `range()` and what it does:
 ``` pycon
@@ -139,7 +272,93 @@ range(1, 10, 2)
 0 5 1
 ```
 
-## Program flow control
+## Program flow control - `for` loop
+
+The `for` loop iterates over the elements of any *iterable*, such as a list, tuple, text sequence (such as a string).
+``` pycon
+>>> lst = ["one", "two", "three"]
+>>> for item in lst:  # Pythonic
+...     print(item)
+...     
+one
+two
+three
+>>> for i in range(len(lst)):  # Non Pythonic
+...     print(lst[i])
+...     
+one
+two
+three
+>>> for i in range(len(lst)):
+...     print(i)
+...
+0
+1
+2
+>>> for i in range(1, 10, 2):
+...     print(i, end = " ")
+...
+1 3 5 7 9 >>>
+>>> for i in range(10, 1, -2):
+...     print(i, end = ", ")
+...     
+10, 8, 6, 4, 2, >>>
+>>> a = [10, 20, 0, 5]
+>>> for x in a:
+...     print(100 / x)
+...     
+10.0
+5.0
+Traceback (most recent call last):
+  File "<python-input-91>", line 2, in <module>
+    print(100 / x)
+          ~~~~^~~
+ZeroDivisionError: division by zero
+>>> for x in a:
+...     if x == 0:
+...         continue
+...     print(100 / x)
+...     
+10.0
+5.0
+20.0
+```
+
+The `continue` keyword skips rest of the loop and proceeds with the next iteration. It is usually used in conjunction with an `if` condition.
+
+## Program flow control - `if - elif - else`
+
+Conditional branching is achieved with the `if - elif - else` construct. Except the `if - then`, the rest are optional. We saw an example of `if` in the `for` loop example to choose to execute `continue` when the denominator `x` is `0`.
+
+Dual branching is achieved with `if - else`.
+``` python
+>>> x = =
+>>> if x < 0:
+...     print("Negative")
+... else:
+...     print("Non-negative")
+...
+Non-negative
+```
+
+Note the following points:
+
+1. There is a colon (`:`) at the end of each `if`, `else` or `elif` statement
+2. The logical expression can be a simple or a complex expression
+3. Indentation is **required**, not optional and it must be consistent throughout the script
+
+Multiple branching is achieved with th euse of `elif`:
+``` pycon
+>>> if x < 0:
+...     print("Negative")
+... elif x > 0:
+...     print("Positive")
+... else:
+...     print("Zero")
+...
+Zero
+```
+
 
 ## Function Signatures
 
