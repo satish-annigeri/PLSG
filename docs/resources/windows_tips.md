@@ -61,10 +61,11 @@ The Command Prompt being an operating system shell, maintains a list of Environm
 1. System Environment Variables: Available to all users of the operating system
 2. User Environment Variables: Environment variables specific to a user in addition to the System Environment variables
 
-One important Environment Variable is the `PATH` environment variable. It is a list of filesystem paths, separated by semi-colons. When a user types a command, the shell looks for the executable file (a file with the same name as the command and the extension `.com`, `.exe` or `.bat` in that order, whichever is found first) corresponding to the typed command by looking for an executable in the following locations, in that order:
+!!! note
+    One important Environment Variable is the `PATH` environment variable. It is a list of filesystem paths, separated by semi-colons. When a user types a command, the shell looks for the executable file (a file with the same name as the command and the extension `.com`, `.exe` or `.bat` in that order, whichever is found first) corresponding to the typed command by looking for an executable in the following locations, in that order:
 
-1. in the current working directory
-2. in the paths listed in the `PATH` environment variable
+    1. in the current working directory
+    2. in the paths listed in the `PATH` environment variable
 
-If the executable is not found in either of the above locations, you get a **command not found** error.
+    If the executable is not found in either of the above locations, you get a **command not found** error.
 

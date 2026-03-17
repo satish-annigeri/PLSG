@@ -272,7 +272,7 @@ range(1, 10, 2)
 0 5 1
 ```
 
-In Python, the data type of the object returned by the `range()` functin call is `<class range>`. You can learn more by studying the following code in the REPL:
+In Python, the data type of the object returned by the `range()` function call is `<class range>`. You can learn more by studying the following code in the REPL:
 ``` pycon
 >>> type(range(5))
 <class range>
