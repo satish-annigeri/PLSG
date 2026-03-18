@@ -14,6 +14,11 @@
     3. What are the slice `start`, `stop` and `step` values to produce the list [9, 6, 3]. Remember the slice notation `#!python a[start:stop:step]`.
  4. You can create an empty `list` with `#!python a = []`. Creating an empty `tuple` is similar `#!python b = ()`. But how do you create a `tuple` with exactly one element? Does `#!python b = (10)` work? Why not? What is the correct way to create a tuple with exactly one element. Search the net for the answer.
  5. The `set` data structure is a container, similar to `list` and `tuple`, but its elements are not indexed. Further, its elements are unique, there can only be one occurrence of an element in a set. Search for the official Python documentation for `set` and find the operations that can be performed on it. Can you add a new element? Can you remove an existing element? Can you check if a certain value is present in a `set`? Can you find the intersection of two sets? Are there other operations that can be performed?
+ 6. Given the list `#!python a = [10, 20, 30, 40, 50]`, what does `#!python a[1:4]` return?
+ 7. Which of the following operations is NOT allowed on tuples? i) Item assignment ii) Slicing iii) Indexing iv) Concatenation
+ 8. What is the output of `#!python len((1, 2, (3, 4)))`?
+ 9. Which of the following data type is mutable? i) `int` ii) `str` iii) `tuple` iv) `list`
+ 10. What is the result of `#!python ('a', 'b') + (c,)`? i) Error ii) `#!python ['a', 'b', 'c']` iii) `#!python ('a', 'b', 'c')` iv) `#!python ('a', 'b')`
 
 ## Answer True or False
 
