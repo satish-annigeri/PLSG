@@ -43,9 +43,9 @@ Hello <class 'str'>
     1. Data type of `x` is determined by the values assigned to it
     2. Data type of `x` is not static. It changes when the type of the value assigned to it is different.
 
-This is both a convenience and problem. Dropping the need to define the type of each object speeds up programming. But when a program grows in size, prorammer ha to ensure that the object being passed from one function to another, the data type of the argument matches that of the parameter. This is one weakness of Python. While it is possible to write large programs with dynamic data types the overhead on the programmer is excessive.
+This is both a convenience and problem. Not having to define the type of each object speeds up programming. But when a program grows in size, prorammer must ensure that the data type of the argument matches that of the parameter. This is a weakness of Python. While it is possible to write large programs with dynamic data types the overhead on the programmer is excessive.
 
-This problem is being mitigated by introducing **optional** type annotation. Thus, especially when defining functions, programmer can specify the type of the parameters. The code editor will prompt the programmer the expected type of the argument when the function is called. However, the interpreter **ignores** type annotation entirely.
+This problem is mitigated to an extent by introducing **optional** type annotation. Thus, especially when defining functions, programmer can specify the type of the parameters. The code editor will prompt the programmer the expected type of the argument when the function is called. However, the interpreter **ignores** type annotation entirely.
 
 ## Some operations on `list`
 
