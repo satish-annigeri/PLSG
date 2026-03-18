@@ -17,23 +17,28 @@
 11. Designing functions
 
 ## Python has a dynamic type system
-Programminglanguages can be classified as statically typed if the data type of an object must be specified by the programmer at the time of defining the object and once specified, it cannot be changed through the life of the program.
 
-On the otherhand, a dynamically typed programming language does not require that the prorammer define the type of the object at the time of defining the object. Further, it is permitted to change the data type of an object during the life of the program.
+Programming languages can be classified as **statically typed** or **dynamically typed**.
 
-Since the data type is not specified by the programmer, the type of the object is **inferred** from the value assigned to it. Since it is permitted to change the type of an object, assigning another value at a different point in the program.
+- In a **statically typed** language, the data type of a variable must be specified when it is created and cannot change during program execution.
+- In a **dynamically typed** language, the type of a variable is determined automatically and can change during execution.
 
-Here is an illustration:
-``` pycon
+Python is a **dynamically typed** language. You do not need to declare the type of a variable explicitly. Instead, the type is **inferred** from the value assigned to it. If a new value of a different type is assigned later, the variable’s type changes accordingly.
+
+### Example
+```pycon
 >>> a = [10, 2.5, "Hello", 2 > 3]
 >>> a
 [10, 2.5, 'Hello', False]
+
 >>> x = a[0]
 >>> print(x, type(x))
 10 <class 'int'>
+
 >>> x = a[1]
 >>> print(x, type(x))
-2.5 <calss 'float'>
+2.5 <class 'float'>
+
 >>> x = a[2]
 >>> print(x, type(x))
 Hello <class 'str'>
@@ -43,373 +48,485 @@ Hello <class 'str'>
     1. Data type of `x` is determined by the values assigned to it
     2. Data type of `x` is not static. It changes when the type of the value assigned to it is different.
 
-This is both a convenience and problem. Not having to define the type of each object speeds up programming. But when a program grows in size, prorammer must ensure that the data type of the argument matches that of the parameter. This is a weakness of Python. While it is possible to write large programs with dynamic data types the overhead on the programmer is excessive.
+Dynamic typing makes Python flexible and easy to use, since types do not need to be declared explicitly. However, in larger programs, it requires care to ensure that values have the expected types.
 
-This problem is mitigated to an extent by introducing **optional** type annotation. Thus, especially when defining functions, programmer can specify the type of the parameters. The code editor will prompt the programmer the expected type of the argument when the function is called. However, the interpreter **ignores** type annotation entirely.
+To address this, Python supports optional type annotations. These allow developers to specify expected types (especially for function parameters), helping editors and tools detect potential issues. However, the Python interpreter does not enforce type annotations at runtime.
 
 ## Some operations on `list`
 
-The `list` data type is mutable and is a container data type, that is, it is a container for other elements. The elements of a list can be of any valid type, including built-in types as well as user defined types. In fact, an element of a list can itself be another list. Unlike an array, elements of a list can be of different types. This leads to the concept of multi-dimensioned lists, that is two-dimensioned (consisting of rows and columns) or three-dimensioned (consisting of cards each of which consists of rows and columns) etc. However, unlike an array, the number of columns in the rows need not be the same.
+A `list` in Python is:
 
-Here is an example of a list containing elements of different data types:
-``` pycon
->>> a = [10, 2.5, 'Hello, world", [1, 2.0]]
+- **Mutable** (its elements can be changed)
+- A **container** (it can store multiple elements)
+
+List elements:
+
+- Can be of different types  
+- Can include built-in or user-defined types  
+- Can include other lists (nested lists)  
+
+Unlike arrays in some languages, Python lists:
+
+- Do not require elements to be of the same type  
+- Do not require uniform structure (nested lists can vary in size)  
+
+### Example: mixed data types
+```pycon
+>>> a = [10, 2.5, 'Hello, world', [1, 2.0]]
 >>> len(a)
 4
+
 >>> type(a[0])
-<class int>
+<class 'int'>
 >>> type(a[1])
-<class float>
+<class 'float'>
 >>> type(a[2])
-<class str>
+<class 'str'>
 >>> type(a[3])
-<class list>
+<class 'list'>
+
 >>> len(a[3])
 2
 >>> type(a[3][0])
-<class int>
+<class 'int'>
 >>> type(a[3][1])
-<class float>
+<class 'float'>
 ```
 
-Note the following points:
+### Notes
+1. Elements of `a` have different types  
+2. `a[3]` is itself a list  
+3. Nested elements can be accessed using indices (e.g., `a[3][0]`)  
+4. Nested lists can be viewed as multi-dimensional, but they do not need to be uniform  
 
-1. The elements of the list `a` are of different types, as shown with the output of the `type()` function
-2. Element `a[3]` is itself a list with two elements
-3. The elements within `a[3]` can be accessed using index of the element within as shown: `a[3][0]` for element with index `0` of element `a[3]` and `a[3][1]` for the element with index `1` of `a[3]`.
-4. If we consider the list as being two dimensioned (because one of its elements is itself a list), all the rows except row with index `3` have only one column and row `a[3]` has two columns.
+---
 
-A list being mutable, you can change its elements:
-``` pycon
+### Modifying list elements
+
+Since lists are mutable, their elements can be changed:
+
+```pycon
 >>> a[0] = 20
 >>> a
-[20, 2.5, 'Hello, world", [1, 2.0]]
+[20, 2.5, 'Hello, world', [1, 2.0]]
+
 >>> a[3][0] = 10
 >>> a
-[20, 2.5, 'Hello, world", [10, 2.0]]
+[20, 2.5, 'Hello, world', [10, 2.0]]
 ```
 
-Other than changing values of the elements of list, there are several operations we can perform on a list:
-``` pycon
+---
+
+### Appending elements
+
+```pycon
 >>> a.append(50)
 >>> a
 [20, 2.5, 'Hello, world', [10, 2.0], 50]
->>> len(a)
-5
->>> a[4]
-50
+
 >>> a.append((10, 20, 30))
 >>> a
 [20, 2.5, 'Hello, world', [10, 2.0], 50, (10, 20, 30)]
->>> len(a)
-6
->>> len(a[5])
-3
 ```
-This is what we did:
 
-1. We appended the element `50`, which is an integer to the list `a`. This increased the length of the list to `5`
-2. Subsequently, we appended a tuple `(10, 20, 30)` to the list and increased its length to `6`.
+### Notes
+1. `append()` adds an element to the end of the list  
+2. The list can store values of any type, including tuples  
 
-We can insert an element (say the integer `100`) at any chosen index (say `1`):
-``` pycon
+---
+
+### Inserting elements
+
+```pycon
 >>> a.insert(1, 100)
 >>> a
 [20, 100, 2.5, 'Hello, world', [10, 2.0], 50, (10, 20, 30)]
 ```
 
-Note the following points about `list.insert(i, element)`:
+### Behavior of `list.insert(i, element)`
 
-1. If `i = 0`, the element is inserted at the start of the list
-2. If `i = len(a)`, the element is appended to the list, same as `a.append(element)`
-3. If `i > len(a)`, the element is appended to the list, same as `a.append(element)`. No error is raised and the list is not expanded to the specified length
-4. If `i < 0`, then it is converted to a non-negative insertion position `i = max(0, len(a) + i)`. For example, if `len(a)` is 10, `a.insert(-1, 500)` inserts the element `500` at index $i = max(0, 10 - 1) = 9$, which turns out to be the lremove(x)    | ast but oneRemove the first item in the list whose value is equal to `x` |position after inserting the element tresulting in a length of `11` elements.
+- If `i = 0` → insert at the beginning  
+- If `i = len(a)` → equivalent to `append()`  
+- If `i > len(a)` → element is appended  
+- If `i < 0` → position is adjusted using:
+  ```
+  i = max(0, len(a) + i)
+  ```
 
-Other operations on lists are shown in the table below:
+---
 
-|  Method | Action |
-|:------------------|:----------------------------------------------|
-|`list.pop([i])`                 |Remove the item at the position in the list, and return it. If `i` is not specified, the last item is popped. |
-|`list.clear()`                  |Remove all items from the list. Equivalent to `del a[:]` |
-|`list.remove(x)`                |Remove the first item in the list whose value is equal to `x` |
-|`list.count(x)`                 |Return the number of times `x` appears in the list  |
-|`list.index(x[, start[, end]])` |Return zero-based index in the list of the first item whose value is `x`. Raises a ValueError if there is no such item. |
-|`list.count(x)`                 |Return the number of times `x` appears in the list |
-|`list.sort(*, key=None, reverse=False)` |Sort the items of the list in place. `key` specifies a function of one argument that is used to extract a comparison key from each element in iterable (for example, key=str.lower). The default value is None (compare the elements directly). `reverse` is a boolean value. If set to True, then the list elements are sorted as if each comparison were reversed. |
-|`list.reverse()`  |Reverse the elements of the list in place  |
-|`list.copy()`     |Return a shallow copy of the list. Equivalent to a[:]  |
+### List methods
+
+| Method | Description |
+|:------|:------------|
+| `list.pop([i])` | Remove and return element at index `i` (default: last element) |
+| `list.clear()` | Remove all elements |
+| `list.remove(x)` | Remove first occurrence of `x` |
+| `list.count(x)` | Count occurrences of `x` |
+| `list.index(x[, start[, end]])` | Return index of first occurrence of `x` |
+| `list.sort(*, key=None, reverse=False)` | Sort list in place |
+| `list.reverse()` | Reverse list in place |
+| `list.copy()` | Return a shallow copy |
 
 !!! note
-    The square brackets `[ ]` around `i` in the method signature `list.pop([i])` denote that the parameter is **optional**, not that you should type square brackets in that position. So is the case with `start` and `end` in the method `index(x[, start[, end]])`. When they are not provided, default values defined in the method definition are used.
+    Square brackets in method signatures (e.g., `pop([i])`) indicate **optional arguments**, not literal syntax.
 
-For more information, refer the Python documentation page: [More on lists](https://docs.python.org/3.10/tutorial/datastructures.html#more-on-lists).
+For more information, see:  
+[More on lists](https://docs.python.org/3.10/tutorial/datastructures.html#more-on-lists)
 
-### Illustrative examples
-``` pycon
+---
+
+### Examples: removing elements
+
+```pycon
 >>> a = [1, 2, 3, 4, 5]
->>> a
-[1, 2, 3, 4, 5]
+
 >>> a.pop(0)
 1
 >>> a
 [2, 3, 4, 5]
+
 >>> a.pop()
 5
 >>> a
 [2, 3, 4]
+
 >>> a.pop(10)
-Traceback (most recent call last):
-  File "<python-input-4>", line 1, in <module>
-    a.pop(10)
-    ~~~~~^^^^
 IndexError: pop index out of range
+
 >>> a.clear()
 >>> a
 []
 ```
-Note:
 
-1. The removed item is returned, and therefore displayed on the next line.
-2. If the index `i` is invalid, *IndexError* is raised
+### Notes
+1. `pop()` returns the removed value  
+2. Invalid indices raise `IndexError`  
 
-Let us see more examples:
-``` pycon
+---
+
+### More examples
+
+```pycon
 >>> a = [1, 2, 3, 4, 5, 4]
+
 >>> a.remove(4)
 >>> a
 [1, 2, 3, 5, 4]
+
 >>> a.append(5)
 >>> a
 [1, 2, 3, 5, 4, 5]
+
 >>> a.count(2)
 1
 >>> a.count(5)
 2
+
 >>> a.index(5)
 3
 >>> a.index(5, 4)
 5
+
 >>> a.index(6)
-Traceback (most recent call last):
-  File "<python-input-23>", line 1, in <module>
-    a.index(6)
-    ~~~~~~~^^^
 ValueError: list.index(x): x not in list
 ```
-Note:
 
-1. Attempting to determine the index of a value not in the list raises a *ValueError*.
-2. When you determine the index of a value starting from an index other than `0`, and the value is found, the reported index is computed from relative to the beginning of the full sequencerather than the `start` argument.
+### Notes
+1. `remove()` deletes only the first occurrence  
+2. `index()` raises `ValueError` if the element is not found  
+3. The returned index is always relative to the full list  
 
-``` pycon
+---
+
+### Sorting and copying
+
+```pycon
 >>> a = [10, 7, 2, 4, 6, 7]
+
 >>> a.sort()
 >>> a
 [2, 4, 6, 7, 7, 10]
+
 >>> a.reverse()
+>>> a
 [10, 7, 7, 6, 4, 2]
+
 >>> x = [1, 2, 3]
 >>> y = x
->>> z = x.copy()  # or z = x[:]
+>>> z = x.copy()
+
 >>> x is y
 True
 >>> x is z
 False
 ```
-Note the following points:
 
-1. `a.sort()` sorts the elements of `a` inplace, and does not return anything
-2. `a.reverse()` reverses the list inplace, nothing is returned
-3. `y = x` creates the alias of `x` but both objects point to the same values in memory. Therefore `x is y` returns `True`.
-4. `z = x.copy()` creates a copy of the values in a separate location in memory > Therefore `x is z` returns `False`.
+### Notes
+1. `sort()` modifies the list in place  
+2. `reverse()` modifies the list in place  
+3. `y = x` creates a reference to the same object  
+4. `copy()` creates a new list with the same elements
 
 ## Some operations on `str`
-A Python `str` has a number of very useful methods which you will find useful when you have to process text.
 
-|  Method | Action |
-|:------------------|:----------------------------------------------|
-|`str.capitalise()` |Return a copy of the string with the first character capitalized and the rest lowercased |
-|`str.casefold()`   |Return a casefolded copy of the string. Casefolding is similar to lowercasing but is more aggressive, specifically with non-English language characters |
-|`str.center(width[, fillchar])` |Return centered in a string of length width. Padding is done using the specified fillchar (default is an ASCII space). The original string is returned if width is less than or equal to len(s) |
-|`str.count(sub[, start[, end]])` |Return the number of non-overlapping occurrences of substring sub in the range [start, end]. Optional arguments start and end are interpreted as in slice notation.<br> If sub is empty, returns the number of empty strings between characters which is the length of the string plus one. |
-|`str.endswith(suffix[, start[, end]])` |Return True if the string ends with the specified suffix, otherwise return False. suffix can also be a tuple of suffixes to look for. With optional start, test beginning at that position. With optional end, stop comparing at that position. |
-|`str.find(sub[, start[, end]])` |Return the lowest index in the string where substring sub is found within the slice s[start:end]. Optional arguments start and end are interpreted as in slice notation. Return -1 if sub is not found. |
-|`str.lower()` |Return a copy of the string with all the cased characters 4 converted to lowercase |
-|`str.upper()` |eturn a copy of the string with all the cased characters 4 converted to uppercase |
+A Python `str` provides many useful methods for processing text.
 
-There are many more and you should study all of them from the Python documentation page: [Text Sequence Type - `str`](https://docs.python.org/3.10/library/stdtypes.html?highlight=str#text-sequence-type-str)
+### Common string methods
 
-### Illustrative examples
+| Method | Description |
+|:------|:------------|
+| `str.capitalize()` | Return a copy of the string with the first character capitalized and the rest lowercased |
+| `str.casefold()` | Return a casefolded copy of the string (more aggressive than `lower()`, especially for non-English characters) |
+| `str.center(width[, fillchar])` | Return the string centered in a field of given width, padded with `fillchar` (default: space) |
+| `str.count(sub[, start[, end]])` | Return the number of non-overlapping occurrences of `sub` |
+| `str.endswith(suffix[, start[, end]])` | Return `True` if the string ends with the specified suffix |
+| `str.find(sub[, start[, end]])` | Return the lowest index where `sub` is found, or `-1` if not found |
+| `str.lower()` | Return a lowercase copy of the string |
+| `str.upper()` | Return an uppercase copy of the string |
 
-``` pycon
+For a complete list, see:  
+[Text Sequence Type - `str`](https://docs.python.org/3.10/library/stdtypes.html#text-sequence-type-str)
+
+---
+
+### Examples
+
+```pycon
 >>> a = 'abracadabra'
->>> b= a.capitalize()
+>>> b = a.capitalize()
 >>> b
 'Abracadabra'
+
 >>> c = b.upper()
 >>> c
 'ABRACADABRA'
+
 >>> c.lower()
 'abracadabra'
+
 >>> a = "this is a sentence with several words"
 >>> a.title()
 'This Is A Sentence With Several Words'
+
 >>> a.center(60)
 '           this is a sentence with several words            '
+
 >>> a.center(60, '-')
 '-----------this is a sentence with several words------------'
+
 >>> a.startswith('thi')
 True
+
 >>> a.endswith("words")
 True
+
 >>> a.replace(" ", "_")
 'this_is_a_sentence_with_several_words'
+
 >>> x = "  hello, world  "
->>> x
-'  hello, world  '
 >>> x.strip()
 'hello, world'
+
 >>> x.lstrip()
 'hello, world  '
+
 >>> x.rstrip()
 '  hello, world'
->>> x.strip()
+
 >>> y = "This is just the beginning."
 >>> y.rstrip(".")
 'This is just the beginning'
 ```
 
-Here are some interesting methods:
-``` pycon
+---
+
+### Joining strings
+
+```pycon
 >>> a = ["apple", "orange", "banana", "grapes"]
->>> a
-["apple", "orange", "banana", "grapes"]
+
 >>> " ".join(a)
 'apple orange banana grapes'
+
 >>> ", ".join(a)
 'apple, orange, banana, grapes'
 ```
 
-There are many more `str` methods and they will prove very useful. Make the effort to learn them.
+### Notes
+
+- `join()` combines elements of an iterable into a single string  
+- The string on which `join()` is called is used as the separator  
+
+---
+
+There are many more `str` methods, and they are very useful for text processing. Refer to the Python documentation for a complete list.
 
 ## `range()` to generate a sequence of integers
-Let us try this in the Python REPL before we attempt to understand `range()` and what it does:
-``` pycon
+
+Let us explore `range()` using the Python REPL.
+
+```pycon
 >>> range(5)
 range(0, 5)
+
 >>> range(1, 6)
 range(1, 6)
+
 >>> range(1, 10, 2)
 range(1, 10, 2)
+
 >>> r = range(5)
 >>> print(r.start, r.stop, r.step)
 0 5 1
 ```
 
-In Python, the data type of the object returned by the `range()` function call is `<class range>`. You can learn more by studying the following code in the REPL:
-``` pycon
+The `range()` function returns an object of type `<class 'range'>`.
+
+```pycon
 >>> type(range(5))
-<class range>
+<class 'range'>
+
 >>> print(range(5))
 range(0, 5)
+
 >>> print(range(1, 10, 2))
 range(1, 10, 2)
+
 >>> r = range(1, 10, 2)
 >>> print(r.start, r.stop, r.step)
 1 10 2
+
 >>> list(r)
 [1, 3, 5, 7, 9]
 ```
-Note these points:
 
-1. An object of type `<class range>` has three fields `start`, `stop` and `step` using which a range of integers can be generated
-2. The `<calss range>` object generates one item at a time instead of generating all the items at once. This saves memory when the number of the items in the range is large and would take up considerable memory
-3. It is possible to generate a `list` or a `tuple` and generate all the items at once by giving the `range` as an argument to `list()` or `tuple()`
-4. Like `list` and `tuple`, `range` is also a *Sequence Type*. Consequently, `range` supports slicing, indexing, negative indexing and element index lookup operations.
+### Notes
 
-``` pycon
+1. A `range` object has three attributes: `start`, `stop`, and `step`  
+2. It generates values one at a time, rather than storing all values in memory  
+3. You can convert it to a `list` or `tuple` to generate all values at once  
+4. `range` is a *sequence type*, so it supports indexing and slicing  
+
+---
+
+### Examples
+
+```pycon
 >>> len(range(5))
 5
+
 >>> len(range(1, 10, 2))
 5
+
 >>> 3 in range(5)
 True
+
 >>> 4 in range(1, 10, 2)
 False
+
 >>> range(1, 6)[3]
 4
+
 >>> range(1, 6)[-1]
 5
 ```
 
 ## Program flow control - `for` loop
 
-The `for` loop iterates over the elements of any *iterable*, such as a list, tuple, text sequence (such as a string).
-``` pycon
+The `for` loop iterates over elements of an *iterable*, such as a list, tuple, or string.
+
+```pycon
 >>> lst = ["one", "two", "three"]
+
 >>> for item in lst:  # Pythonic
 ...     print(item)
-...     
+...
 one
 two
 three
->>> for i in range(len(lst)):  # Non Pythonic
+
+>>> for i in range(len(lst)):  # Less Pythonic
 ...     print(lst[i])
-...     
+...
 one
 two
 three
+
 >>> for i in range(len(lst)):
 ...     print(i)
 ...
 0
 1
 2
+
 >>> for i in range(1, 10, 2):
-...     print(i, end = " ")
+...     print(i, end=" ")
 ...
 1 3 5 7 9 >>>
+
 >>> for i in range(10, 1, -2):
-...     print(i, end = ", ")
-...     
+...     print(i, end=", ")
+...
 10, 8, 6, 4, 2, >>>
+```
+
+### Handling conditions inside loops
+
+```pycon
 >>> a = [10, 20, 0, 5]
+
 >>> for x in a:
 ...     print(100 / x)
-...     
+...
 10.0
 5.0
 Traceback (most recent call last):
   File "<python-input-91>", line 2, in <module>
     print(100 / x)
-          ~~~~^~~
 ZeroDivisionError: division by zero
+
 >>> for x in a:
 ...     if x == 0:
 ...         continue
 ...     print(100 / x)
-...     
+...
 10.0
 5.0
 20.0
 ```
 
-The `continue` keyword skips rest of the loop and proceeds with the next iteration. It is usually used in conjunction with an `if` condition.
+### Notes
+
+- The `for` loop works directly with elements of an iterable  
+- Using `for item in lst` is generally more readable than indexing with `range(len(lst))`  
+- The `continue` statement skips the remaining part of the current iteration and proceeds to the next one  
+- `continue` is typically used with a conditional statement
 
 
 ## Program flow control - `while` loop
 
-The while loop iterates over a block of code as long as the logical expression is `True` and the iteration is stooped once the logical expression evaluates to `False` and program execution jumps to the block of code after the `while` loop. A `while` loop has two important aspects:
+The `while` loop repeatedly executes a block of code as long as a given condition evaluates to `True`. The loop stops when the condition becomes `False`.
 
-1. The value of the object(s) appearing in the logical expression must be initialized before the start of the `while` loop
-2. The value of the objects in the logical expression must be changed within the block of code executed so that at some point of time the logical expression will turn out to be `False`.
+A `while` loop has two important requirements:
 
-If these conditions are not met, either the block of code will never be executed even once or will be executed infinitely. 
+1. Variables used in the condition must be initialized before the loop starts  
+2. These variables must be updated inside the loop so that the condition eventually becomes `False`  
 
-The block of code to be executed for each iteration is indicated by indentation.
+If these conditions are not met:
 
-The following example simulates a `#!python for i in range(5)` loop for illustration (although it is inefficient):
-``` pycon
+- The loop may never execute  
+- The loop may run indefinitely (infinite loop)  
+
+The block of code executed in each iteration is defined by indentation.
+
+---
+
+### Example
+
+The following example simulates a `for i in range(5)` loop:
+
+```pycon
 >>> i = 0
 >>> while i < 5:
 ...     print(i)
@@ -421,14 +538,23 @@ The following example simulates a `#!python for i in range(5)` loop for illustra
 3
 4
 ```
-Using `while` loop in place of a `for` loop is inefficient. It must be used when the terminating conditions are complex and the number of iterations is not pre-determinde as in the case of a `for` loop.
 
-``` pycon
+Using a `while` loop in place of a `for` loop in such cases is generally less efficient and less readable. A `while` loop is more appropriate when:
+
+- The number of iterations is not known in advance  
+- The stopping condition is complex  
+
+---
+
+### Example: Iterative computation
+
+```pycon
 >>> maxiter = 10
 >>> x = 5
 >>> i = 0
 >>> guess = x / 2
->>> while (abs(guess * guess - x)> 0.0001) and (i < maxiter):
+
+>>> while (abs(guess * guess - x) > 0.0001) and (i < maxiter):
 ...     guess = (guess + x / guess) / 2
 ...     i += 1
 ...
@@ -436,15 +562,37 @@ Using `while` loop in place of a `for` loop is inefficient. It must be used when
 3 2.2360679779158037
 ```
 
-In the above example, the number of iterations required to exit the loop depends on `x` and the required tolerance (`0.0001` in the example). The logical expression to continue with the next iteration is `#!python (abs(guess * guess - x)> 0.0001) and (i < maxiter)`. The objects setup before starting the `while` loop are `maxiter = 10` and `i = 0`. The umber whose square root is required is `x = 5`.
+### Notes
+
+- The loop continues while the condition  
+  `abs(guess * guess - x) > 0.0001 and i < maxiter`  
+  remains `True`  
+
+- The number of iterations depends on:
+  - the value of `x`  
+  - the chosen tolerance (`0.0001`)  
+
+- Variables initialized before the loop:
+  - `maxiter = 10`  
+  - `i = 0`  
+  - `guess = x / 2`  
+
+- The goal of the loop is to approximate the square root of `x`
 
 ## Program flow control - `if - elif - else`
 
-Conditional branching is achieved with the `if - elif - else` construct. Except the `if - then`, the rest are optional. We saw an example of `if` in the `for` loop example to choose to execute `continue` when the denominator `x` is `0`.
+Conditional branching in Python is performed using the `if - elif - else` construct.
 
-Dual branching is achieved with `if - else`.
-``` python
->>> x = =
+- The `if` clause is required  
+- The `elif` and `else` clauses are optional  
+
+---
+
+### Dual branching (`if - else`)
+
+```pycon
+>>> x = 0
+
 >>> if x < 0:
 ...     print("Negative")
 ... else:
@@ -453,14 +601,21 @@ Dual branching is achieved with `if - else`.
 Non-negative
 ```
 
-Note the following points:
+---
 
-1. There is a colon (`:`) at the end of each `if`, `else` or `elif` statement
-2. The logical expression can be a simple or a complex expression
-3. Indentation is **required**, not optional and it must be consistent throughout the script
+### Notes
 
-Multiple branching is achieved with th euse of `elif`:
-``` pycon
+1. A colon (`:`) is required at the end of each `if`, `elif`, and `else` statement  
+2. The condition can be a simple or complex logical expression  
+3. Indentation is mandatory and must be consistent throughout the code  
+
+---
+
+### Multiple branching (`if - elif - else`)
+
+```pycon
+>>> x = 0
+
 >>> if x < 0:
 ...     print("Negative")
 ... elif x > 0:
@@ -471,80 +626,147 @@ Multiple branching is achieved with th euse of `elif`:
 Zero
 ```
 
+## Functions and Function Signatures
 
-## Function Signatures
+A function is a self-contained unit that performs a specific task. It has well-defined inputs, outputs, and a sequence of operations. Functions promote modularity, allowing programs to be organized into smaller, manageable components.
+
+---
+
+### Attributes of a function
 
 A function has the following attributes:
 
-1. A unique name: The name must uniquely identify this function. If two functions have the same name, the most recent definition of the function erases the previous definition.
-2. Zero or more input parameters: Input parameters are enclosed within parentheses in fron t of the function name. Defining the type for the parameters is encouraged, but not required.
-3. zero or more output parameters: The `return` statement returns the output parameters. If no parameters are defined in the `return` statement, the value `None` is returned.
-4. Body of the function: Zero or more statements indented with reference to the first line of the function constitute the body of the function.
+1. **Name**  
+   The function must have a unique name. If a function is redefined, the latest definition replaces the previous one.  
 
-Function definition requires the keyword `def` follwed by the name of the function and a pair of parentheses. Parentheses are required even when there are no input parameters. The line defining the function ends with the colon (`:`). The body of the function must be indented by a fixed number of spaces (4 by convention). To mark the end of the function, the subsequent lines must be unindented.
+2. **Input parameters**  
+   A function can have zero or more input parameters, specified within parentheses. Type annotations are optional but recommended.  
 
-Here is a illustrative example that takes two real numbers as input and returns their product. Type the following code in the Python REPL:
+3. **Return value(s)**  
+   The `return` statement specifies the output. If no value is returned, the function returns `None`.  
 
-``` pycon
+4. **Function body**  
+   The body consists of one or more indented statements that define the function’s behavior.  
+
+---
+
+### Defining a function
+
+A function is defined using the `def` keyword, followed by the function name and parentheses. The definition ends with a colon (`:`), and the body must be indented (typically by 4 spaces).
+
+```pycon
 >>> def product(a: float, b: float) -> float:
 ...     return a * b
 ...
 >>> type(product)
-<class function>
+<class 'function'>
+
 >>> product
 <function product at 0x7fff36029010>
 ```
-The parameters `a` and `b` are **parameters** and are placeholders for objects that will take their place (called **arguments**), when the function is called.
 
-Having defined the function, you can call it:
-``` pycon
+The parameters `a` and `b` are placeholders. When the function is called, actual values (called *arguments*) are passed to these parameters.
+
+---
+
+### Calling a function
+
+```pycon
 >>> product(2, 3)
 6
+
 >>> product(2.5, 3)
 7.5
 ```
-The arguments in the first call to the function are `#!python a = 2` and `#!python b = 3`. The second time, the arguments are `#!python a = 2.5` and `#!python b = 3`.
+
+In these calls:
+
+- `a = 2`, `b = 3` in the first call  
+- `a = 2.5`, `b = 3` in the second call  
+
+---
 
 !!! note
-    The data types of the input and output parameters in the function definition are for the guidance of the programmer and are ignored by the Python interpreter. This is called type hints, and some code editors display the function signature when the mouse hovers over the name of the function. Type hints remind the programmer's intent and help avoid errors.
+    Type annotations are intended for the programmer and are ignored by the Python interpreter.  
+    They help document intent and improve code readability. Many code editors display function signatures based on these annotations.
 
+---
 
-Defining a function that returns more than one value is easy and straigh forward.
-``` pycon
+### Returning multiple values
+
+A function can return multiple values as a tuple.
+
+```pycon
 >>> def stats(a: list[float]) -> tuple[int, float, float]:
 ...     n = len(a)
 ...     s = sum(a)
 ...     mean = s / n
 ...     return n, s, mean
 ...
->>> 
 ```
-When this function is called, it returns three values. Therefore we must provide three objects on the left hand side of the function call to store these returned values for subsequenty use.
-``` pycon
+
+When calling such a function, multiple variables must be used to receive the returned values:
+
+```pycon
 >>> num, total, avg = stats([1, 2, 3, 4, 5])
 >>> print(num, total, avg)
 5 15 3.0
 ```
 
+---
+
 !!! note
-    The names of the parameters in the function definition and the names of the arguments at the time of function call need not be the same, although they can be. The very aim of modularity is to have this flexibility. If were forced to use the same names it would place an additiional burden on the programmer to keep track of all the names of parameters. Now the programmer need only remember the number and data type of the parameters.
+    The names of parameters in a function definition and the names of variables used in a function call do not need to match.  
+    This flexibility is a key aspect of modular programming.  
 
 ## Designing functions
 
-Designing a function requires the following steps:
+Designing a function involves a systematic approach.
 
-1. Write a clear and complete definition of what the function is expected to do
-2. Based on what the function is expected to do, determine the input data required to accomplish the defined task and the output data to be produced by the function
-3. Identify the procedure to transform the input data into the required output data. This will require knowing some theory, possibly some mathematics and an algorithm
-4. Define the function signature:
-   1. Name of the function: It must be unique, cryptic (not too lengthy or verbose), and reflect the task it accomplishes
-   2. Number, data type and names of input parameters
-   3. Number, data type and names of output parameters
-5. Represent the algorithm in pseudo-code or flow chart
-6. Prepare test input and output to test the function once it is written
+---
 
-With that, the design is complete and the implementation can begin. At the stage of defining the algorithm, if it is found to be overly complex, it may be a good idea to sub-divide the task of the required function into sub-tasks, and proceed with the design of the functions to implement the sub-tasks. You may work backwards until the required task is accomplished.
+### Steps in function design
 
-It may not always be clear when you start implementing the function that it is too complex to implement. In such a case, it is best to stop, think about sub-dividing the task, completing the functions for the sub-tasks before proceeding with the required function.
+1. Clearly define what the function is expected to do  
+
+2. Identify the input data required and the output to be produced  
+
+3. Determine the procedure to transform the input into the output  
+   This may involve domain knowledge, mathematics, and algorithm design  
+
+4. Define the function signature  
+
+    1. **Function name**  
+       It must be unique, concise, and descriptive of the task  
+
+    2. **Input parameters**  
+       Specify the number, types, and names  
+
+    3. **Return values**  
+       Specify the number and types of outputs  
+
+5. Represent the algorithm using pseudocode or a flowchart  
+
+6. Prepare test cases (inputs and expected outputs)  
+
+---
+
+Once these steps are complete, implementation can begin.
+
+---
+
+### Dealing with complex functions
+
+If the algorithm appears too complex:
+
+- Break the problem into smaller sub-tasks  
+- Design separate functions for each sub-task  
+- Combine these functions to achieve the final result  
+
+This process is often iterative. Even during implementation, if a function becomes difficult to manage:
+
+- Pause and reconsider the design  
+- Decompose the problem further  
+- Implement and test smaller components before integrating them  
 
 ## Example of designing a function
