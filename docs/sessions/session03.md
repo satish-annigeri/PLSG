@@ -6,13 +6,46 @@
 
 1. Review of previous sessions
 2. Answers to queries
-3. Some operations on `list`
-4. Some operations on `str`
-5. `range()` to generate a sequence of integers
-6. Program flow control - `for` loop
-7. Program flow control - `if - elif - else`
-8. Function signatures
-9. Designing functions
+3. Python has a dynamic type system
+4. Some operations on `list`
+5. Some operations on `str`
+6. `range()` to generate a sequence of integers
+7. Program flow control - `for` loop
+8. Program flow control - `while` loop
+9. Program flow control - `if - elif - else`
+10. Function signatures
+11. Designing functions
+
+## Python has a dynamic type system
+Programminglanguages can be classified as statically typed if the data type of an object must be specified by the programmer at the time of defining the object and once specified, it cannot be changed through the life of the program.
+
+On the otherhand, a dynamically typed programming language does not require that the prorammer define the type of the object at the time of defining the object. Further, it is permitted to change the data type of an object during the life of the program.
+
+Since the data type is not specified by the programmer, the type of the object is **inferred** from the value assigned to it. Since it is permitted to change the type of an object, assigning another value at a different point in the program.
+
+Here is an illustration:
+``` pycon
+>>> a = [10, 2.5, "Hello", 2 > 3]
+>>> a
+[10, 2.5, 'Hello', False]
+>>> x = a[0]
+>>> print(x, type(x))
+10 <class 'int'>
+>>> x = a[1]
+>>> print(x, type(x))
+2.5 <calss 'float'>
+>>> x = a[2]
+>>> print(x, type(x))
+Hello <class 'str'>
+```
+
+!!! note
+    1. Data type of `x` is determined by the values assigned to it
+    2. Data type of `x` is not static. It changes when the type of the value assigned to it is different.
+
+This is both a convenience and problem. Dropping the need to define the type of each object speeds up programming. But when a program grows in size, prorammer ha to ensure that the object being passed from one function to another, the data type of the argument matches that of the parameter. This is one weakness of Python. While it is possible to write large programs with dynamic data types the overhead on the programmer is excessive.
+
+This problem is being mitigated by introducing **optional** type annotation. Thus, especially when defining functions, programmer can specify the type of the parameters. The code editor will prompt the programmer the expected type of the argument when the function is called. However, the interpreter **ignores** type annotation entirely.
 
 ## Some operations on `list`
 
@@ -362,6 +395,48 @@ ZeroDivisionError: division by zero
 ```
 
 The `continue` keyword skips rest of the loop and proceeds with the next iteration. It is usually used in conjunction with an `if` condition.
+
+
+## Program flow control - `while` loop
+
+The while loop iterates over a block of code as long as the logical expression is `True` and the iteration is stooped once the logical expression evaluates to `False` and program execution jumps to the block of code after the `while` loop. A `while` loop has two important aspects:
+
+1. The value of the object(s) appearing in the logical expression must be initialized before the start of the `while` loop
+2. The value of the objects in the logical expression must be changed within the block of code executed so that at some point of time the logical expression will turn out to be `False`.
+
+If these conditions are not met, either the block of code will never be executed even once or will be executed infinitely. 
+
+The block of code to be executed for each iteration is indicated by indentation.
+
+The following example simulates a `#!python for i in range(5)` loop for illustration (although it is inefficient):
+``` pycon
+>>> i = 0
+>>> while i < 5:
+...     print(i)
+...     i += 1
+...
+0
+1
+2
+3
+4
+```
+Using `while` loop in place of a `for` loop is inefficient. It must be used when the terminating conditions are complex and the number of iterations is not pre-determinde as in the case of a `for` loop.
+
+``` pycon
+>>> maxiter = 10
+>>> x = 5
+>>> i = 0
+>>> guess = x / 2
+>>> while (abs(guess * guess - x)> 0.0001) and (i < maxiter):
+...     guess = (guess + x / guess) / 2
+...     i += 1
+...
+>>> print(i, guess)
+3 2.2360679779158037
+```
+
+In the above example, the number of iterations required to exit the loop depends on `x` and the required tolerance (`0.0001` in the example). The logical expression to continue with the next iteration is `#!python (abs(guess * guess - x)> 0.0001) and (i < maxiter)`. The objects setup before starting the `while` loop are `maxiter = 10` and `i = 0`. The umber whose square root is required is `x = 5`.
 
 ## Program flow control - `if - elif - else`
 
