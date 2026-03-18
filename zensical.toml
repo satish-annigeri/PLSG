@@ -74,6 +74,7 @@ Copyright &copy; 2026 Satish Annigeri
         "assignments/index.md",
         { "Assignment 1" = "assignments/assignment01.md" },
         { "Assignment 2" = "assignments/assignment02.md" },
+        { "Assignment 3" = "assignments/assignment03.md" },
    ]},
    { "About" = [
         "about/index.md",
