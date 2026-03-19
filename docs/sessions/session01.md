@@ -3,22 +3,23 @@
 
 ## Python REPL
 
-The Python REPL has the following features:
+The Python REPL (Read–Eval–Print Loop) has the following features:
 
-1. It permits interactive execution of Python code
-2. It has its own Python environment and memory space where the objects, modules and packages are stored
-3. Typing the name of an object immediately displays its value, unlike in a on-interactive environment where the value of an object must be explicitly displayed with the `print()` function
+1. It allows interactive execution of Python code  
+2. It has its own Python environment and memory space where objects, modules, and packages are stored  
+3. Typing the name of an object immediately displays its value, unlike in a non-interactive environment where the value must be explicitly displayed using the `print()` function  
 
-``` pycon
+```pycon
 >>> a = "Hello, world!"
 >>> a
 'Hello, world!'
 >>> print(a)
 Hello, world!
 ```
-Note the presence of `'` around the value in the first line of output and their absence in the seconf line of output.
 
-## Python Built-in Data Types
+Note the presence of `'` around the value in the first output and their absence in the second output.
+
+## Python Built-in Types
 You can inquire the data type of a constant or an object with the `type()` function. Here are a few examples to try out in the Python REPL:
 
 ### Inquiring the type of the constant or object
@@ -58,81 +59,97 @@ Note the following points:
 
 ### `str` Data Type
 
-#### Creating a string
-A string (`str`) data type consists of an array of characters. A string constant can be created in one of the following ways:
+#### Creating a String
 
-1. Enclose the characters within a pair of double quotes (`"`) or a pair of single quotes (`'`), but these characters must fit on a single line
-2. Enclose the characters between a pair of triple double quotes (`"`) or triple single quotes (`'`), and the characters can extend on multiple lines. The ++enter++ key pressed to take the string to the next line is stored as the newlinr character (`\n`) within the string and when printed, moves the cursor to the next line.
-3. If a string does not fit on a single line (or the user wants to spread on multiple lines), the line must end with the backslash (`\`) character, in which case the next line is presumed to be a continuation of the previous line. The ++enter++ key pressed after the `\` is not stored in the string.
+A string (`str`) data type consists of a sequence of characters. A string constant can be created in the following ways:
 
-``` pycon
+1. Enclose the characters within a pair of double quotes (`"`) or single quotes (`'`). The string must be on a single line.  
+2. Enclose the characters within triple double quotes (`"""`) or triple single quotes (`'''`). The string can span multiple lines. The newline created by pressing Enter is stored as the newline character (`\n`) and moves the cursor to the next line when printed.  
+3. If a string is split across lines using a backslash (`\`) at the end of a line, the next line is treated as a continuation. The newline is not stored in the string.  
+
+```pycon
 >>> s1 = "Sunday"
 >>> s1
 'Sunday'
 >>> len(s1)
 6
+
 >>> s2 = 'Monday'
 >>> s2
 'Monday'
+
 >>> s3 = "Hello, \
 ... world!"
 >>> s3
 'Hello, world!'
+
 >>> s4 = """Hello,
 ... world!"""
 >>> s4
-'Hello,\mworld!'
+'Hello,\nworld!'
 >>> print(s4)
 Hello,
 world!
 ```
-You can embed a single quote (`'`) within a string delimited by double quotes (`"`) and vice versa.
+
+You can embed a single quote (`'`) inside a string delimited by double quotes (`"`) and vice versa.
 
 ```pycon
 >>> s1 = "This isn't difficult"
 >>> s1
 "This isn't difficult"
+
 >>> s2 = 'He asked "How are you?"'
 >>> s2
 'He asked "How are you?"'
+
 >>> s3 = """This isn't difficult. "How are you?"."""
 >>> s3
 'This isn\'t difficult. "How are you?".'
 ```
 
-You can use the backslash (`\`) to escape a character so that it is treated as a character and not as a delimiter.
+You can use the backslash (`\`) to escape characters so they are treated as part of the string rather than delimiters.
 
-``` pycon
+```pycon
 >>> s = 'This isn\'t difficult'
 >>> s
 "This isn\'t difficult"
+
 >>> s = "He said \"How are you?\""
+>>> s
 'He said "How are you?"'
 ```
 
 #### Operations on `str`
-Addition and multiplication with an integer are permitted.
 
-``` pycon
+Strings support addition (concatenation) and multiplication with integers.
+
+```pycon
 >>> s1 = "Hello"
 >>> s1
 'Hello'
+
 >>> s2 = "world!"
 >>> s2
 'world!'
+
 >>> s = s1 + s2
 >>> s
 'Helloworld!'
+
 >>> s = s1 + ", " + s2
 >>> s
 'Hello, world!'
+
 >>> s = "Hello"
 >>> s * 2
-'HelloHello
+'HelloHello'
+
 >>> "*" * 10
 '**********'
 ```
-Multiplying a string with `2` is equivalent to creating a new string by adding the string **two** times.
+
+Multiplying a string by an integer (e.g., `2`) creates a new string by repeating the original string that many times.
 
 ### `list` Data Type
 
@@ -248,55 +265,92 @@ You can create a list using `list()`.
 >>> c
 []
 ```
-#### `str` as a list
 
-You can treat a string as a list of characters in that you can perform indexing and slicing operations on a string.
+#### `str` as a List
 
-``` pycon
+A string can be treated as a sequence of characters, similar to a list. This means you can perform indexing and slicing operations on a string.
+
+```pycon
 >>> s = "The quick brown fox jumped over the lazy dog"
+
 >>> len(s)
 44
->>> s[:3]    # Indexes 0, 1, 2. 3 not included. First 3 characters
+
+>>> s[:3]    # Indices 0, 1, 2 (3 not included)
 'The'
->>> s[::-`]  # List of characters in reverse order
+
+>>> s[::-1]  # Characters in reverse order
 'god yzal eht revo depmuj xof nworb kciuq ehT'
->>> s[4:9]   # s[4] to s[8], s[9] not included
+
+>>> s[4:9]   # s[4] to s[8] (9 not included)
 'quick'
 ```
 
 ## Installing marimo
 
-[marimo](../resources/working_with_python.md#marimo-reactive-notebooks) is a reactive notebook. It runs within a web browser and consists of cells. A cell can contain Python code or [Markdown](https://www.markdownguide.org/basic-syntax/) markup text. Code in a Python cell can be executed and the output is displayed above/below the cell. Text content in a Markdown cell is rendered as HTML text. Markdown text can contain mathematical equations written in \(LaTeX\) format.
+[marimo](../resources/working_with_python.md#marimo-reactive-notebooks) is a reactive notebook that runs in a web browser and consists of cells. A cell can contain Python code or [Markdown](https://www.markdownguide.org/basic-syntax/) text.
 
-Here are the steps to install marimo, create a new notebook named `demo01.py`:
+- Code cells can be executed, and their output is displayed above or below the cell  
+- Markdown cells are rendered as formatted text  
+- Markdown can include mathematical expressions written in LaTeX format  
 
-=== "Using `uv`"
+### Installation and Creating a Notebook
 
-    ``` doscon
-    > uv add marimo
-    > uv run -- marimo edit demo01.py
-    ```
+Create a new notebook named `demo01.py` using one of the following methods:
 
-=== "Using `pip`"
+#### Using `uv`
 
-    ``` doscon
-    > .venv\Scripts\activate
-    (.venv) > pip install marimo
-    (.venv) > marimo edit demo01.py
-    ```
+```doscon
+> uv add marimo
+> uv run -- marimo edit demo01.py
+```
 
-This will open a local webserver, open a new browser window/browser tab and show the notebook in **edit** mode where you can make changes to the notebook.
+#### Using `pip`
 
-Here are some tips to work with a marimo notebook:
+```doscon
+> .venv\Scripts\activate
+(.venv) > pip install marimo
+(.venv) > marimo edit demo01.py
+```
 
-1. The first cell **must** start with the statement `#!python import marimo as mo`
-2. Add a new cell above/below  an existing cell by clicking the `+` to the left edge of the cell at its top/bottom of the cell
-3. By default, a new cell is a **Python code cell**. To change it t a **Markdown cell**, click on the small Markdown icon :simple-markdown: at the bottom right edge of the cell.
-4. To execute the Python code in a code cell, press either ++ctrl+enter++ (execute the code but stay in the same cell) or ++shift+enter++ (execute the code and go to the next cell if one exists or create a new cell below and go to that cell). Pressing the **Run** (:lucide-circle-play:) button at the top right edge of the cell is equivalent to ++ctrl+enter++.
-5. When the content of a cell is changed, the :lucide-circle-play: button changes colour to light yellow to indicate that the changed code has not been run.
-6. Changes to the notebook are saved automatically, there is a **Save** (:lucide-save:) button but you won't ever need to use it.
-7. To close and exit the notebook, press the light red coloured **Shutdown** (:lucide-circle-x:) button at the top right corner of the notebook.
-8. Alternately, you can go to the Command Prompt or the terminal from where you issued the `marimo edit` command and press ++ctrl+c++ and type ++y++ and manually close the browser tab with the notebook.
-9. If for any reason you wish to restart the notebook, you can do so without first closing the notebook and opening it again. Go to the **Actions** (:lucide-menu:) menu button at the top right of the notebook and click on the **Restart kernel** oprion and click on the **Restart** button.
-10. Explore the **Show command palette** (:lucide-command:), **Stop (interrupt) execution** (:lucide-square:) and **Run all stale cells** (:lucide-circle-play:) buttons to the bottom right of the notebook.
-11. You can change the **Settings** with the :lucide-settings: button at the top right of the notebook
+This will start a local web server, open a browser window/tab, and display the notebook in **edit** mode.
+
+---
+
+## Working with a marimo Notebook
+
+1. The first cell **must** contain:
+   ```python
+   import marimo as mo
+   ```
+
+2. Add a new cell above or below an existing one by clicking the `+` button on the left edge of the cell  
+
+3. By default, new cells are **Python code cells**. You can convert them to **Markdown cells** using the Markdown toggle in the cell toolbar  
+
+4. To execute a code cell:
+   - `Ctrl + Enter`: run and stay in the same cell  
+   - `Shift + Enter`: run and move to the next cell (or create a new one)  
+   - The **Run** button is equivalent to `Ctrl + Enter`  
+
+5. When a cell is modified, the Run button changes color to indicate that the code has not been executed  
+
+6. Changes are saved automatically; manual saving is usually unnecessary  
+
+7. To close the notebook, use the **Shutdown** button in the interface  
+
+8. Alternatively, in the terminal:
+   - Press `Ctrl + C`  
+   - Confirm with `y`  
+   - Close the browser tab manually  
+
+9. To restart the notebook:
+   - Open the **Actions** menu  
+   - Select **Restart kernel**  
+
+10. Explore additional controls such as:
+    - Command palette  
+    - Interrupt execution  
+    - Run all pending cells  
+
+11. You can modify preferences using the **Settings** option in the interface  
