@@ -135,8 +135,195 @@
     ```pycon
     >>> x = 10
     >>> id(x)
+    93827280581664
     >>> id(10)
+    93827280581664
+    >>> y = x
+    >>> id(y)
+    93827280581664
     >>> x = 20
     >>> id(x)
+    93827280581984
     >>> id(20)
+    93827280581984
+    >>> id(y)
+    93827280581664
+    >>> z = 20
+    >>> id(z)
+    93827280581984
+    ```
+
+    1. Like the variable (object) `x`, an integer constant such as `10` also has a memory address
+    2. `#!python y = x` makes `y` an alternate name for `x` and have the same memory address as the integer 10
+    3. `#!python x = 20` creates a new integer `20` at a new memory adress and that address is assigned to `x`. But the memory address of `y` remains unchanged to the memory address of `10`.
+    4. `#!python z = 20` creates a new variable `z` and is assigned the memory address that already contains the value `20`
+    5. Integers `10` and `20` are **immutable**, once created their value stored in a specific memory address does not change
+**Q10.** What is the result of `#!python ('a', 'b') + ('c',)`?<br>i) Error ii) `#!python ['a', 'b', 'c']` iii) `#!python ('a', 'b', 'c')` iv) `#!python ('a', 'b')`
+
+??? success "Answer"
+    ```pycon
+    >>> ('a', 'b') + ('c',)
+    ('a', 'b', 'c')`
+    ```
+
+    `#!python ('c',)` is a `tuple` containing a single element and when added to the `tuple` with two elements `#!python ('a', 'b')` returns a new `tuple` with three elements. If the comma (`,`) after `c` is missed, `#!python ('`')` is not a `tuple` and the operation would result in an error.
+
+    ```pycon
+    >>> ('a', 'b') + ('c')
+    Traceback (most recent call last):
+    File "<python-input-12>", line 1, in <module>
+        ('a', 'b') + ('c')
+        ~~~~~~~~~~~^~~~~~~
+    TypeError: can only concatenate tuple (not "str") to tupl
+    ```
+## Answer True or False
+
+**Q1.** The REPL manages its own memory to store the objects created by you, as well as the modules and packages imported by you
+??? success "Answer"
+    **True**
+
+    REPL is a complete Python environment with the built-in Python interpreter, memory space and memory manager. As you type in each command, REPL will interpret your *commands* and if valid, carry them out. Carrying out a command may involve creating objects in memory, importing modules from an external source and store in memory for later use, compile a function and store it in memory and make it available for subsequent use.
+
+    ```pycon
+    >>> import math
+    >>> math
+    <module 'math' (built-in)>
+    id(math)
+    140734448557632
+    >>> def dbl(x):
+    ...     return 2 * x
+    ...     
+    >>> dbl
+    <function dbl at 0x7fff4ad09220>
+    >>> id(dbl)
+    140734448570912
+    ```
+
+**Q2.** In a REPL, you can display the value of an object without having to use the `print()` function whereas it is necessary to use the `print()` function to display the value of an object in a script (code written in a file and executed from the terminal).
+??? success "Answer"
+    **True**
+
+    REPL has a built-in interpreter and has it logic for interpreting the commands typed atthe prompt. When the user types the name of an object, the interpreter is programmed to print the corresponding value of the object.
+    
+    But when the name of an object apperas all by itself in script, becuase it is not assigned to any other object or not used in any other way, that line does not result in any output. In a script, one must use the `#!python print()` function to display values.
+
+**Q3.** Data type `str` is immutable.
+??? success "Answer"
+    **True**
+
+**Q4.** Immutable means the value assigned to the object cannot be changed once assigned.
+??? success "Answer"
+    **True**
+
+**Q5.** Immutability only prevents replacing an element with a new value, but does not stop you from assigning an entirely new value to the object. That is, `#!python a = (1, 2, 3); a[0] = 10` is not permitted, but `#!python a = (1, 2, 3); a = (10, 20, 30)` is permitted.
+??? success "Answer"
+    **True**
+
+**Q6.** Data type `list` is immutable.
+??? success "Answer"
+    **False**
+
+**Q7.** You can embed an apostrophe (`'`) inside a string constant delimited by apostrophes, provided it is escaped using the backslash `\'`. That is, this is a valid string: `'This isn\'t difficult'`.
+??? success "Answer"
+    **True**
+
+    ```pycon
+    >>> 'This isn\'t difficult'
+    "This isn't difficult"
+    >>> print('This isn\'t difficult')
+    This isn't difficult
+    ```
+
+    Note that the REPL normally delimits the string by single quotes (`'`) when you type the object or the name of an object. But when the string contains single quotes within it, it delimits the string by double quotes (`"`).
+
+    When the string is displayed using the `print()` function, no quotes are shown in the REPL.
+
+**Q8.** When you carry out an index or slice operation on a list, tuple or a string, the operation returns a **new object** with the values copied from the original object.
+??? success "Answer"
+    **True**
+
+    Using the index of an element returns a single object of the same type as that of the returned object.
+
+    Using the slicing operation returns a list with the objects as defined in the slice.
+
+    ```pycon
+    >>> a = [1, 2, 3, 4, 5]
+    >>> type(a[0]), a[0]
+    (<class 'int'>, 1)
+    >>> type(a[::2]), a[::2]
+    (<class 'list'>, [1, 3, 5])
+    ```
+
+    If you observe, you will notice that typing more than one object in the REPL command promt, separated commas returns a `tuple` with the values of the objects typed at the command prompt.
+
+**Q9.**  Create a `dict` object to represent the name. age and phone number of a person.
+
+1. Obtain the **keys** and **values** of the object.
+1. Obtain the value for the name of the person
+2. Increase the age of the person by 1 year
+
+??? success "Answer"
+
+    ```pycon
+    >>> a = {"name": "John Doe", "age": 25, "phone": "+91 6xyzx abcde"}
+    >>> type(a), a
+    (<class 'dict'>, {'name': 'John Doe', 'age': 25, 'phone': '+91 6xyzx abcde'})
+    >>> a.keys()
+    dict_keys(['name', 'age', 'phone'])
+    >>> a.values()
+    dict_values(['John Doe', 25, '+91 6xyzx abcde'])
+    >>> a["age"] += 1
+    >>> a
+    >>> a["age"] += 1
+    >>> a
+    {'name': 'John Doe', 'age': 26, 'phone': '+91 6xyzx abcde'}
+    ```
+
+**Q10.** When you assign a previously created list to a new object, the new object is an exact copy of the values of the original list, and not the same values as the original list. Another way to ask the same question is, `#!python a = [1, 2, 3]; b = a; a is b` returns False.<br>**Note:** This topic has not been discussed in any of the previous sessions. But I encourage you to try out the following lines of code in the REPL to find the answer. More importanly, can you explain what is happening?
+
+``` pycon
+>>> a = [1, 2, 3]
+>>> b = a
+>>> a is b
+???
+>>> id(a)
+???
+>>> id(b)
+???
+>>> c = a[:]
+>>> a is c
+???
+>>> id(c)
+???
+>>> a == c
+???
+>>> b[0] = 100
+>>> a
+???
+```
+??? success "Answer"
+
+    **False**. It returns `True`
+
+    ``` pycon
+    >>> a = [1, 2, 3]
+    >>> b = a
+    >>> a is b
+    True
+    >>> id(a)
+    140734448672256
+    >>> id(b)
+    140734448672256
+    >>> c = a[:]
+    >>> a is c
+    False
+    >>> id(c)
+    140734448672896
+    >>> a == c
+    True
+    >>> b[0] = 100
+    >>> a
+    [100, 2, 3]
+    >>> c
+    [1, 2, 3]
     ```
