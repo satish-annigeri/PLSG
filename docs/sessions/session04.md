@@ -336,3 +336,6 @@ ValueError: Discriminant d = -8.0. Complex roots
 - Functions can have default parameters which will be taken up later.
 - Functions can have a variable number of parameters, which will be taken up later
 
+#### Suggested Improvements
+1. Python supports complex numbers and therefore it is quite easy to calculate the complex conjugate roots when $b^2 - 4ac < 0$, instead of raising an exception.
+2. If $a = 0$, the equation is linear and the solution is $x = - \frac{c}{b}$ and it is easy to return the solution instead of raising an exception. However, careful thought must be given as to how to indicate to the caller that the equation is linear and therefore only one solution exists. 
