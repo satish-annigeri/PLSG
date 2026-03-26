@@ -17,7 +17,7 @@ site_name = "SEA-India Python Learning Support Group"
 # meaningful description of the site content for use by search engines.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_description
-site_description = "An initiative of SEA-India to help learn Python for structural engineers applications."
+site_description = "Resources to learn Python for structural engineering applications."
 
 # The site_author attribute. This is used in the HTML head element.
 #
