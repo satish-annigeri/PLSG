@@ -42,3 +42,7 @@ These are the important features of the VS Code GUI:
 Clicking a toolbar icon toggles the visibility of the Primary Sidebar.
 
 VS Code is highly configurable. See **File → Preferences** to configure VS Code. The large number of available extensions makes it highly customisable.
+
+## Spyder IDE
+
+Spyder IDE is similar to the Matlab GUI. It offers a code editor, a Python console (an IPython console to be mpre accurate), a variable explorer and online help documentation. When you execute code in Spyder IDE, you can examine the status of the execution interactively, like you can in the Python console. Thus it offers the advantages of a code editor combined with a Python interpreter whereas VS Code offers the advantages of a code editor combined with the terminal (Command Prompt) along with Git and a host of other features. It is possible to include a Python console inside VS Code but that is not the most common use case for VS Code.
