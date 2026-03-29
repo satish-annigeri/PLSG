@@ -282,8 +282,9 @@ def qroots(a: float, b: float, c: float) -> tuple[float, float]:
 
 Define a function `main()` to test the function `qroots()`. This function can be placed in the file `qroots.py`, which also contains the definition of `qroots()`:
 
-```py title="File: qroots.py"
-# Place these lines below the function qroots() in the qroots.py file
+```py title="File: main.py"
+
+# Place these lines below the function qroots() in the main.py file
 
 def main():
    x1, x2 = qroots(1.0, -2.0, -4.0)
@@ -338,4 +339,185 @@ ValueError: Discriminant d = -8.0. Complex roots
 
 #### Suggested Improvements
 1. Python supports complex numbers and therefore it is quite easy to calculate the complex conjugate roots when $b^2 - 4ac < 0$, instead of raising an exception.
-2. If $a = 0$, the equation is linear and the solution is $x = - \frac{c}{b}$ and it is easy to return the solution instead of raising an exception. However, careful thought must be given as to how to indicate to the caller that the equation is linear and therefore only one solution exists. 
+2. If $a = 0$, the equation is linear and the solution is $x = - \frac{c}{b}$ and it is easy to return the solution instead of raising an exception. However, careful thought must be given as to how to indicate to the caller that the equation is linear and therefore only one solution exists.
+
+Here is the improved version for the case with complex roots:
+``` python
+import math
+import cmath
+
+
+def qroots(a: float, b: float, c: float) -> tuple[float, float]:
+    if a == 0:
+        raise ValueError(f"Coefficient a = {a}. Not a quadratic equation")
+
+    d = b * b - 4 * a * c
+
+    if d < 0:
+        sqrt = cmath.sqrt
+    else:
+        sqrt = math.sqrt
+
+    x1 = (-b - sqrt(d)) / (2 * a)
+    x2 = (-b + sqrt(d)) / (2 * a)
+
+    return x1, x2
+
+def main():
+    print(qroots(1, 2, -1))
+    print(qroots(1, 2, 4))
+
+if __name__ == "__main__":
+    main()
+```
+
+#### Note
+
+1. Both `math` and `cmath` modules are imported
+2. A new object named `sqrt` of type `<class 'function'>` is created by assigning it the value of the function `sqrt` from `cmath` if `d < 0` or from `math` if `d >= 0`
+3. Since Python functions are objects, just as variables are objects, they can be assigned to variables
+4. Once the correct `sqrt` function is chosen the calculation of the roots is the same for both cases
+
+The output printed from within the `main()` function is as follows:
+```pycon
+(-2.414213562373095, 0.41421356237309515)
+((-1-1.7320508075688772j), (-1+1.7320508075688772j))
+```
+
+The imaginary part is suffixed with the letter `j`.
+
+## Unit-testing using `pytest`
+
+### What is Unit Testing?
+
+Unit testing is the process of testing individual pieces (units) of code—typically functions—to ensure they behave as expected.
+
+Benefits:
+
+- Catch bugs early
+- Improve code reliability
+- Make refactoring safer
+- Document expected behavior
+
+### Installing `pytest`
+
+Install `pytest` using `uv` and verify installation:
+```doscon
+> uv add pytest
+> uv run -- pytest --version
+pytest 9.0.2
+```
+or using  `pip`:
+```doscon
+> pip install pytest
+> pytest --version
+pytest 9.0.2
+```
+
+### Example Python module
+Assuming there is a file called `quad.py` containing the function `qroots(a: float, b: float, c: float)` to be tested:
+```python title="File: quad.py"
+import math
+import cmath
+
+
+def qroots(a: float, b: float, c: float) -> tuple[float, float]:
+    if a == 0:
+        raise ValueError(f"Coefficient a = {a}. Not a quadratic equation")
+
+    d = b * b - 4 * a * c
+
+    if d < 0:
+        sqrt = cmath.sqrt
+    else:
+        sqrt = math.sqrt
+
+    x1 = (-b - sqrt(d)) / (2 * a)
+    x2 = (-b + sqrt(d)) / (2 * a)
+
+    return x1, x2
+```
+### Creating the test file
+Create a new file, in the same directory as `quad.py` named `test_quad.py`. `pytest` automatically discovers files with names starting with `test_`,
+
+### Writing basic tests
+
+Add the following lines to `test_quad.py`:
+```python title="File: test_quad.py"
+import math
+import cmath
+import pytest
+
+from quad import qroots
+
+
+def test_real_equal_roots():
+    x1, x2 = qroots(1, 2, 1)
+    assert x1 == x2
+
+def test_real_unequal():
+    x1, x2 = qroots(1, 3, 1)
+    assert x1 != x2
+
+def test_complex_roots():
+    x1, x2 = qroots(2, 2, 2)
+    assert isinstance(x1, complex) and isinstance(x2, complex)
+
+def test_real():
+    a, b, c = (1, 3, 1)
+    x1, x2 = qroots(a, b, c)
+    d = b * b - 4 * a * c
+    assert x1 == (-b - math.sqrt(d)) / (2 * a)
+    assert x2 == (-b + math.sqrt(d)) / (2 * a)
+
+def test_complex():
+    a, b, c = (2, 2, 2)
+    x1, x2 = qroots(a, b, c)
+    re = -b / (2 * a)
+    im = cmath.sqrt(b * b - 4 * a * c) / (2 * a)
+    assert x1 == re - im
+    assert x2 == re + im
+
+def test_zero_coeff():
+    with pytest.raises(ValueError):
+        x1, x2 = qroots(0, 1, 2)
+```
+**Key ideas**
+
+1. `pytest` executes all functions in the `test_quad.py` file with names beginning with `test`
+2. `assert` statement checks for the expected output
+3. `#!python with pytest.raises(ValueError):` tests if the `ValueError` exception is raised
+
+### Run the tests
+Run the tests using `uv`
+```doscon
+> uv run -- pytest
+```
+or in the active virtual environment
+```doscon
+(.venv) > pytest
+```
+The output should show that all tests passed.
+```doscon
+============================= test session starts ==============================
+platform linux -- Python 3.13.9, pytest-9.0.2, pluggy-1.6.0
+rootdir: /home/satish/python/sci
+configfile: pyproject.toml
+plugins: anyio-4.12.1
+collected 6 items                                                              
+
+test_quad.py ......                                                      [100%]
+
+============================== 6 passed in 0.04s ===============================
+```
+**Key Ideas**
+
+1. `pytest` considers all files in the current directory with names starting with `test` to be files containing items to be tested
+2. An item may consist of one or more `assert` statements and `pytest.raises()` function calls
+3. Irrespective of the number of `assert` statements or `pytest.raises()` calls in an item, it is considerd as one test
+4. `pytest` reports the results of the tests as passed or failed, and reports details for failed tests
+
+*Note:*
+
+1. The above test was run on GNU/Linux operating system, output on Windows operating system will be slightly different.
+2. Important lines to study are the lines showing the number of items collected (the 6 functions starting with `test` in the `test_quad.py` file) and the number of tests that passed, shown on the last line.
