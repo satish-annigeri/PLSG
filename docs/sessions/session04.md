@@ -488,7 +488,7 @@ def test_zero_coeff():
 ```
 **Key ideas**
 
-1. `pytest` executes all functions in the `test_quad.py` file with names beginning with `test`
+1. `pytest` executes all functions in the `test_quad.py` file with names beginning with `test_`
 2. `assert` statement checks for the expected output
 3. `#!python with pytest.raises(ValueError):` tests if the `ValueError` exception is raised
 
@@ -516,7 +516,7 @@ test_quad.py ......                                                      [100%]
 ```
 **Key Ideas**
 
-1. `pytest` considers all files in the current directory with names starting with `test` to be files containing items to be tested
+1. `pytest` considers all files in the current directory with names starting with `test_` to be files containing items to be tested
 2. An item may consist of one or more `assert` statements and `pytest.raises()` function calls
 3. Irrespective of the number of `assert` statements or `pytest.raises()` calls in an item, it is considerd as one test
 4. `pytest` reports the results of the tests as passed or failed, and reports details for failed tests
@@ -524,4 +524,4 @@ test_quad.py ......                                                      [100%]
 *Note:*
 
 1. The above test was run on GNU/Linux operating system, output on Windows operating system will be slightly different.
-2. Important lines to study are the lines showing the number of items collected (the 6 functions starting with `test` in the `test_quad.py` file) and the number of tests that passed, shown on the last line.
+2. Important lines to study are the lines showing the number of items collected (the 6 functions starting with `test_` in the `test_quad.py` file) and the number of tests that passed, shown on the last line.
