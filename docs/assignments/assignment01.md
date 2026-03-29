@@ -100,10 +100,11 @@
     5. Difference between two sets is obtained using the `-` operator `#!python set1 - set2` returns the values of `set1` that are not present in `set2`
 
 **6.** Given the list `#!python a = [10, 20, 30, 40, 50]`, what does `#!python a[1:4]` return?
+
 A. `[30, 40, 50]`  
 B. `[10, 20, 30]`  
 C. `[20, 30, 40, 50]` 
-D. `[20, 30, 40]` 
+D. `[20, 30, 40]`   
 ??? success "Answer"
     **Correct answer:** D
     **Explanation:** The slice is defined by start index = 1, stop index = 4 (but 4 not included) with step size = 1. Thus the indices are `#!python 1, 2, 3` and the elements are `#!python a[1], a[2], a[3]`, anmely `#!python [20, 30, 40]`
@@ -114,6 +115,7 @@ D. `[20, 30, 40]`
     ```
 
 **7.** Which of the following operations is NOT allowed on tuples?
+
 A. Item assignment  
 B. Slicing  
 C. Indexing  
@@ -140,6 +142,7 @@ D. Concatenation
     ```
 
 **8.** What is the output of `#!python len((1, 2, (3, 4)))`?
+
 A. `3`  
 B. `4`  
 C. `2`  
@@ -149,6 +152,7 @@ D. Error
     **Explanation:** The items of the `tuple` ar `1`, `2` and `(3, 4)`.
 
 **9.** Which of the following data type is mutable?
+
 A. `int`  
 B. `str`  
 C. `tuple`  
@@ -185,6 +189,7 @@ D. `list`
     5. Integers `10` and `20` are **immutable**, once created their value stored in a specific memory address does not change
 
 **10.**  What is the result of `#!python ('a', 'b') + ('c',)`?
+
 A. Error  
 B. `#!python ['a', 'b', 'c']`  
 C. `#!python ('a', 'b', 'c')`  
