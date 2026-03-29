@@ -12,3 +12,6 @@ While the topics covered in the sessions may help you complete most of the assig
 Note that to use the LLMs above may require you to create an account.
 
 1. [Assignment 1](assignment01.md)
+2. [Assignment 2](assignment02.md)
+3. [Assignment 3](assignment03.md)
+4. [Assignment 4](assignment04.md)
