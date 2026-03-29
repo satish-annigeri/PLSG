@@ -24,11 +24,11 @@ It is also possible to first write the source code in a local folder, convert it
 ## Installing `git`
 
 On Microsoft Windows, `git` can be installed by downloading it from [Git for Windows](https://gitforwindows.org/). Alternatively, it can be installed using either [WinGet](windows_pkg.md#installing-winget) or [Scoop](windows_pkg.md#installing-scoop):
-``` doscon
+```doscon
 > winget install git
 ```
 or
-``` doscon
+```doscon
 > scoop install git
 ```
 

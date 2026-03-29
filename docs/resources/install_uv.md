@@ -6,7 +6,7 @@ Assuming either WinGet or Scoop is installed, here are the instructions to insta
 
 ## Installing using WinGet
 With WinGet installed, here are the commands to search for and install `uv`:
-``` doscon
+```doscon
 > winget search --id astral-sh.uv
 Name Id           Version Source
 ---------------------------------
@@ -15,13 +15,13 @@ uv   astral-sh.uv 0.10.8  winget
 ```
 
 To subsequently update `uv`:
-``` doscon
+```doscon
 > winget upgrade astral-sh.uv
 ```
 
 ## Installing using Scoop
 With Scoop installed, here are the commands to search for and install `uv`:
-``` doscon
+```doscon
 > scoop search uv
 Results from local buckets...
 
@@ -32,32 +32,32 @@ uv   0.10.9  main
 ```
 
 To subsequently update `uv`:
-``` doscon
+```doscon
 > scoop update uv
 ```
 
 ## Installing `pipx`
 
 `pipx` can download and install Python applications in separate environments and make them available system-wide. It can also list applications installed using `pipx`, update them, and uninstall them when they are no longer needed. You can install `pipx` using Python already installed on your system:
-``` doscon
+```doscon
 > py -m pip install --user pipx
 ```
 or using Scoop:
-``` doscon
+```doscon
 > scoop install pipx
 ```
 
 After installing `pipx`, execute the following command:
-``` doscon
+```doscon
 > pipx ensurepath
 ```
 
 To install `uv` using `pipx`:
-``` doscon
+```doscon
 > pipx install uv
 ```
 
 To subsequently update `uv`:
-``` doscon
+```doscon
 > pipx upgrade uv
 ```

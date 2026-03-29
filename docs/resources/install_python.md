@@ -7,7 +7,7 @@
 You can install Python from the [Python download page](https://www.python.org/download). Take care to choose the correct platform (Windows, GNU/Linux or macOS). The download page detects your platform and suggests the correct download file, but it is worth verifying before you proceed. On GNU/Linux and macOS, it is better to use the system package manager rather than downloading the binary from the Python download page.
 
 For Windows, however, it is a good idea to download the installer from the Python download page and, when installing, remember to include the Python Launcher. With the Python Launcher installed, you can list the different versions of Python installed on your machine and choose a specific version when creating a virtual environment. You can download and install as many versions of Python as you need. Here are the help pages for some important commands:
-``` doscon
+```doscon
 > py help
 > py help list
 > py help install
@@ -23,7 +23,7 @@ You can choose a specific Python version installed on your machine when creating
 Remember, the `python` and `pip` commands affect only the currently active venv and have no effect on any other venv. When using this approach, it is important to keep track of which packages your project requires. It is common practice to create a `requirements.txt` file containing the names of the required packages, one per line. This allows `pip` to download and install them all in one go.
 
 Assuming the Python Launcher is installed along with Python 3.14, and you are currently in the project folder within which you wish to create the venv, here is how you can create, activate and deactivate a venv:
-``` doscon
+```doscon
 > py -3.14 -m venv .venv
 > .venv\Scripts\activate
 (.venv) > python -V
@@ -61,7 +61,7 @@ Visit the `uv` [installation documentation page](https://docs.astral.sh/uv/getti
 
     1. Open Windows PowerShell
     2. Copy and paste the command from the `uv` download page
-    ``` doscon
+    ```doscon
         PS> powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
     ```
     Close PowerShell and open the Command Prompt.
@@ -102,7 +102,7 @@ or<br>
 The first line indicates that Python 3.14.3 is available for download but is not currently installed on your machine. The second line indicates that it is already installed.
 
 To install an available Python version, type the following commands at the prompt:
-``` doscon
+```doscon
 > uv python install --help
 > uv python install 3.14.3
 ```
@@ -141,13 +141,13 @@ In practice, `uv` makes this unnecessary by automatically activating the require
 ### Adding a package to a project
 
 Adding a package to your project requires you to know its name, and sometimes the specific version you need. The `uv` command to add a package is `uv add <package>`. To read the help for this command, type `uv add --help`. To add the package `numpy`, for example, type the following commands:
-``` doscon
+```doscon
 > uv add numpy
 > uv pip list
 > type pyproject.toml
 ```
 The first command installs `numpy` in a version compatible with the Python version used by your project (as specified in `.python-version`). The second command lists all packages installed for your project. The third command displays the contents of `pyproject.toml`, where the package should appear as:
-``` doscon
+```doscon
 dependencies = [
     "numpy>=x.y.z",
 ]
@@ -164,7 +164,7 @@ If your project has been correctly initialised and the `.git` folder, `.python-v
 However, if you prefer to manually activate and deactivate the venv and type commands directly at the prompt, here is how to do it:
 
 === "Windows"
-    ``` doscon
+    ```doscon
         > .venv\Scripts\activate
     ```
 
@@ -176,7 +176,7 @@ However, if you prefer to manually activate and deactivate the venv and type com
 If the `.venv` is successfully activated, the name of the project enclosed in parentheses will appear to the left of the prompt. To deactivate the `.venv`, type:
 
 === "Windows"
-    ``` doscon
+    ```doscon
         > deactivate
     ```
 

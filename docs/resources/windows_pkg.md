@@ -23,7 +23,7 @@ This requires PowerShell, so please ensure you have installed the current versio
 Follow the [installation instructions](https://learn.microsoft.com/en-us/windows/package-manager/winget/) to install WinGet.
 
 You can read the help page of WinGet for some of its important commands:
-``` doscon
+```doscon
 > winget help
 > winget search --help
 > winget install --help
@@ -31,7 +31,7 @@ You can read the help page of WinGet for some of its important commands:
 > winget uninstall --help
 ```
 Here are the commands to search for and install `uv`:
-``` doscon
+```doscon
 > winget search --id astral-sh.uv
 Name Id           Version Source
 ---------------------------------
@@ -43,19 +43,19 @@ uv   astral-sh.uv 0.10.8  winget
 This requires PowerShell, so please ensure you have installed the current version of PowerShell.
 
 Execute the following commands after opening PowerShell:
-``` doscon
+```doscon
 > Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 > Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 ```
 
 You can learn to use scoop with the following commands:
-``` doscon
+```doscon
 > scoop help
 > scoop search
 ```
 
 Here are the commands to search for and install `uv` using scoop:
-``` doscon
+```doscon
 > scoop search uv
 Results from local buckets...
 
