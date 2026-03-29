@@ -8,10 +8,10 @@ Below are five multiple‑choice questions covering f‑string formatting for in
 
 **1. Which f‑string correctly formats an integer variable `count` inside a message?**
 
-A. `f"Count: {count:d}"`
-B. `f"Count: {count:f}"`
-C. `f"Count: {count:s}"`
-D. `f"Count: {count:2f}"`
+A. `f"Count: {count:d}"`  
+B. `f"Count: {count:f}"`  
+C. `f"Count: {count:s}"`  
+D. `f"Count: {count:2f}"`  
 
 ??? success "Answer"
     **Correct answer:** A  
