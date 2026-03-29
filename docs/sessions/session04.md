@@ -10,6 +10,8 @@
 4. [Formatted output](#formatted-output)
 5. [Function signature](#function-signature)
 6. [Designing functions](#designing-functions)
+7. [Example of function design](#example-of-function-design)
+8. [Unit-testing using `pytest`](#unit-testing-using-pytest)
 
 
 ## Comments in Python Code
@@ -340,8 +342,10 @@ ValueError: Discriminant d = -8.0. Complex roots
 #### Suggested Improvements
 1. Python supports complex numbers and therefore it is quite easy to calculate the complex conjugate roots when $b^2 - 4ac < 0$, instead of raising an exception.
 2. If $a = 0$, the equation is linear and the solution is $x = - \frac{c}{b}$ and it is easy to return the solution instead of raising an exception. However, careful thought must be given as to how to indicate to the caller that the equation is linear and therefore only one solution exists.
+3. Learn to write and run unit-tests using `pytest`
 
-Here is the improved version for the case with complex roots:
+Here is the improved version that computes complex roots:
+
 ``` python
 import math
 import cmath
