@@ -2,8 +2,6 @@
 
 #### Corresponds to: [Session 2](../sessions/session02.md)
 
-#### Answers: [Answer 2](answer02.md)
-
 ## Questions
 
 **1.** Given three lists `#!python a = [1, 2, 3]`, `#!python b = a` and `c = a[:]`, which of the following logical expresions are `True`? Explain why the results are what they are.
