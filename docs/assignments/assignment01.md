@@ -8,7 +8,7 @@
 ??? success "Answer"
     REPL stands for **R**ead, **E**valuate, **P**rint **L**oop. It is a programming environment with its own memory space and can evaluate single or multiple lines of code and produce output. It is an interactive environment where the programmer can try out lines of code one at a time and examine the results before proceeding. One disadvantage of REPL is that it does not save the code in a file for subsequent use, although it can read and execute code that is already written in a file. But that takes away the interactive nature of a REPL and a code editor is much better suited to execute code in a file.<br><br>Other programming languages that offer a REPL are Matlab, Julia, Javascript (Node JS) and many more.
 
-**2.** Having assigned the value `10` to the object `a`, what are the two ways to display the value of the object `a`?
+**2.** Having assigned the value `10` to the object `a`, what are the different ways to display the value of the object `a`?
 ??? success "Answer"
     In the REPL, value of an object can be displayed by typing the name of the object and pressing ++enter++ or by using the `print()` function.<br>
     ```pycon
@@ -28,7 +28,7 @@
     >>> len(a)
     10
     ```
-**3.2.** Use negative indexing operation to obtain the **last but one element** of the list (in this example, the element with value `9`).
+**3.2.** Use negative indexing operation to obtain the **last but one element** of the list (in this example, the element with value `9`). Negative index `-1` is the last element and `-2` is the last but one. and so on.
 
 ??? success "Answer"
     ```pycon
@@ -43,7 +43,7 @@
     [9, 6, 3]
     ```
 
-**4.** You can create an empty `list` with `#!python a = []`. Creating an empty `tuple` is similar `#!python b = ()`. But how do you create a `tuple` with exactly one element? Does `#!python b = (10)` work? Why not? What is the correct way to create a tuple with exactly one element. Search the net for the answer.
+**4.** You can create an empty `list` with `#!python a = []`. Creating an empty `tuple` is similar `#!python b = ()`. But how do you create a `tuple` with exactly one element? Does `#!python b = (10)` work? What is the correct way to create a tuple with exactly one element. Search the net for the answer.
 ??? success "Answer"
     ```pycon
     >>> b = ()
