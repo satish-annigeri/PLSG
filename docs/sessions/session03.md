@@ -1,6 +1,4 @@
-# Session 3
-
-#### Planned Schedule: 21-03-2026 4:00 pm to 6:00 pm
+# Session 3: 21-03-2026 4:00 pm to 6:00 pm
 
 ## Agenda
 

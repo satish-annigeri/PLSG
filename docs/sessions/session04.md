@@ -1,6 +1,4 @@
-# Session 4
-
-#### Planned Schedule: 28-03-2026 4:00 pm to 6:00 pm
+# Session 4: 28-03-2026 4:00 pm to 6:00 pm
 
 ## Agenda
 
