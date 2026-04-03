@@ -181,7 +181,8 @@ $$
 
 **Task:**  
 Design a Python function with appropriate parameters and type annotations that computes the maximum deflection.  
-The function must:  
+The function must:
+
 - Accept $P$, $L$, $E$, and $I$  
 - Validate that all inputs are positive  
 - Return the deflection as a float  
@@ -203,6 +204,64 @@ def test_deflection_invalid_input():
         max_deflection(-10, 2.0, 200e9, 8e-6)
 ```
 
+??? success "Answer"
+
+    ```python title="File: beam.py"
+    def max_deflection(P: float, L: float, E: float, I: float) -> float:
+    """
+    Returns maximum deflection due to a point load P applied at mid-span.
+
+    Parameters
+    ----------
+    P : float
+        Point load applied at mid-span in N.
+    L : float
+        Span in m.
+    E : float
+        Modulus of elasticity of material in N / m^2.
+    I : float
+        Second-moment of area of cross section about neutral axis, in m^4.
+
+    Raises
+    ------
+    ValueError
+        Each of P, L, E and I must be greater than or equal to zero.
+
+    Returns
+    -------
+    float
+        Maximum deflection in m, at mid-span due to a point load P applied at midspan.
+
+    """
+    if (P < 0) or (L < 0) or (E < 0) or (I < 0):
+        raise ValueError(f"All {P=}, {L=}, {E=}, {I=} must be non-negative")
+    return (P * L**3) / (E * I)
+    ```
+
+    Run `pytest` under `uv`
+
+    ```doscon
+    > uv run -- pytest test_beam.py
+    ```
+    or `.venv`
+    ```doscon
+    (.venv) > pytest test_beam.py
+    ```
+
+    Verify that all tests pass.
+    ```doscon
+    ============================= test session starts ==============================
+    platform linux -- Python 3.13.9, pytest-9.0.2, pluggy-1.6.0
+    rootdir: /home/satish/python/sci
+    configfile: pyproject.toml
+    plugins: anyio-4.12.1
+    collected 2 items                                                              
+
+    test_beam.py ..                                                          [100%]
+
+    ============================== 2 passed in 0.03s ===============================
+    ```
+
 **2. Resultant of Two Forces (Engineering Mechanics)**
 
 
@@ -212,6 +271,7 @@ $$R = F_1^2 + F_2^2 + 2 \cdot F_1 F_2 \cos ⁡\theta$$
 **Task:**
 
 Write a function that:
+
 - Accepts $F_1$, $F_2$, and $\theta$ (in degrees)
 - Converts $\theta$ from degrees to radians internally
 - Computes and returns the resultant force $R$ as a float
@@ -239,6 +299,85 @@ def test_resultant_negative_force_raises():
     with pytest.raises(ValueError):
         resultant(-5.0, 10.0, 30.0)
 ```
+
+
+??? success "Answer"
+
+    ```python title="File: forces.py"
+    import math
+
+
+    radians = math.radians
+
+
+    def resultant(F1: float, F2: float, theta: float) -> float:
+    """
+    Returns the resultant of two forces F1 and F2 acting at an angle theta (degrees)
+
+    Parameters
+    ----------
+    F1 : float
+        Magnitude of F1 in same the units as that of F2.
+    F2 : float
+        Magnitude of F2 in the same units as that of F1.
+    theta : float
+        Angle measured from F1 to F2 in degrees, positive when measured counter-clockwise.
+
+    Raises
+    ------
+    ValueError
+        Both F1 and F2 must not be negative.
+
+    Returns
+    -------
+    float
+        Magnitude of resultant of F1 and F2.
+
+    """
+    if (F1 < 0) or (F2 < 0):
+        raise ValueError(f"Both {F1=} and {F2=} must be non-negative")
+    if (theta < 0) or (theta > 180):
+        raise ValueError(f"Angle {theta=} must be between 0 and 180 degrees")
+    return math.sqrt(F1 ** 2 + F2 ** 2 + 2 * F1 * F2 * math.cos(radians(theta)))
+    ```
+
+    Run `pytest` under `uv`
+
+    ```doscon
+    > uv run -- pytest test_forces.py
+    ```
+    or `.venv`
+    ```doscon
+    (.venv) > pytest test_forces.py
+    ```
+
+    Verify that all tests pass.
+    ```doscon
+    ============================= test session starts ==============================
+    platform linux -- Python 3.13.9, pytest-9.0.2, pluggy-1.6.0
+    rootdir: /home/satish/python/sci
+    configfile: pyproject.toml
+    plugins: anyio-4.12.1
+    collected 4 items                                                              
+
+    test_forces.py ....                                                      [100%]
+
+    ============================== 4 passed in 0.03s ===============================
+    ```
+
+**Suggestion 1**
+
+The angle in radians from the first force $F_1$ to the resultant is given by:
+
+$$
+\alpha = \tan^{-1} \left( \frac{F_2 \sin \theta}{F_1 + F_2 \cos \theta} \right)
+$$
+
+where $\theta$ is the angle in radians measured from $F_1$ to $F_2$. Modify the function to return both the magnitude of the resultant and its direction in terms of the angle, in degrees, measured from $F_`$.
+
+**Suggestion 2**
+
+The better approach to calculate the resultant, especially when the number of forces is more than two, is to resolve the forces into components along orthogonal directions, summing the components and combining them into a resultant.
 
 **3. Soil Grading Check (Basic Geotechnical Concepts)**
 
@@ -282,3 +421,61 @@ def test_invalid_input_raises():
     with pytest.raises(ValueError):
         is_well_graded(-0.1, 0.3, 0.8)
 ```
+
+??? success "Answer"
+
+    ```python title="File: soil.py"
+    def is_well_graded(d10: float, d30: float, d60: float) -> bool:
+    """
+    Returns True if the soil is well graded, False otherwise.
+
+    Parameters
+    ----------
+    d10 : float
+        Diameter D10.
+    d30 : float
+        Diameter D30.
+    d60 : float
+        Diameter D60.
+
+    Raises
+    ------
+    ValueError
+        Each of D10, D30 and D60 must be greater than zero.
+
+    Returns
+    -------
+    bool
+        True if soil is well-graded.
+
+    """
+    if (d10 <= 0) or (d30 <= 0) or (d60 <= 0):
+        raise ValueError(f"Each of D10={d10}, D30={d30} and D60={d60} must be non-negative")
+    Cu = d60 / d10
+    Cc = d30 ** 2 / (d10 * d60)
+    return (Cu > 6) and (1 < Cc < 3)
+    ```
+
+    Run `pytest` under `uv`
+
+    ```doscon
+    > uv run -- pytest test_forces.py
+    ```
+    or `.venv`
+    ```doscon
+    (.venv) > pytest test_forces.py
+    ```
+
+    Verify that all tests pass.
+    ```doscon
+    ============================= test session starts ==============================
+    platform linux -- Python 3.13.9, pytest-9.0.2, pluggy-1.6.0
+    rootdir: /home/satish/python/sci
+    configfile: pyproject.toml
+    plugins: anyio-4.12.1
+    collected 3 items                                                              
+
+    test_soil.py ...                                                         [100%]
+
+    ============================== 3 passed in 0.03s ===============================
+    ```
