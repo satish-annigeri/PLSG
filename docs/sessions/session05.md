@@ -158,6 +158,17 @@ ValueError: not enough values to unpack (expected at least 5, got 4)
 1. `b` can be an empty list. Since the values on the right side are unpacked to the objects on the left and none are left over to assign to `b`.
 2. When the objects on the left are more than the values on the right, an exception is raised.
 
+!!! note
+    A `tuple` can be unpacked exactly similar to unpacking a `list`. You can replace a list in any of the above examples with a `tuple` and things work as yu would expect.
+
+    When you unpack more than one element from a tuple to a variable on the left side (using the `*`), the type of the variable on the left side is a `list` and not a `tuple`.
+
+    ```pycon
+    >>> a, *b = (10, 20, 30)
+    >>> print(type(b), b)
+    <class 'list'>, [20, 30]
+    ```
+
 ## Function parameters and arguments revisited
 
 The previous discussion on function interface, parameters and arguments can be summarized as follows:
