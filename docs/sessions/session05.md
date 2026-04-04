@@ -59,7 +59,7 @@ Consider another example that applies a condition to select elements to be added
 >>> a = [i * i for i in range(10)]
 >>> a
 [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
->>> b = [i * for i in range(10) if i * i % 2]
+>>> b = [i * i for i in range(10) if i * i % 2]
 >>> b
 [1, 9, 25, 49, 81]
 ```
