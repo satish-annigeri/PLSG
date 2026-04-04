@@ -46,3 +46,10 @@ VS Code is highly configurable. See **File → Preferences** to configure VS Cod
 ## Spyder IDE
 
 Spyder IDE is similar to the Matlab GUI. It offers a code editor, a Python console (an IPython console to be mpre accurate), a variable explorer and online help documentation. When you execute code in Spyder IDE, you can examine the status of the execution interactively, like you can in the Python console. Thus it offers the advantages of a code editor combined with a Python interpreter whereas VS Code offers the advantages of a code editor combined with the terminal (Command Prompt) along with Git and a host of other features. It is possible to include a Python console inside VS Code but that is not the most common use case for VS Code.
+
+Some things to know about using the right Python interpreter if you have multiple virtual environments on your machine:
+
+1. Check Tools -> Preferences -> Python interpreter setting. To use a specific Python interpreter, select **Selected interpreter** and set the path to the preferred virtual environment.
+2. Create a Spyder Project by selecting the project folder in Projects -> Open project, and set the Python interpreter to be used by that project.
+3. Ensure that the package `spyder-kernels` is installed in the virtual environment corresponding to the Python interpreter being used. Without this package, the IPython console will not open.
+4. Open new console using Consoles -> New console in environment, and choose the correct environment.
