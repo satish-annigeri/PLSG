@@ -142,7 +142,7 @@ It is possible to use this technique in the following ways:
 1. When unpacked, the right side will result in four elements.
 2. The first element is assigned to `a`.
 3. The last element is assigned to `c`.
-4. The remaining two elements inbetween the first and the last are assigned to `b`, which is a `list` and can hold zero or more elements.
+4. The remaining two elements inbetween the first and the last are assigned to `b`, which is a `list` and can hold zero or more elements. Even when there is only one element assigned to `b`, it is a `list` with one element, not a single non-container object.
 ```pycon
 >>> a, *b, c, d = [10, "Hello", 20, "Last"]
 >>> a
@@ -154,20 +154,21 @@ It is possible to use this technique in the following ways:
 >>> d
 'Last'
 ```
-5. Even when there is only one element assigned to `b`, ir is a `list` with one element, not a `str` object.
+1. `b` can be an **empty** list. Since the values on the right side are unpacked to the objects on the left and none are left over to assign to `b`.
 ```pycon
 >>> a, *b, c, d, e = [10, "Hello", 20, "Last"]
 >>> b
 []
->>> a, *b, c, d, e, f = [10, "Hello", 20, "Last"]
-Traceback (most recent call last):
-  File "<python-input-15>", line 1, in <module>
-    a, *b, c, d, e, f = [10, "Hello", 20, "Last"]
-    ^^^^^^^^^^^^^^^^^
-ValueError: not enough values to unpack (expected at least 5, got 4)
 ```
-6. `b` can be an empty list. Since the values on the right side are unpacked to the objects on the left and none are left over to assign to `b`.
-7. When the objects on the left are more than the values on the right, an exception is raised.
+1. When the objects on the left are more than the values on the right, an exception is raised.
+```pycon
+>>> a, b, c, d, e, f = [10, "Hello", 20, "Last"]
+Traceback (most recent call last):
+  File "<python-input-1>", line 1, in <module>
+    a, b, c, d, e = [10, "Hello", 20, "Last"]
+    ^^^^^^^^^^^^^
+ValueError: not enough values to unpack (expected 5, got 4)
+```
 
 !!! note
     A `tuple` can be unpacked exactly similar to unpacking a `list`. You can replace a list in any of the above examples with a `tuple` and things work as yu would expect.
