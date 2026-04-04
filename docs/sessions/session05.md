@@ -89,18 +89,27 @@ It is possible to ignore one or more of the returned values by assigining the un
 10
 ```
 
-Specifying fewer objects on the left side than the number of elements on the right side raises an error:
-```pycon
->>> a, b = [10, "Hello", 20]
-Traceback (most recent call last):
-  File "<python-input-0>", line 1, in <module>
-    a, b = [10, "Hello", 20]
-    ^^^^
-ValueError: too many values to unpack (expected 2, got 3)
-```
-With two values on the left side, the expected number of values on the right side that were expected to be unpacked was two, but it turned out to be three. That raises the error.
+!!! note
+    `_` is a valid variable name. By conevntion, it is used when values that are not intended to be used subsequently. It is a convenient shortcut, instead of using names such as `dummy` or other similar names to indicate it is being ignored.
 
-Python offers another way to unpack where the object on the left side could collect not just one value but zero or more values.
+    ```python
+    a, _, b = [10, 20, 30]
+    print(_)  # Prints 20
+    ```
+
+!!! warning
+    Specifying fewer objects on the left side than the number of elements on the right side raises an error:
+    ```pycon
+    >>> a, b = [10, "Hello", 20]
+    Traceback (most recent call last):
+    File "<python-input-0>", line 1, in <module>
+        a, b = [10, "Hello", 20]
+        ^^^^
+    ValueError: too many values to unpack (expected 2, got 3)
+    ```
+    With two values on the left side, the expected number of values on the right side expected to be unpacked is two, but it turns out to be three. That raises the error.
+
+Python offers a way to unpack where an object on the left side can collect zero or more values.
 ```pycon
 >>> a, *b = [10, "Hello", 20]
 >>> type(a), a
@@ -120,6 +129,14 @@ It is possible to use this technique in the following ways:
 >>> c
 'Last'
 ```
+
+!!! note
+    The `_` variable can be used to catch multiple values by preceding it with a `*`.
+    ```python
+    a, *_, b = [10, 20, 30, 40]
+    print(_)  # Prints [20, 30]
+    ```
+
 **Note**
 
 1. When unpacked, the right side will result in four elements.
@@ -201,7 +218,7 @@ or
 - `#!python a = 10`, the default value and `b = 20`
 
 !!! warning
-    If a function requires default parameters, they must appear after all the non-default parameters.
+    If a function requires default parameters, they must appear **after** all the non-default parameters.
 
 ### Calling functions with named arguments
 
