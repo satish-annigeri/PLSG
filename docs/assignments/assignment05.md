@@ -130,7 +130,8 @@ B. `a=10, b=30, c=40`
 C. `a=10, b=20, c=30`  
 D. Error: positional argument after keyword  
 ??? success "Answer"
-    **Answer:** C
+    **Answer:** C  
+    **Explanation:** This function has three positional parameters `a`, `b` and `c`, and `b` and `c` have default values, `20` and `40` respectively. When the function is called, the positional argument `10` is associated with `a`, The second is a keyword argument `c=30`. Thus there is no argument specified for `b` and therefore it is assigned its default value, namely `20`. Therefore this call is identical to `func(10, 20, 30)`.
 
 **3. Which call is invalid for the function `def f(x, y, z): ...`?**  
 A. `f(1, 2, 3)`  
@@ -138,7 +139,18 @@ B. `f(x=1, y=2, z=3)`
 C. `f(1, y=2, 3)`  
 D. `f(1, z=3, y=2)`  
 ??? success "Answer"
-    **Answer:** C
+    **Answer:** C  
+    **Explanation:** Try calling the function as `f(1, y=2, 3)1 and you get an error:
+    ```pycon
+    >>> def f(x, y, z): ...
+    ... 
+    >>> f(1, y=2, 3)
+    File "<python-input-1>", line 1
+        f(1, y=2, 3)
+                ^
+    SyntaxError: positional argument follows keyword argument
+    ```
+    Positional arguments cannot follow keyword arguments. Once a keyword argument is specified, **all** subsequent arguments **must** be keyword arguments.
 
 **4. What is the correct order of parameters in a Python function definition?**  
 A. keyword-only → positional → default  
@@ -154,7 +166,12 @@ B. `f(1, c=20)`
 C. `f(1, 2, 20)`  
 D. Both B and C  
 ??? success "Answer"
-    **Answer:** B
+    **Answer:** B  
+    **Explanation:** 'Overrides' implies that a value other than the default value `c=2-`.  
+    A. The call `f(c=20)` raises a `TypeError` as the positional argument for `a` is required but not specified.  
+    B. The call `f(1, c=20)` overrides `c` by assigning it the value `20`, which is different from its default value `10`.  
+    C. The call `f(1, 2, 20)` assigns the value `20` to `c`, and `2` to `b`. This call overrides the default values of **both** `b` and `c`, and **not only** `c`.  
+    D. Obviously **C** does not override only `c`, but also `b`.
 
 **6. What is the result of calling `g(1, y=2)` for `def g(x, y, z=3): ...`?**  
 A. `x=1, y=2, z=3`  
@@ -162,7 +179,8 @@ B. `x=1, y=2, z=None`
 C. Error: missing positional argument  
 D. Error: multiple values for y  
 ??? success "Answer"
-    **Answer:** A
+    **Answer:** A  
+    **Explanation:** In this function call, `1` is the positional argument for the parameter `x`, `y` is assigned the value `2` and no argument is specified for the parameter `z`, and since it has the default value `3`, it is assigned the default value.
 
 **7. Which statement about keyword arguments is true?**  
 A. They must appear before positional arguments in a call.  
@@ -170,7 +188,7 @@ B. They can appear in any order as long as names match.
 C. They cannot be mixed with positional arguments.  
 D. They must match the order of parameters.  
 ??? success "Answer"
-    **Answer:** B
+    **Answer:** B  
 
 **8. What happens when calling `h(1, 2, x=3)` for `def h(x, y, z): ...`?**  
 A. `x=1, y=2, z=3`  
@@ -178,7 +196,8 @@ B. Error: multiple values for x
 C. `x=3, y=2, z=None`  
 D. Error: missing argument z  
 ??? success "Answer"
-    **Answer:** B
+    **Answer:** B  
+    **Explanation:** This call raises a `TypeError` exception because the two positional arguments `1` and `2` are assigned to `x` and `y` respectively. The last argument `x=3` assisgns a second value to `x` thereby raising the exception.
 
 **9. Which of the following defines a function with keyword‑only parameters?**  
 A. `def f(a, b, c): ...`  
@@ -186,7 +205,12 @@ B. `def f(a, b, *, c): ...`
 C. `def f(*, a, b, c): ...`  
 D. Both B and C  
 ??? success "Answer"
-    **Answer:** D
+    **Answer:** D  
+    **Explanation:**  
+    A. `def f(a, b, c): ...` specifies that all three `a`, `b` abd `c` can be either positional or keyword arguments.  
+    B. `def f(a, b, *, c): ...` specifies that `a` and `b` can be either positional arguments and `c` **must** be keywords arguments.  
+    C. `def f(*, a, b, c): ...` specifies that 1a1, 1b1 and 1c1 **must** be keyword arguments as the parameters in the function definition follow `*`. Thus it is a function with **keywords only** parameters.
+    D. B is not a keywords only function definition.
 
 **10. Given `def f(a, b=2, *, c=3): ...`, which call is valid?**  
 A. `f(1, 2, 3)`  
@@ -194,4 +218,9 @@ B. `f(1, c=10)`
 C. `f(a=1, 2, c=10)`  
 D. `f(1, b=2, 3)`  
 ??? success "Answer"
-    **Answer:** B
+    **Answer:** B  
+    **Explanation:**  
+    A. `f(1, 2, 3)` raises the `TypeError` exception as `c` is a **keyword only** parameter and the keyword `c` must be specified.  
+    B. `f(1, c=10)` is a valid function call. `1` is assigned to `a`, `b` is assigned its default value `2` and `c` is assigned the value `10` which overrides the default value `3`.  
+    C. `f(a=1, 2, c=10)` raises the `SyntaxError: f(a=1, 2, c=10)`.  
+    D. `f(1, b=2, 3)` raises the `SyntaxError: positional argument follows keyword argument`.
