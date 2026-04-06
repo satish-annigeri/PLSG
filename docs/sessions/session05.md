@@ -1,6 +1,4 @@
-# Session 5
-
-#### Planned Schedule: 04-04-2026 4:00 pm to 6:00 pm
+# Session 5: 04-04-2026 4:00 pm to 6:00 pm
 
 ## Agenda
 
