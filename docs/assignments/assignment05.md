@@ -119,10 +119,10 @@ D. `def f(a, b, c=): pass`
 ??? success "Answer"
     **Answer:** B  
     **Explanation:**  
-    A. SyntaxError: parameter without a default follows parameter with a default.
-    B. Parameter with a default follows a parameter without a default.
-    C. SyntaxError: parameter without a default follows parameter with a default.
-    D. SyntaxError: expected default value expression. Parameter is followed by `=` but no default value is specified
+    A. SyntaxError: parameter without a default follows parameter with a default.  
+    B. Parameter with a default follows a parameter without a default.  
+    C. SyntaxError: parameter without a default follows parameter with a default.  
+    D. SyntaxError: expected default value expression. Parameter is followed by `=` but no default value is specified.  
 
 **2. What happens when calling `func(10, c=30)` for the function `def func(a, b=20, c=40): ...`?**  
 A. `a=10, b=20, c=40`  
