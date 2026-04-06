@@ -22,17 +22,41 @@ Python provides the context manager `with` so that when the program goes out of 
 Create a text file named `sample.txt` using a text editor such as Notepad on Windows or `nano` or `gedit` on GNU/Linux and type the following lines in it and save it in the same directory as the program `read_file.py`.
 
 ``` title="File: samle.txt"
-Hello, world
+Hello, world!
 10, 20, 30
+
 ```
 
 Now let us open this file, read its contents and then close it in the traditional way:
 
 ```pycon
 >>> f = open("sample.txt", "r")
+>>> type(f)
+<class '_io.TextIOWrapper'>
 >>> lines = f.readlines()
+>>> type(lines)
+<class 'list'>
 >>> len(lines)
+3
+type(lines[0])
+<class 'str'>
+>>> lines[0]
+'Hello, world!\n'
+>>> ;ines[1]
+'10, 20, 30\n'
+>>> lines[2]
+'\n'
+f.close()
 ```
+**Note**
+
+1. `f = open("sample.txt", "r")` opens the file and and stores a reference to the opened file for future use. `f` is of type `<class '_io.TextIOWrapper'>`.
+2. The `"r"` argument specifies the file is to be opened for reading. To write to a file, one must use `"w":"`.
+3. By default, the file is opened in text format, which can be explicitly specified as `"rt"` or `"wt"`. The other mode is binary format, which is specified by `"rb"` or `"wb"`.
+5. `f.readlines()` reads all lines from the file as a `list` of `str`. Each string ends with the newline character `\n`. The entire file is read in as `str`, the programmer must split and convert the strings into the required type.
+6. The last line is an empty line, and contains only a newline character `\n`.
+7. File must be closed when no more operations are required t be performed on it.
+
 
 ## NumPy
 
