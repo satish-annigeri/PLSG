@@ -160,10 +160,88 @@ To write values other than strings in binary format, the value must first be con
 ...     f.write(struct.pack("i", 10))    # Write the integer 10 as a 4-byte signed-integer
 ```
 
-Opening the file `demo2` n a text editor does not display anything human-readable. A binary editor can display the contents, but as a sequence of bytes, which is indecipherable to humans. However, reading file fetches the exact value of the file.
+Opening the file `demo2` in a text editor does not display anything human-readable. A binary/hex editor can display the contents, but as a sequence of bytes, which is difficult for humans tounderstand. However, reading file fetches the exact value of the file.
+```pycon
+>>> with open("demo3", "rb") as f:
+...     raw = f.read(4)
+...     value = struct.unpack("i", raw)[0]
+...     print(value)
+...     
+10
+```
 
+**Note**
 
+1. There are no newlines in a binary file. Data is a continuous stream of bytes. It is for the program to read the correct number of bytes and convert the bytes to a meaningful form. Remember, an integer could be written as a signed or an unsigned integer with either a 16-bit integer or a 32-bit size, the difference being the maximum and minimum values it can store. While reading, it must be known what format was used when the value was written, otherwise the bytes can be interpreted incorrectly.
+2. For this reason, most data read and written in human readable form is in text format. Text format only contains text, it is readable in a text editor, and therefore easy to write the appropriate `read()` statements and convert the characters into data of the required types. Typically, spaces, commas, newlines and sometime specific characters such as tab, semi-colon are used as separators.
+3. Binary files are efficient compared to text format, as long as the format of the file adheres to a well defined protocol. Some examples of binary files are image files in JPEG or PNG format, audio and video files in various standard formats such as MP3, FLV etc. PDF files are binary files and used to represent documents specifically for the print media.
+4. Archive files in ZIP, 7ZIP format are also in binary format. All Microsoft Office files are in fact in in XML format (which is a text format) packaged inside a ZIP archive format, making them a binary file.
+5. Some program can export their data from the standard binary format to a text format. Such a translation may sometimes result in a loss of richness of content. For example, an Excel file can be exported to a CSV format, but it cann represent only one sheet and cannot preserve cell formatting, formulae and macros. On the other hand, an AutoCAD DWG file can be exported to a DXF format, which is a text format with almost all features but a few such as dynamic blocks, parametric constraints, annotative objects cannot be preserved.
+
+!!! note
+    1. As a rule of thumb, use text files to read or write data from or to files unless there is a well defined format that is understood by others. If data is not understandable to humans, the storage format is of little use.
+    2. When converting binary formats to text, one must be aware what information cannot be preserved and whether that loss of information is acceptable.
 
 ## NumPy
+
+An arrays, like a `list` is a container, but has stricter definition for how they are structured:
+
+1. All elements of an array **must** be of the same type. It cannot contain a mix of types. For example, while both integers and floats are numbers, an array must contain either all integers or all floats. Thus mixing an integer with floats is not permitted, although converting an integer to a float before storing it as an element of an array is accepted,
+2. In a two-dimensioned array, every row must contain the same number of columns. A "ragged" array is not permitted, for example the first row containing 3 columns while the fourth row containing 5 columns does not fit the requirements of an array. The same can be extended for higher dimensions. For example, every card in a three-dimensioned array must consist of the same number of rows and each row must consist the same number of columns.
+3. An array has a fixed size once created. It is however possible to make them appear dynamic by creating a new array of a different size and copying the required elements of the original array (or add new elements not the original array) to give an appearance of dynamic size.
+
+Arrays have the advantage of being an efficient representation of data. Since they are well structured, its elements can be efficiently repesented in binary format in memory, as well as writte to or read from files. The elements of an array are stored contiguous in memory, either ir row-major or column-major format.
+
+1. In **row-major** format, rows are stored contiguously and the last index varies fastest. Arrays in C/C++, Python/NumPy use the row-major repesentation.
+2. In **column-major** format, columns are stored contiguously and the first index varies fastest. Arrays in Fortran, Matlab, R use the row-major repesentation.
+
+For example, consider the following two-dimensioned array, normally called a matrix:
+
+$$
+A =
+\begin{bmatrix}
+a_{00} & a_{01} & a_{02} \\
+a_{10} & a_{11} & a_{12} \\
+a_{20} & a_{21} & a_{22}
+\end{bmatrix}
+$$
+
+The elements of $A$ in row-major format are stored in the following sequence in memory:
+
+$$
+a_{00}, a_{01}, a_{02}, a_{10}, a_{11}, a_{12}, a_{20}, a_{21}, a_{22}
+$$
+
+while the elements of $A$ in column-major format are stored in the following sequence in memory:
+
+$$
+a_{00}, a_{10}, a_{20}, a_{01}, a_{11}, a_{21}, a_{02}, a_{12}, a_{22}
+$$
+
+Each have their relative merits and some array operations are faster when arrays are stored in one of these two ways compared to the other. But the more important outcome is that arrays need to be translated from one format to the other if they are stored in binary format in either a file when exporting from one language to the other or in memory when exchanging array during calls from one language to the other during program execution. For example, both Python and Matlab make use of Fortran libraries, such as BLAS/LAPACK, to do the heavy lifting when implementing linear algebra operations. Thus, Python must translate its row-major array to a column-major array before handing it to a Fortran function/subroutine and vice-versa when receiving an array returned by a Fortran function/subroutine.
+
+On the otherhand, the elements of a list require a complex arrangement in memory as different elements are of different sizes and lists are dynamic in that elements can be inserted into or deleted from a list. For this reason, a `list` is easy for humans tounderstand but difficult for programming languages to organize in memory while arrays are the opposite.
+
+Python arrays are not a part of the definition of the language, like other indexed containers such as `list` and `tuple` are. The array data type is defined in an external package named NumPy. In addition to providing a **grammar** for array operations, NumPy provides a rich set of operators such as addition, subtraction, multiplication of a scalar with an array, multiplication of an array with another compatible array etc. This package also provides a large set of numerical algorithms from linear algebra, statistics, random number generation and Fourier transforms. NumPy makes Python similar to Matlab.
+
+Here are the terminology used in Python with reference to **n-dimensioned** arrays:
+
+1. The type of a NumPy array is `ndim`, short for n-dimensioned array or a multi-dimensioned array. These terms are used interchangeably.
+2. The type of each element of an array is the same and for a NumPy array, this attribute is called `dtype`
+3. Indices start with zero (`0`).
+4. The number of dimensions of an array is called `ndim`. Thus, for a one-dimensioned array, `ndim=1`. A two-dimensioned array has `ndim=2`, a three-dimensioned array has `ndim=3` and so on. An empty array (with zero elements) has `ndim=1`.
+5. Each dimension of an array is called an `axis`. Thus, in a two-dimensioned array, rows have `axis=0` and columns have `axis=1`. A one-dimensioned array has only `axis-0`, where as a three-dimensioned array has three axes. `axis=0` is one card with a specified number of rows and columns in it. `axis=1` is one specific row on one of the cards. `axis=2` is one specific column in a chosen row. The last index varies fastes or alternately, left most index varies slowest.
+6. The `shape` of an array is a `tuple` repesenting the size of of the array along each axis. Thus, the shape of a one-dimensioed array with five elements is `(5,)` (do not neglect the required comma (`,`) after the number `5`). The shape of a two-dimensioned array with 3 rows and four columns is `(3, 4)`. The shape of a three-dimensioned array with two cards, each with three rows and four columns is `(2, 3, 4)`.
+7. The `size` of an array is the total number of elements of an array along all its axes.
+8. Elements of an array can be accessed using its indices along each axis. Thus, accessing an element of a one-dimensioned array requires one index. Accessing an element of a two-dimensioned array requires two indices, the first index along the first axis (the row index) and the second index along the second axis (the column). Thus the element in the first row and first column has the index `[0, 0]` as indexing starts with `0`. Typically, an element in the row `i` and column `j` of a two-dimensioned array have the indices `[i-1, j-1]`, `i-1` being the row index and `j-1` being the column index.
+9. Indexing is written differently for an array compared to that of a list. While index of an element in row `0` and column `0` of a list `a` is written as `a[0][0]`, the same eement in an array with the the name `b` is written as `b[0, 0]`.
+10. Slice operation on an array is similar to a slice operation on a list.
+
+NumPy provides several methods to easily create arrays:
+
+1. `array()` creates an array from a `list` or `tuple`, but arrays are mutable like a `list`.
+2. `zeros()` creates an array of a specified size and type, with all elements initialized to `0`.
+3. `ones()` creates an array of a specified size, with all elements initialized to `1`.
+4. `diag()` creates a diagonal array using the given `list` of elements placed along the main diagonal of the array.
 
 
