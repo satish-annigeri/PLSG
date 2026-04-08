@@ -277,12 +277,62 @@ Looping over the array can be done as follows:
 ```pycon
 >>> a = np.array([10, 20, 30, 40, 50])
 >>> for i in range(len(a)):
-...     print(a[i])
+...     print(a[i], end=" ")
 ...     
-10
-20
-30
-40
-50
+10 20 30 40 50
 ```
+
+Creating a one-dimensioned array of size `5` consisting of all `0` or all `1` is as follows:
+
+```pycon
+>>> import numpy as np
+>>> a = np.zeros((5,))
+>>> print(type(a), len(a), a.shape, a.size, a.dtype)
+<class 'numpy.ndarray'> 5 (5,) 5 float64
+>>> a = np.zeros((5,), dtype=int)
+>>> print(type(a), len(a), a.shape, a.size, a.dtype)
+<class 'numpy.ndarray'> 5 (5,) 5 int64
+>>> a = np.zeros(5)
+>>> a
+array([0., 0., 0., 0., 0.])
+```
+
+**Note**
+
+1. Size of a one-dimensioned array of zeros can be specified either as `tuple` (`(5,)`) or as an `int`.
+2. When `dtype` of the array is not specified, it defaults to `float`.
+3. To create an array of zeros of a specific type, specify `dtype` to the required type.
+
+Similar behaviour is seen with `numpy.ones()` that creates arrays with all elements equal to `1`.
+
+```pycon
+>>> a = np.ones(5)
+>>> a
+array([1., 1., 1., 1., 1.])
+>>> print(type(a), len(a), a.shape, a.size, a.dtype)
+<class 'numpy.ndarray'> 5 (5,) 5 float64
+>>> a = np.ones((5,), dtype=int)
+>>> a
+array([1, 1, 1, 1, 1])
+>>> print(type(a), len(a), a.shape, a.size, a.dtype)
+<class 'numpy.ndarray'> 5 (5,) 5 int64
+```
+
+Creating a square two-dimensioned array with the elements along the main diagonal specified by the programmer are created as follows:
+
+```pycon
+>>> a = np.diag([1, 2, 3])
+>>> a
+array([[1, 0, 0],
+       [0, 2, 0],
+       [0, 0, 3]])
+>>> print(type(a), len(a), a.shape, a.size, a.dtype)
+<class 'numpy.ndarray'> 3 (3, 3) 9 int64
+```
+
+**Note**
+
+1. The argument to `numpy.diag()` is a `list` or a `tuple`. The elements of the argument are placed on the main diagonal.
+2. The array is two-dimensioned and square.
+3. The `dtype` of the array is determined by the elements in the argument. If the elements are of different types, the `dtype` of the array is determined by the type to whch all elements can be converted automatically, for example, from `int` to ``float` if one or more of the elements is of type `float`.
 
