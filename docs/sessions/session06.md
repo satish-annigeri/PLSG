@@ -184,6 +184,8 @@ Opening the file `demo2` in a text editor does not display anything human-readab
 
 ## NumPy
 
+### NumPy basics
+
 An arrays, like a `list` is a container, but has stricter definition for how they are structured:
 
 1. All elements of an array **must** be of the same type. It cannot contain a mix of types. For example, while both integers and floats are numbers, an array must contain either all integers or all floats. Thus mixing an integer with floats is not permitted, although converting an integer to a float before storing it as an element of an array is accepted,
@@ -236,6 +238,8 @@ Here are the terminology used in Python with reference to **n-dimensioned** arra
 8. Elements of an array can be accessed using its indices along each axis. Thus, accessing an element of a one-dimensioned array requires one index. Accessing an element of a two-dimensioned array requires two indices, the first index along the first axis (the row index) and the second index along the second axis (the column). Thus the element in the first row and first column has the index `[0, 0]` as indexing starts with `0`. Typically, an element in the row `i` and column `j` of a two-dimensioned array have the indices `[i-1, j-1]`, `i-1` being the row index and `j-1` being the column index.
 9. Indexing is written differently for an array compared to that of a list. While index of an element in row `0` and column `0` of a list `a` is written as `a[0][0]`, the same eement in an array with the the name `b` is written as `b[0, 0]`.
 10. Slice operation on an array is similar to a slice operation on a list.
+
+### Creating NumPy arrays
 
 NumPy provides several methods to easily create arrays:
 
@@ -336,3 +340,17 @@ array([[1, 0, 0],
 2. The array is two-dimensioned and square.
 3. The `dtype` of the array is determined by the elements in the argument. If the elements are of different types, the `dtype` of the array is determined by the type to whch all elements can be converted automatically, for example, from `int` to ``float` if one or more of the elements is of type `float`.
 
+### Creating NumPy arrays using `range`
+
+NumPy has a function named `arange()`, which is similar to the `range()` function that waas studied in earlier sessions. But there are some differences:
+
+1. `arange()` can have `float` values for `start`, `stop` and `step`.
+2. `arange()` returns a `numpy.ndarray` instead of a `list`.
+
+```pycon
+>>> a = np.arange(0, 5, 0.5)
+>>> a
+array([0. , 0.5, 1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5])
+>>> print(type(a), len(a), a.shape, a.size, a.dtype)
+<class 'numpy.ndarray'> 10 (10,) 10 float64
+```
