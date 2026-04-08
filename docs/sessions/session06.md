@@ -184,9 +184,22 @@ Opening the file `demo2` in a text editor does not display anything human-readab
 
 ## NumPy
 
+### Installing NumPy
+Open Command Prompt and navigate to your project directory.
+
+Install using `uv`
+```doscon
+> uv add numpy
+```
+or `pip` **after** activating the virtual environment woth the command `doscon .venv\Scripts\activate`
+
+```doscon
+(.venv) > pip install numpy
+```
+
 ### NumPy basics
 
-An arrays, like a `list` is a container, but has stricter definition for how they are structured:
+An array, like a `list` is a container, but has stricter definition for how they are structured:
 
 1. All elements of an array **must** be of the same type. It cannot contain a mix of types. For example, while both integers and floats are numbers, an array must contain either all integers or all floats. Thus mixing an integer with floats is not permitted, although converting an integer to a float before storing it as an element of an array is accepted,
 2. In a two-dimensioned array, every row must contain the same number of columns. A "ragged" array is not permitted, for example the first row containing 3 columns while the fourth row containing 5 columns does not fit the requirements of an array. The same can be extended for higher dimensions. For example, every card in a three-dimensioned array must consist of the same number of rows and each row must consist the same number of columns.
