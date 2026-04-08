@@ -191,7 +191,7 @@ Install using `uv`
 ```doscon
 > uv add numpy
 ```
-or `pip` **after** activating the virtual environment woth the command `doscon .venv\Scripts\activate`
+or using `pip` **after** activating the virtual environment woth the command `doscon .venv\Scripts\activate`
 
 ```doscon
 (.venv) > pip install numpy
