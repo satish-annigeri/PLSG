@@ -184,7 +184,48 @@ Opening the file `demo2` in a text editor does not display anything human-readab
 
 ## NumPy
 
+### Array basics
+
+An array, like a `list` is a container, but has stricter requirements for their structure:
+
+1. All elements of an array **must** be of the same type. It cannot contain a mix of types. For example, while both integers and floats are numbers, an array must contain either all integers or all floats. Thus mixing an integer with a float is not permitted, although converting an integer to a float before storing it as an element of an array is accepted.
+2. In a two-dimensioned array, every row must contain the same number of columns. A "ragged" array is not permitted. For example, the first row containing 3 columns while the fourth row containing 5 columns does not fit the requirements of an array. The same can be extended for higher dimensions. For example, every card in a three-dimensioned array must contain the same number of rows and each row must contain the same number of columns.
+3. Once created, an array has a fixed size. It is however possible to make them appear dynamic by creating a new array of a different size and copying the required elements of the original array (or add new elements not the original array) to give an appearance of dynamic size.
+
+Arrays have the advantage of being an efficient representation of data. Since they are well structured, its elements can be efficiently repesented in binary format in memory, as well as written to or read from files. The elements of an array are stored **contiguous in memory**, either ir **row-major** or **column-major** format.
+
+1. In **row-major** format, rows are stored contiguously and the **last index varies fastest**. Arrays in C/C++, Python/NumPy use the row-major repesentation.
+2. In **column-major** format, columns are stored contiguously and the **first index varies fastest**. Arrays in Fortran, Matlab, R use the row-major repesentation.
+
+As an example, consider the following two-dimensioned array:
+
+$$
+A =
+\begin{bmatrix}
+a_{00} & a_{01} & a_{02} \\
+a_{10} & a_{11} & a_{12} \\
+a_{20} & a_{21} & a_{22}
+\end{bmatrix}
+$$
+
+The elements of $A$ in row-major format are stored in memory in the following sequence:
+
+$$
+a_{00}, a_{01}, a_{02}, a_{10}, a_{11}, a_{12}, a_{20}, a_{21}, a_{22}
+$$
+
+while the elements of $A$ in column-major format are stored in memory in the following sequence:
+
+$$
+a_{00}, a_{10}, a_{20}, a_{01}, a_{11}, a_{21}, a_{02}, a_{12}, a_{22}
+$$
+
+Each representation has its relative merits and some array operations are faster when arrays are stored in one of these two ways compared to the other. But the more important consequence is that arrays need to be translated from one format to the other if they are stored in binary format in either a file when exporting from one language to the other or in memory when exchanging array during calls from one language to the other during program execution. For example, both Python and Matlab make use of Fortran libraries, such as BLAS/LAPACK, to do the heavy lifting when implementing linear algebra operations. Thus, Python must translate its row-major array to a column-major array before handing it to a Fortran function/subroutine and vice-versa when receiving an array returned by a Fortran function/subroutine.
+
+On the otherhand, the elements of a list require a complex arrangement in memory as different elements are of different sizes and lists are dynamic in that elements can be inserted into or deleted from a list. For this reason, a `list` is easy for humans to understand but difficult for programming languages to organize in memory while arrays are the opposite.
+
 ### Installing NumPy
+
 Open Command Prompt and navigate to your project directory.
 
 Install using `uv`
@@ -197,47 +238,9 @@ or using `pip` **after** activating the virtual environment woth the command `do
 (.venv) > pip install numpy
 ```
 
-### NumPy basics
+### NumPy arrays
 
-An array, like a `list` is a container, but has stricter definition for how they are structured:
-
-1. All elements of an array **must** be of the same type. It cannot contain a mix of types. For example, while both integers and floats are numbers, an array must contain either all integers or all floats. Thus mixing an integer with floats is not permitted, although converting an integer to a float before storing it as an element of an array is accepted,
-2. In a two-dimensioned array, every row must contain the same number of columns. A "ragged" array is not permitted, for example the first row containing 3 columns while the fourth row containing 5 columns does not fit the requirements of an array. The same can be extended for higher dimensions. For example, every card in a three-dimensioned array must consist of the same number of rows and each row must consist the same number of columns.
-3. An array has a fixed size once created. It is however possible to make them appear dynamic by creating a new array of a different size and copying the required elements of the original array (or add new elements not the original array) to give an appearance of dynamic size.
-
-Arrays have the advantage of being an efficient representation of data. Since they are well structured, its elements can be efficiently repesented in binary format in memory, as well as writte to or read from files. The elements of an array are stored contiguous in memory, either ir row-major or column-major format.
-
-1. In **row-major** format, rows are stored contiguously and the last index varies fastest. Arrays in C/C++, Python/NumPy use the row-major repesentation.
-2. In **column-major** format, columns are stored contiguously and the first index varies fastest. Arrays in Fortran, Matlab, R use the row-major repesentation.
-
-For example, consider the following two-dimensioned array, normally called a matrix:
-
-$$
-A =
-\begin{bmatrix}
-a_{00} & a_{01} & a_{02} \\
-a_{10} & a_{11} & a_{12} \\
-a_{20} & a_{21} & a_{22}
-\end{bmatrix}
-$$
-
-The elements of $A$ in row-major format are stored in the following sequence in memory:
-
-$$
-a_{00}, a_{01}, a_{02}, a_{10}, a_{11}, a_{12}, a_{20}, a_{21}, a_{22}
-$$
-
-while the elements of $A$ in column-major format are stored in the following sequence in memory:
-
-$$
-a_{00}, a_{10}, a_{20}, a_{01}, a_{11}, a_{21}, a_{02}, a_{12}, a_{22}
-$$
-
-Each have their relative merits and some array operations are faster when arrays are stored in one of these two ways compared to the other. But the more important outcome is that arrays need to be translated from one format to the other if they are stored in binary format in either a file when exporting from one language to the other or in memory when exchanging array during calls from one language to the other during program execution. For example, both Python and Matlab make use of Fortran libraries, such as BLAS/LAPACK, to do the heavy lifting when implementing linear algebra operations. Thus, Python must translate its row-major array to a column-major array before handing it to a Fortran function/subroutine and vice-versa when receiving an array returned by a Fortran function/subroutine.
-
-On the otherhand, the elements of a list require a complex arrangement in memory as different elements are of different sizes and lists are dynamic in that elements can be inserted into or deleted from a list. For this reason, a `list` is easy for humans tounderstand but difficult for programming languages to organize in memory while arrays are the opposite.
-
-Python arrays are not a part of the definition of the language, like other indexed containers such as `list` and `tuple` are. The array data type is defined in an external package named NumPy. In addition to providing a **grammar** for array operations, NumPy provides a rich set of operators such as addition, subtraction, multiplication of a scalar with an array, multiplication of an array with another compatible array etc. This package also provides a large set of numerical algorithms from linear algebra, statistics, random number generation and Fourier transforms. NumPy makes Python similar to Matlab.
+Unlike indexed containers such as `list` and `tuple`, Python arrays are not a part of the definition of the language. The array data type is defined in an external package named **NumPy**. In addition to providing a **grammar** for array operations, NumPy provides a rich set of operators such as addition, subtraction, multiplication of a scalar with an array, multiplication of an array with another compatible array etc. This package also provides a large set of numerical algorithms from linear algebra, statistics, random number generation and Fourier transforms. NumPy makes Python similar to Matlab.
 
 Here are the terminology used in Python with reference to **n-dimensioned** arrays:
 
