@@ -11,9 +11,9 @@
 
 
 ## Reading and writing files
-Reading from or writing to a file involves opening the file, reding from or writing to it and closing the file.It is good programming practice to close files that have been opened even though all open files will be closed when a program terminates.
+Reading from or writing to a file involves opening the file, reding from or writing to it and closing the file. It is good programming practice to close files once opened, even though all open files will be automatically closed when a program terminates.
 
-The data in a file can be text or binary format. Text data consists of ASCII or UTF-8 characters and can be displayed on the screen and be understood by humans. Binary data consists of bytes and when displayed on the screen, it cannot be read by humans although computers can interpret the contents.
+The data in a file can be in text or binary format. Text data consists of ASCII or UTF-8 characters,  can be displayed on the screen and be read and understood by humans. A binary/hex editor can display the contents, but as a sequence of bytes, which is difficult for humans to understand.
 
 Python provides the context manager `with` so that when the program goes out of the scope of the context manager, the file is autmatically closed without having to explicitly close it.
 
@@ -160,7 +160,7 @@ To write values other than strings in binary format, the value must first be con
 ...     f.write(struct.pack("i", 10))    # Write the integer 10 as a 4-byte signed-integer
 ```
 
-Opening the file `demo2` in a text editor does not display anything human-readable. A binary/hex editor can display the contents, but as a sequence of bytes, which is difficult for humans tounderstand. However, reading file fetches the exact value of the file.
+Opening the file `demo2` in a text editor does not display anything human-readable. However, reading file fetches the exact value of the file.
 ```pycon
 >>> with open("demo3", "rb") as f:
 ...     raw = f.read(4)
@@ -356,7 +356,7 @@ array([[1, 0, 0],
 2. The array is two-dimensioned and square.
 3. The `dtype` of the array is determined by the elements in the argument. If the elements are of different types, the `dtype` of the array is determined by the type to whch all elements can be converted automatically, for example, from `int` to ``float` if one or more of the elements is of type `float`.
 
-### Creating NumPy arrays using `range`
+### NumPy arrays using range-based array creation
 
 NumPy has a function named `arange()`, which is similar to the `range()` function that waas studied in earlier sessions. But there are some differences:
 
@@ -369,4 +369,32 @@ NumPy has a function named `arange()`, which is similar to the `range()` functio
 array([0. , 0.5, 1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5])
 >>> print(type(a), len(a), a.shape, a.size, a.dtype)
 <class 'numpy.ndarray'> 10 (10,) 10 float64
+>>> b = np.arange(10, 0, -2.5)
+>>> b
+array([10. ,  7.5,  5. ,  2.5])
 ```
+
+**Note**
+
+1. `strat` value is inclusive. The start value is `0.0`.
+2. `stop` value is not inclusive. The last value is `4.5`, not `5.0`.
+3. `step` can be a positive or negative `float`.
+
+The function `np.linspace()` creates `num` evenly spaced values over a specified interval `start` to `stop`, and both `start` and `stop` are included.
+
+```pycon
+>>> x = np.linspace(0, 2 * np.pi, 17)
+>>> x = np.linspace(0, 2 * np.pi, 17)
+>>> x
+array([0.        , 0.39269908, 0.78539816, 1.17809725, 1.57079633,
+       1.96349541, 2.35619449, 2.74889357, 3.14159265, 3.53429174,
+       3.92699082, 4.3196899 , 4.71238898, 5.10508806, 5.49778714,
+       5.89048623, 6.28318531])
+```
+
+**Note**
+
+1. The last argument is **the number of points to be generated**, including the `start` and `stop` values. Thus, to create say `10` equal intervals between `start` and `stop`, `num = 11`.
+2. The number of points `num` is optional and defaults to `50`, that is `49` equal intervals.
+
+Creating multi-dimensioned arrays is an extension of the approach used in the previous examples.
