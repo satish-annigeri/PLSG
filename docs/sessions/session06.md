@@ -559,11 +559,11 @@ Traceback (most recent call last):
 ValueError: cannot reshape array of size 12 into shape (5,newaxis)
 ```
 
-The `reshape()` method can calculate the second dimension, provided it is feasible.
+The `reshape()` method can calculate the second dimension provided it is feasible.
 
 #### Resizing arrays
 
-The function from NumPy `np.resize()` changes the size by truncating the array if the new size is smaller than the current size and by repeating the values if the new size is larger then the current size. This operation createsa new array with the specified size, while the original array remains unchanged.
+The function from NumPy `numpy.resize()` changes the size by truncating the array if the new size is smaller than the current size and by repeating the values if the new size is larger then the current size. This operation createsa new array with the specified size, while the original array remains unchanged.
 
 ```pycon
 >>> a = np.array([1, 2, 3])
@@ -574,7 +574,17 @@ array([1, 2, 3, 1, 2])
 array([1, 2, 3])
 ```
 
-An array has a `reshape()` method, which fills the extended portion of an array with zeros if the new dimension is larger than the current size. This operation is **in-place** and changes the size of the array whose method is called.
+The `numpy.resize()` **function** can reshape the array after resizing it - just give a `tuple` as the second argument to the function call.
+```pycon
+>>> a = np.array([1, 2, 3])
+>>> np.resize(a, (2, 4))
+array([[1, 2, 3, 1],
+       [2, 3, 1, 2]])
+>>> a
+array([1, 2, 3])
+```
+
+An array has a `numpy.ndarray.resize()` **method**, which fills the extended portion of an array with zeros if the new dimension is larger than the current size. As usual, the original array `a` remains unchanged.
 
 ```pycon
 >>> a = np.array([1, 2, 3])
@@ -582,3 +592,12 @@ An array has a `reshape()` method, which fills the extended portion of an array 
 >>> a
 array([1, 2, 3, 0, 0])
 ```
+
+!!! warning
+     The `numpy.ndarray.resize()` method resizes the array **in-place**. It does not return a new array like the `numpy.resize()` function.
+
+### Array indexing
+
+Array indexing is similar to indexing a `list` or a `tuple`. One change is the way the indices of multi-dimensioned arrays are written - array indices are enclosed between a single pair of square brackets `[i, j]` while `list` indices written as `[i][j]`.
+
+The first index of a two-dimensioned array represents the row index and the xecond index represents the column index. The first index of a three-dimensioned array represents the card index, the second index represents the row index and the third index represents the column index. Extending this logic to higher dimensions, the four-dimensioned array can be thought of as bundles of decks of cards, each card containing rows and columns. Start index is zero (`0`). An individual element of an array can be identified by its indices, the number of indices being equal to the dimension of the array, namely `ndim`. Negative index for any axis is considered to be counted backward starting from the last element along that axis, starting with `-1` for the last element.
