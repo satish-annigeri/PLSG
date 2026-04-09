@@ -514,7 +514,7 @@ array([[ 10,  40,  90, 160],
 
 **Matrix multiplication of two arrays**
 
-For the case of two-dimensioned arrays, matrix multiplications requires thatt the number of columns in the first array must equal the number of rows in the second. The result has the same number of rows as the first array and the same number of columns as the second.
+For the case of two-dimensioned arrays, matrix multiplications requires thatt the number of columns in the first array must equal the number of rows in the second. The result has the same number of rows as the first array and the same number of columns as the second. The matrix multiplication operator is `@`. There is a NumPy function for the same operation, namely `#!python np.dot(a, b.T)` and is the same as `#!python a @ b.T`.
 
 ```pycon
 >>> a
@@ -530,3 +530,31 @@ array([[ 300,  700],
 >>> print(a.shape, b.T.shape, y.shape)
 (2, 4) (4, 2) (2, 2)
 ```
+### Resizing and changing shape of arrays
+
+NumPy provides two families of operations for changing array shape:
+
+1. **Reshaping:** changes only the view of the data (no copy when possible).
+2. **Resizing:** changes the size of the underlying buffer (may reallocate, may fill new values).
+
+```pycon
+>>> a = np.arange(12)
+>>> a
+array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11])
+>>> b = a.reshape(3, 4)
+>>> b
+array([[ 0,  1,  2,  3],
+       [ 4,  5,  6,  7],
+       [ 8,  9, 10, 11]])
+>>> a.reshape(2, -1)
+array([[ 0,  1,  2,  3,  4,  5],
+       [ 6,  7,  8,  9, 10, 11]])
+>>> a.reshape(5, -1)
+Traceback (most recent call last):
+  File "<python-input-70>", line 1, in <module>
+    a.reshape(5, -1)
+    ~~~~~~~~~^^^^^^^
+ValueError: cannot reshape array of size 12 into shape (5,newaxis)
+```
+
+The `reshape()` method can calculate the second dimension, provided it is feasible.
