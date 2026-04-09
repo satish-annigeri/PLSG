@@ -432,6 +432,52 @@ This may require a little attention in the beginning but with experience it will
 
 Operations dfined in linear algebra, such as addition, subtraction, multiplication of an array by a scalar, element-wise product of two array, matrix product of two arrays etc. follow the rules defined for the respective operations.
 
+**Transpose of an array**
+
+Transpose interchanges the rows and columns of a two-dimensioned array.
+
+```pycon
+>>> a.T
+array([[1, 5],
+       [2, 6],
+       [3, 7],
+       [4, 8]])
+```
+!!! note
+    A one-dimensioned has no specific orientation in terms of whether it is a row array or a column array. Thus, transposing a one-dimensioned array returns a one-dimensioned array.
+    ```pycon
+    >>> c = np.array([1, 2, 3, 4])
+    >>> c.T
+    array([1, 2, 3, 4])
+    ```
+The definition of transpose can be extended to higher dimensions. For example, transpose of an array with shape `(2, 3, 4)` returns an array with shape `(4, 3, 2)`
+
+```pycon
+>>> x = np.array([
+       [[ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+        [ 9, 10, 11, 12]],
+       [[21, 22, 23, 24],
+        [25, 26, 27, 28],
+        [29, 30, 31, 32]]])
+>>> x.T
+array([[[ 1, 21],
+        [ 5, 25],
+        [ 9, 29]],
+
+       [[ 2, 22],
+        [ 6, 26],
+        [10, 30]],
+
+       [[ 3, 23],
+        [ 7, 27],
+        [11, 31]],
+
+       [[ 4, 24],
+        [ 8, 28],
+        [12, 32]]])
+```
+
 **Multiplication of an array by a scalar**
 
 ```pycon
@@ -458,55 +504,29 @@ array([[ 9, 18, 27, 36],
 
 **Element-wise multiplication of two arrays**
 
+The arrays must have the same `shape` for the element-wise multiplication of two arrays. The element in the result is the product of the two elements at the same location in the given arrays.
+
 ```pycon
 >>> a * b
 array([[ 10,  40,  90, 160],
        [250, 360, 490, 640]])
 ```
 
-**Transpose of an array**
+**Matrix multiplication of two arrays**
 
-Transpose interchanges the rows and columns of a two-dimensioned array.
-
-```pycon
->>> a.T
-array([[1, 5],
-       [2, 6],
-       [3, 7],
-       [4, 8]])
-```
-!!! note
-    A one-dimensioned has no specific orientation in terms of whether it is a row array or a column array. Thus, transposing a one-dimensioned array returns a one-dimensioned array.
-    ```pycon
-    >>> c = np.array([1, 2, 3, 4])
-    >>> c.T
-    array([1, 2, 3, 4])
-    ```
-The definition of transpose can be extended to higher dimensions. For example, transpose of an array with shape `(2, 3, 4)` returns an array with shape `(4, 3, 2)`
+For the case of two-dimensioned arrays, matrix multiplications requires thatt the number of columns in the first array must equal the number of rows in the second. The result has the same number of rows as the first array and the same number of columns as the second.
 
 ```pycon
 >>> a
-array([[[ 1,  2,  3,  4],
-        [ 5,  6,  7,  8],
-        [ 9, 10, 11, 12]],
-
-       [[21, 22, 23, 24],
-        [25, 26, 27, 28],
-        [29, 30, 31, 32]]])
->>> a.T
-array([[[ 1, 21],
-        [ 5, 25],
-        [ 9, 29]],
-
-       [[ 2, 22],
-        [ 6, 26],
-        [10, 30]],
-
-       [[ 3, 23],
-        [ 7, 27],
-        [11, 31]],
-
-       [[ 4, 24],
-        [ 8, 28],
-        [12, 32]]])
+array([[1, 2, 3, 4],
+       [5, 6, 7, 8]])
+>>> b
+array([[10, 20, 30, 40],
+       [50, 60, 70, 80]])
+>>> y = a @ b.T
+>>> y
+array([[ 300,  700],
+       [ 700, 1740]])
+>>> print(a.shape, b.T.shape, y.shape)
+(2, 4) (4, 2) (2, 2)
 ```
