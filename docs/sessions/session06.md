@@ -397,4 +397,116 @@ array([0.        , 0.39269908, 0.78539816, 1.17809725, 1.57079633,
 1. The last argument is **the number of points to be generated**, including the `start` and `stop` values. Thus, to create say `10` equal intervals between `start` and `stop`, `num = 11`.
 2. The number of points `num` is optional and defaults to `50`, that is `49` equal intervals.
 
-Creating multi-dimensioned arrays is an extension of the approach used in the previous examples.
+### Creating multi-dimensioned arrays
+
+Creating multi-dimensioned arrays is an extension of the approach used in the previous examples. Creating a two-dimensioned array requires a two-dimensioned `list`, with equal number of columns in each row.
+```pycon
+>>> a = np.array([ [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+>>> print(a.ndim, a.shape, a.size, a.dtype)
+2 (3, 4) 12 int64
+```
+Creating a three-dimensioned array with two cards, each with 3 rows and 4 columns is as follows:
+```pycon
+>>> a = np.array([
+... [ [1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12] ],
+... [ [21, 22, 23, 24], [25, 26, 27, 28], [29, 30, 31, 32] ]
+... ])
+>>> print(a.ndim, a.shape, a.size, a.dtype)
+3 (2, 3, 4) 24 int64
+>>> a
+array([[[ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+        [ 9, 10, 11, 12]],
+
+       [[21, 22, 23, 24],
+        [25, 26, 27, 28],
+        [29, 30, 31, 32]]])
+```
+This may require a little attention in the beginning but with experience it will get easier. Not forgetting the commas between the elements of a row, the commas separating the rows and the commas separating the cards is important. It is a good practice to enterthe data as shown in the output above. Empty lines between cards is acceptable and visually helpful.
+
+!!! note
+    The number of left brackets at the start is equal to `ndim`, the number of dimensions.
+
+
+### Operations on arrays
+
+Operations dfined in linear algebra, such as addition, subtraction, multiplication of an array by a scalar, element-wise product of two array, matrix product of two arrays etc. follow the rules defined for the respective operations.
+
+**Multiplication of an array by a scalar**
+
+```pycon
+>>> a = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])
+>>> 2 * a  # Multiplication by the scalar 2
+array([[ 2,  4,  6,  8],
+       [10, 12, 14, 16]])
+```
+
+**Addition and subtraction of two arrays**
+
+Two arrays must have the same `shape` for addition or subtraction to be valid.
+
+```pycon
+>>> a = np.array([[1, 2, 3, 4], [5, 6, 7, 8]])
+>>> b = np.array([[10, 20, 30, 40], [50, 60, 70, 80]])
+>>> a + b
+array([[11, 22, 33, 44],
+       [55, 66, 77, 88]])
+>>> b - a
+array([[ 9, 18, 27, 36],
+       [45, 54, 63, 72]])
+```
+
+**Element-wise multiplication of two arrays**
+
+```pycon
+>>> a * b
+array([[ 10,  40,  90, 160],
+       [250, 360, 490, 640]])
+```
+
+**Transpose of an array**
+
+Transpose interchanges the rows and columns of a two-dimensioned array.
+
+```pycon
+>>> a.T
+array([[1, 5],
+       [2, 6],
+       [3, 7],
+       [4, 8]])
+```
+!!! note
+    A one-dimensioned has no specific orientation in terms of whether it is a row array or a column array. Thus, transposing a one-dimensioned array returns a one-dimensioned array.
+    ```pycon
+    >>> c = np.array([1, 2, 3, 4])
+    >>> c.T
+    array([1, 2, 3, 4])
+    ```
+The definition of transpose can be extended to higher dimensions. For example, transpose of an array with shape `(2, 3, 4)` returns an array with shape `(4, 3, 2)`
+
+```pycon
+>>> a
+array([[[ 1,  2,  3,  4],
+        [ 5,  6,  7,  8],
+        [ 9, 10, 11, 12]],
+
+       [[21, 22, 23, 24],
+        [25, 26, 27, 28],
+        [29, 30, 31, 32]]])
+>>> a.T
+array([[[ 1, 21],
+        [ 5, 25],
+        [ 9, 29]],
+
+       [[ 2, 22],
+        [ 6, 26],
+        [10, 30]],
+
+       [[ 3, 23],
+        [ 7, 27],
+        [11, 31]],
+
+       [[ 4, 24],
+        [ 8, 28],
+        [12, 32]]])
+```
