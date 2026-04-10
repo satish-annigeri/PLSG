@@ -601,3 +601,131 @@ array([1, 2, 3, 0, 0])
 Array indexing is similar to indexing a `list` or a `tuple`. One change is the way the indices of multi-dimensioned arrays are written - array indices are enclosed between a single pair of square brackets `[i, j]` while `list` indices written as `[i][j]`.
 
 The first index of a two-dimensioned array represents the row index and the xecond index represents the column index. The first index of a three-dimensioned array represents the card index, the second index represents the row index and the third index represents the column index. Extending this logic to higher dimensions, the four-dimensioned array can be thought of as bundles of decks of cards, each card containing rows and columns. Start index is zero (`0`). An individual element of an array can be identified by its indices, the number of indices being equal to the dimension of the array, namely `ndim`. Negative index for any axis is considered to be counted backward starting from the last element along that axis, starting with `-1` for the last element.
+
+One-dimensioned arrays are the easiest to understand:
+
+```pycon
+>>> a = np.arange(1, 11)
+>>> a
+array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10])
+>>> a[0]
+np.int64(1)
+>>> a[-1]
+np.int64(10)
+>>> a[2]
+np.int64(3)
+```
+
+Two-dimensioned arrays require two indices, separated by a comma (`,`), the first index is the row and the second index is the column.
+
+```pycon
+>>> b = np.array([np.arange(1, 6), np.arange(11, 16)])
+>>> b
+array([[ 1,  2,  3,  4,  5],
+       [11, 12, 13, 14, 15]])
+>>> b[0, 0]
+np.int64(1)
+>>> b[0, 1]
+np.int64(2)
+>>> b[1, 0]
+np.int64(11)
+>>> b[1, 1]
+np.int64(12)
+>>> b[-1, -1]
+np.int64(15)
+```
+
+Three-dimensional arrays require three indices, the first index is the card, the second index is the row within a card, and the third index is the column within the row.
+
+```python
+>>> c = np.array([
+... [np.arange(1, 6), np.arange(11, 16), np.arange(21, 26)],
+... [np.arange(11, 16), np.arange(21, 26), np.arange(31, 36)]])
+>>> c
+array([[[ 1,  2,  3,  4,  5],
+        [11, 12, 13, 14, 15],
+        [21, 22, 23, 24, 25]],
+
+       [[11, 12, 13, 14, 15],
+        [21, 22, 23, 24, 25],
+        [31, 32, 33, 34, 35]]])
+>>> c[0, 0, 0]
+np.int64(1)
+>>> c[-1, -1, -1]
+np.int64(35)
+>>> c[0, 0, 1]
+np.int64(2)
+>>> c[1, 0, 1]
+np.int64(12)
+```
+
+### Array slicing
+
+Working with the same three arrays `a`, `b` and `c` created above, slicing works similar to the way slicing works with `lists`. Here are a few examples:
+```pycon
+>>> a
+array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10])
+>>> a[0:3]             # From index 0 to index 2. 3 not included
+array([1, 2, 3])       # returns an array
+>>> a[0::2]            # From index 0, to the last index (default) at step 2
+array([1, 3, 5, 7, 9])
+>>> a[-1::-2]          # From index -1 (last) to the first index (default) at step -2
+array([10,  8,  6,  4,  2])
+>>> a[::-1]            # From index -1 (default) to -10 (default) at step -2
+array([10,  9,  8,  7,  6,  5,  4,  3,  2,  1])
+```
+Similarly, with the two-dimensioned array `b`:
+```pycon
+>>> b
+array([[ 1,  2,  3,  4,  5],
+       [11, 12, 13, 14, 15]])
+>>> b[0,:]              # Row index 0, column indices 0 (default) to last (default)
+array([1, 2, 3, 4, 5])
+array([1, 2, 3, 4, 5])
+>>> b[1, 0:3]           # Row index 1, column indices 0 to 2
+array([11, 12, 13])
+>>> b[:, 0]             # Row indices 0 (default) to las t (default), column index 0
+array([ 1, 11])         # Returns a one-dimensioned arrat
+>>> b[:, 2]             # Row indices 0 (default) to las t (default), column index 2
+array([ 3, 13])
+>>> b[::-1, ::-1]       # Reverse both the rows and columns
+array([[15, 14, 13, 12, 11],
+       [ 5,  4,  3,  2,  1]])
+>>> b[:, ::-1]          # Keep rows unchanged, reverse the columns of each row
+array([[ 5,  4,  3,  2,  1],
+       [15, 14, 13, 12, 11]])
+```
+
+Three-dimensioned arrays may pose some challenege to grasp initially, but with practice and experience, it must be clear how to use slicing:
+
+```pycon
+>>> c
+array([[[ 1,  2,  3,  4,  5],
+        [11, 12, 13, 14, 15],
+        [21, 22, 23, 24, 25]],
+
+       [[11, 12, 13, 14, 15],
+        [21, 22, 23, 24, 25],
+        [31, 32, 33, 34, 35]]])
+>>> c[0, :, :]         # Card index 0, all rows and all columns of that card
+array([[ 1,  2,  3,  4,  5],
+       [11, 12, 13, 14, 15],
+       [21, 22, 23, 24, 25]])
+>>> c[0, 1:, 1:3]      # Card index 0, rows 1 to last (default), columns 1 to 2
+array([[12, 13],
+       [22, 23]])
+>>> c[:, 0:2, 0:2]     # All cards (default), rows 0 to 1 and columns 0 to 1 of each card
+array([[[ 1,  2],
+        [11, 12]],
+
+       [[11, 12],
+        [21, 22]]])
+>>> c[::-1, :, :]      # Reverse only the cards, keep rows and columns unchanged
+array([[[11, 12, 13, 14, 15],
+        [21, 22, 23, 24, 25],
+        [31, 32, 33, 34, 35]],
+
+       [[ 1,  2,  3,  4,  5],
+        [11, 12, 13, 14, 15],
+        [21, 22, 23, 24, 25]]])
+```
