@@ -696,7 +696,7 @@ array([[ 5,  4,  3,  2,  1],
        [15, 14, 13, 12, 11]])
 ```
 
-Three-dimensioned arrays may pose some challenege to grasp initially, but with practice and experience, it must be clear how to use slicing:
+Three-dimensioned arrays may pose some challenege initially, but with practice and experience, slicing must become second nature to a NumPy user:
 
 ```pycon
 >>> c
@@ -729,3 +729,25 @@ array([[[11, 12, 13, 14, 15],
         [11, 12, 13, 14, 15],
         [21, 22, 23, 24, 25]]])
 ```
+### Filtering arrays
+
+Slicing is useful contiguous or regularly spaced elements from an array and are very useful in a large number of situations. However, sometimes it is required to select elements from an array that satisfy some condition - this is called filtering.
+
+As an example, to select all elements of array `a` with value greater than 4. While this can be done with a single statement, it is important to break it down and explain how filtering works.
+
+```pycon
+>>> a
+>>> a
+array([ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10])
+>>> a > 4
+array([False, False, False, False,  True,  True,  True,  True,  True,
+        True])
+>>> a[a > 4]
+array([ 5,  6,  7,  8,  9, 10])
+```
+This is how to think about what is happeining:
+
+1. Array `a` has 10 elements. In this specific example the values of the elements are a sequence starting from `1` up to `10` at an increment of `1`. But the same works for any array.
+2. `a > 4` returns an array of the same size as `a` but with elements either `True`, if the specific values it True for that element, or `False` otherwise.
+3. The array with `bool` values is used as a **mask** to filter the values of `a` - an element is not selected if the corresponding element in the `bool` array is `False` and is selected it it is `True`.
+4. A new array is created by selecting the elements from the given array where the corresponding element in the `bool` array is `True` and discarding those corresponding to `False`.
