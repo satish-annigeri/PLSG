@@ -750,4 +750,4 @@ This is how to think about what is happeining:
 1. Array `a` has 10 elements. In this specific example the values of the elements are a sequence starting from `1` up to `10` at an increment of `1`. But the same works for any array.
 2. `a > 4` returns an array of the same size as `a` but with elements either `True`, if the specific values it True for that element, or `False` otherwise.
 3. The array with `bool` values is used as a **mask** to filter the values of `a` - an element is not selected if the corresponding element in the `bool` array is `False` and is selected it it is `True`.
-4. A new array is created by selecting the elements from the given array where the corresponding element in the `bool` array is `True` and discarding those corresponding to `False`.
+4. A new array is created by selecting the elements from the given array where the corresponding element in the mask array is `True` and discarding those corresponding to `False`.
