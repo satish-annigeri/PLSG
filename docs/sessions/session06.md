@@ -183,9 +183,12 @@ Opening the file `demo2` in a text editor does not display anything human-readab
     2. When converting binary formats to text, one must be aware what information cannot be preserved and whether that loss of information is acceptable.
 
 ## NumPy
+
+From: [What is NumPy?](https://numpy.org/doc/stable/user/whatisnumpy.html)
+.
 NumPy is the fundamental package for scientific computing in Python. It is a Python library that provides a multidimensional array object, various derived objects (such as masked arrays and matrices), and an assortment of routines for fast operations on arrays, including mathematical, logical, shape manipulation, sorting, selecting, I/O, discrete Fourier transforms, basic linear algebra, basic statistical operations, random simulation and much more.
 
-At the core of the NumPy package, is the ndarray object. This encapsulates n-dimensional arrays of homogeneous data types, with many operations being performed in compiled code for performance.  [See: What is NumPy?](https://numpy.org/doc/stable/user/whatisnumpy.html)
+At the core of the NumPy package, is the ndarray object. This encapsulates n-dimensional arrays of homogeneous data types, with many operations being performed in compiled code for performance.
 
 ### Array basics
 
