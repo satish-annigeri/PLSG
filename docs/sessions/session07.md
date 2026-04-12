@@ -28,9 +28,9 @@ Use `np.zeros()` and `np.ones()` to create arrays filled with `0` or `1`.
 array([0., 0., 0., 0., 0.])
 ```
 
-**Notes:**
-1. For 1D arrays, specify size as a `tuple` `(5,)` or an `int` `5`.
-2. Default `dtype` is `float`.
+**Notes:**  
+1. For 1D arrays, specify size as a `tuple` `(5,)` or an `int` `5`.  
+2. Default `dtype` is `float`.  
 3. Use the `dtype` argument to specify a custom type.
 
 **`np.ones()` works similarly, filling arrays with `1`:**
@@ -59,9 +59,9 @@ array([[1, 0, 0],
 <class 'numpy.ndarray'> 3 (3, 3) 9 int64
 ```
 
-**Notes:**
-1. Argument must be a `list` or `tuple`.
-2. The resulting array is always square and 2D.
+**Notes:**  
+1. Argument must be a `list` or `tuple`.  
+2. The resulting array is always square and 2D.  
 3. `dtype` is determined by the input elements. Mixed types are automatically upcast (e.g., `int` to `float`).
 
 ### Range-based Array Creation
@@ -81,9 +81,9 @@ array([0. , 0.5, 1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5])
 array([10. ,  7.5,  5. ,  2.5])
 ```
 
-**Notes:**
-1. `start` is inclusive.
-2. `stop` is exclusive.
+**Notes:**  
+1. `start` is inclusive.  
+2. `stop` is exclusive.  
 3. `step` can be a positive or negative `float`.
 
 **`np.linspace()`** generates `num` evenly spaced values over the interval `[start, stop]`. Both endpoints are **included**.
@@ -98,8 +98,8 @@ array([0.        , 0.39269908, 0.78539816, 1.17809725, 1.57079633,
        5.89048623, 6.28318531])
 ```
 
-**Notes:**
-1. The last argument is the **number of points** generated. For 10 equal intervals, use `num = 11`.
+**Notes:**  
+1. The last argument is the **number of points** generated. For 10 equal intervals, use `num = 11`.  
 2. `num` is optional and defaults to `50`.
 
 ### Creating Multi-dimensional Arrays
@@ -129,9 +129,9 @@ array([[[ 1,  2,  3,  4],
         [29, 30, 31, 32]]])
 ```
 
-**Tip:** Pay close attention to commas between elements, rows, and cards. Formatting the input data vertically as shown above improves readability.
+!!! tip "Tip"
+    Pay close attention to commas between elements, rows, and cards. Formatting the input data vertically as shown above improves readability.
 
-!!! note
     The number of leading left brackets equals `ndim`.
 
 
@@ -231,8 +231,9 @@ array([[ 300,  700],
 
 ### Reshaping and Resizing
 
-1. **Reshaping:** Changes the *view* of the data (minimal memory overhead).
-2. **Resizing:** Changes the *size* of the underlying buffer (may reallocate memory).
+!!! note
+    1. **Reshaping:** Changes the *view* of the data (minimal memory overhead).
+    2. **Resizing:** Changes the *size* of the underlying buffer (may reallocate memory).
 
 #### Reshaping
 ```pycon
@@ -380,7 +381,7 @@ array([False, False, False, False,  True,  True,  True,  True,  True,
 array([ 5,  6,  7,  8,  9, 10])
 ```
 
-**Logic:**
-1. `a > 4` creates a boolean array (the **mask**) of the same size as `a`.
-2. Elements are `True` if they meet the condition, `False` otherwise.
+**Logic:**  
+1. `a > 4` creates a boolean array (the **mask**) of the same size as `a`.  
+2. Elements are `True` if they meet the condition, `False` otherwise.  
 3. `a[mask]` returns a new array containing only the elements where the mask is `True`.
