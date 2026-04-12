@@ -10,52 +10,9 @@
 
 ## NumPy arrays (contd. from Session 6)
 
-### Creating NumPy arrays
+### Creating special arrays
 
-NumPy provides several methods to easily create arrays:
-
-1. `array()` creates an array from a `list` or `tuple`, but arrays are mutable like a `list`.
-2. `zeros()` creates an array of a specified size and type, with all elements initialized to `0`.
-3. `ones()` creates an array of a specified size, with all elements initialized to `1`.
-4. `diag()` creates a diagonal array using the given `list` of elements placed along the main diagonal of the array.
-
-By convention the NumPy array is imported as `np` although it could be assigned any other name by the programmer. Here is the code to create a one-dimensioned array with the elements `10`, `20`, `30`, `40`, and `50`.
-
-```pycon
->>> import numpy as np
->>> a = np.array([10, 20, 30, 40, 50])
->>> print(a.ndim, a.shape, a.size, a.dtype)
-1 (5,) 5 int64
->>> print(a[0])
-10
-```
-
-**Note**
-
-1. This creates a one-dimensioned array from a one-dimensioned list. Since all elements of the lsit are integers, Python automatically creates an array with `dtype = int64`, an 64-bit (8-byte) integer.
-2. `ndim = 1`
-3. `shape = (5,)`, a `tuple` with one integer element, repesenting the size of the array.
-4. `size = 5`, the number of elements in the array.
-
-If one of the elements in the list is a `float`, NumPy automatically makes the entire array of type `float`.
-
-```pycon
->>> import numpy as np
->>> a = np.array([10.0, 20, 30, 40, 50])
->>> print(a.ndim, a.shape, a.size, a.dtype)
-1 (5,) 5 float64
->>> print(a[0])
-10.0
-```
-
-Looping over the array can be done as follows:
-```pycon
->>> a = np.array([10, 20, 30, 40, 50])
->>> for i in range(len(a)):
-...     print(a[i], end=" ")
-...     
-10 20 30 40 50
-```
+Creating arrays with all elements equal to `0` or `1` is possible with the functions `numpy.zeros()` and `numpy.ones()`.
 
 Creating a one-dimensioned array of size `5` consisting of all `0` or all `1` is as follows:
 
