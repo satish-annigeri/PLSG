@@ -75,6 +75,7 @@ Copyright &copy; 2026 Satish Annigeri
         { "Session 4" = "sessions/session04.md" },
         { "Session 5" = "sessions/session05.md" },
         { "Session 6" = "sessions/session06.md" },
+        { "Session 7" = "sessions/session07.md" },
    ]},
    { "Assignments" = [
         "assignments/index.md",
