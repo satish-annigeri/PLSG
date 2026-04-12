@@ -255,20 +255,3 @@ D. The array only works with positive numbers.
 ??? success "Answer"  
     **Answer:** A  
     **Explanation:** Homogeneity (same type) is what allows NumPy to be so fast.  
-
----
-
-### Answer Key
-
-| Question | Answer | Explanation |
-| :--- | :--- | :--- |
-| 1 | B | NumPy is built for numerical computing and N-dimensional arrays. |
-| 2 | B | Vectorization and contiguous memory allocation make NumPy much faster than lists. |
-| 3 | C | `ndarray` is the fundamental object. |
-| 4 | C | `import numpy as np` is the universal convention. |
-| 5 | A | 1D arrays use a single set of square brackets `[]`. |
-| 6 | B | 2D arrays require nested square brackets `[[]]` to represent rows and columns. |
-| 7 | C | `.ndim` returns the integer number of dimensions. |
-| 8 | C | A 3D array is essentially a collection of 2D arrays (a list of lists of lists). |
-| 9 | C | Shape returns `(rows, columns)`. Here, 2 rows and 3 columns. |
-| 10 | A | Homogeneity (same type) is what allows NumPy to be so fast. |
