@@ -594,3 +594,19 @@ array([[[0., 0., 0., 0.],
 2. `np.concatenate((a, b), axis=0)` is the same as `np.vstack((a, b))` provided the shapes are compatible.
 3. `np.concatenate((a, b), axis=1)` is the same as `np.hstack((a, b))` provided the shapes are compatible.
 
+### Mathematical functions
+
+NumPy’s primary strength lies in its ability to perform **vectorized operations**. Rather than manually looping through elements, NumPy applies mathematical functions to every element in an array simultaneously, returning a new array of the same shape.
+
+```pycon
+>>> import numpy as np
+>>> x = np.linspace(0, 2 * np.pi, 33)
+>>> y = np.sin(x)
+>>> print(x.shape, y.shape)
+(33,) (33,)
+```
+
+While NumPy supports all standard functions available in Python's math module, it also provides specialized functions for array manipulation, such as `np.sum()` and `np.cumsum()`. These operations are compatible with arrays of any dimension. By eliminating the need for explicit loops, NumPy makes code more efficient and allows mathematical expressions to closely resemble their formal notation.
+
+For a complete list of operations, refer to the [NumPy mathematical function documentation](https://numpy.org/doc/stable/reference/routines.math.html#).
+
