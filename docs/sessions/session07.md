@@ -35,6 +35,16 @@ array([[0, 0, 0],
        [0, 0, 0]])
 ```
 
+It is possible to create an empty array with no elements:
+```pycon
+>>> a = np.array([])
+>>> print(type(a), a.shape, a.dtype)
+<class 'numpy.ndarray'> (0,) float64
+>>> b = np.empty((0,))
+>>> print(type(b), b.shape, b.dtype)
+<class 'numpy.ndarray'> (0,) float64
+```
+
 ### Special Arrays
 
 Use `np.zeros()` and `np.ones()` to create arrays filled with `0` or `1`.
@@ -112,7 +122,7 @@ array([[200, 200, 200, 200],
        [200, 200, 200, 200]])
 ```
 
-**`np.asarray()`** converts the input as an array. The input can be a `list`, `list` of `list`s, `list` of `tuple`s, `tuple`s, `tuple`s of `tuple`s, `tuple`s of `list`s or `ndarray`s.
+**`np.asarray()`** converts the input into an array. The input can be a `list`, `list` of `list`s, `list` of `tuple`s, `tuple`s, `tuple`s of `tuple`s, `tuple`s of `list`s or `ndarray`s.
 ```pycon
 >>> a = [1, 2, 3]
 >>> type(a)
@@ -504,3 +514,76 @@ array([ 5,  6,  7,  8,  9, 10])
 1. `a > 4` creates a boolean array (the **mask**) of the same size as `a`.  
 2. Elements are `True` if they meet the condition, `False` otherwise.  
 3. `a[mask]` returns a new array containing only the elements where the mask is `True`.
+
+### Concatenate arrays
+
+```pycon
+>>> a = np.array([[1, 2], [3, 4]])   # Two-dimensioned array with shape = (2, 2)
+>>> b = np.array([[5, 6]])           # Two-dimensioned array with shape = (1, 2)
+>>> a
+array([[1, 2],
+       [3, 4]])
+>>> b
+array([[5, 6]])
+>>> np.concatenate((a, b), axis=0)    # a.shape = (2, 2), b.shape = (1, 2)
+array([[1, 2],
+       [3, 4],
+       [5, 6]])
+>>> np.concatenate((a, b.T), axis=1)  # a.shape = (2, 2), b.T.shape = (2, 1)
+array([[1, 2, 5],
+       [3, 4, 6]])
+```
+
+**Note**
+
+1. `axis = 0` adds new **rows** to the first two-dimensioned array
+2. `axis = 1` adds new **columns** to the first two-dimensioned array
+3. This logic can be extended to n-dimensioned arrays. All the input array dimensions except for the concatenation axis must match exactly
+
+```pycon
+>>> x = np.zeros((2, 3, 4), dtype=float)  # shape = (2, 3, 4)
+>>> y = np.ones((1, 3, 4))                # shape = (1, 3, 4)
+>>> z = np.ones((2, 2, 4))                # shape = (2, 2, 4)
+>>> x
+array([[[0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.]],
+
+       [[0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.]]])
+>>> y
+array([[[1., 1., 1., 1.],
+        [1., 1., 1., 1.],
+        [1., 1., 1., 1.]]])
+>>> z
+array([[[1., 1., 1., 1.],
+        [1., 1., 1., 1.]],
+
+       [[1., 1., 1., 1.],
+        [1., 1., 1., 1.]]])
+>>> np.concatenate((x, y), axis=0)  # axis = 0, shape(2, 3, 4) shape(1, 3, 4) = shape(3, 3, 3)
+array([[[0., 0., 0., 0.],
+        [0., 0., 0., 0.],  # axis = 0, shape(2, 3, 4) shape(1, 3, 4) = shape(3, 3, 4)
+        [0., 0., 0., 0.]],
+
+       [[0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.]],
+
+       [[1., 1., 1., 1.],
+        [1., 1., 1., 1.],
+        [1., 1., 1., 1.]]])
+>>> np.concatenate((x, z), axis=1)  # axis = 0, shape(2, 3, 4) shape(2, 2, 4) = shape(2, 5, 4)
+array([[[0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [1., 1., 1., 1.],
+        [1., 1., 1., 1.]],
+
+       [[0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [0., 0., 0., 0.],
+        [1., 1., 1., 1.],
+        [1., 1., 1., 1.]]])
+```
