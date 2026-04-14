@@ -64,6 +64,28 @@ array([[1, 0, 0],
 2. The resulting array is always square and 2D.  
 3. `dtype` is determined by the input elements. Mixed types are automatically upcast (e.g., `int` to `float`).
 
+`numpy.diag()` can be used to place an list/array of numbers on a matrix diagonal. The k argument determines the position:
+
+- **`k = 0` (default):** The main (center) diagonal.
+- **`k > 0`:** Shifts the list/array above the main diagonal.
+- **`k < 0`:** Shifts the list/array below the main diagonal.
+
+The size of the array created is decided by the size of the list/array of numbers in the first argument:
+```pycon
+>>> x = np.diag([10, 20, 30], 1)
+>>> x
+array([[ 0, 10,  0,  0],
+       [ 0,  0, 20,  0],
+       [ 0,  0,  0, 30],
+       [ 0,  0,  0,  0]])
+>>> y = np.diag([10, 20, 30], -1)
+>>> y
+array([[ 0,  0,  0,  0],
+       [10,  0,  0,  0],
+       [ 0, 20,  0,  0],
+       [ 0,  0, 30,  0]])
+```
+
 ### Range-based Array Creation
 
 `np.arange()` is similar to Python's `range()`, but:
@@ -286,6 +308,24 @@ array([1, 2, 3, 0, 0])
 ```
 !!! warning
      The `.resize()` method is **in-place**. It does not return a new array.
+
+### Combining different methods of creating arrays
+
+With the knowledge of basic operations of arrays, it is possible to create more complex arrays by combining the different methods of combining arrays.
+```pycon
+>>> a = np.diag(np.ones(3) * 10) + np.diag(np.ones(2) * 5, 1) + np.diag(np.ones(2) * 5, -1)
+>>> a
+array([[10.,  5.,  0.],
+       [ 5., 10.,  5.],
+       [ 0.,  5., 10.]])
+```
+
+**Note**
+
+1. `a` is the sum of three matrices (two-dimensioned arrays).
+2. `np.ones(3) * 10` returns a one-dimensioned array of three elements, each element equal to `10`, and `np.diag()` places this array on the main  diagonal of an array of size `3x3`.
+3. `np.diag(np.ones(2) * 5, 1)` does the same with an array of two elements, each element equal to `5` placed **above** the main diagonal resulting in a `3x3` array. This array is then added to the `3x3` array created in the previous step.
+4. `np.diag(np.ones(2) * 5, -1)` does the same with an array of two elements, each element equal to `5` placed **below** the main diagonal resulting in a `3x3` array. This array is then added to the `3x3` array created in the previous step.
 
 ### Array Indexing
 
