@@ -587,3 +587,10 @@ array([[[0., 0., 0., 0.],
         [1., 1., 1., 1.],
         [1., 1., 1., 1.]]])
 ```
+
+**Note**
+
+1. `np.concat()` is the same as `np.concatenate()`.
+2. `np.concatenate((a, b), axis=0)` is the same as `np.vstack((a, b))` provided the shapes are compatible.
+3. `np.concatenate((a, b), axis=1)` is the same as `np.hstack((a, b))` provided the shapes are compatible.
+
