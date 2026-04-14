@@ -515,7 +515,7 @@ array([ 5,  6,  7,  8,  9, 10])
 2. Elements are `True` if they meet the condition, `False` otherwise.  
 3. `a[mask]` returns a new array containing only the elements where the mask is `True`.
 
-### Concatenate arrays
+### Concatenating arrays
 
 ```pycon
 >>> a = np.array([[1, 2], [3, 4]])   # Two-dimensioned array with shape = (2, 2)
