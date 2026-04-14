@@ -10,6 +10,31 @@
 
 ## NumPy arrays (contd. from Session 6)
 
+### Empty array
+
+Creating an empty array of given `shape` and `dtype` results in an array whose elements are **uninitialized**, that is, memory is allocated for the elements but their values are not set to any specific value.
+```pycon
+>>> a = np.empty((3, 3), float)
+>>> print(a.ndim, a.shape, a.dtype)
+2 (2, 3) float64
+>>> a
+array([[0., 0., 0.],
+       [0., 0., 0.]])
+```
+**Note:** The elements in the example above are all zeros, but this is a coincidence. The values must be treated as **unknown** and cannot be relied upon as having any specific value.
+
+`np.empty_like()` creates an empty array having the same `shape` and `dtype` as an existing array.
+```pycon
+>>> a = np.array([[1, 2, 3], [4, 5, 6]])
+>>> a
+array([[1, 2, 3],
+       [4, 5, 6]])
+>>> b = np.empty_like(a)
+>>> b
+array([[0, 0, 0],
+       [0, 0, 0]])
+```
+
 ### Special Arrays
 
 Use `np.zeros()` and `np.ones()` to create arrays filled with `0` or `1`.
@@ -33,6 +58,23 @@ array([0., 0., 0., 0., 0.])
 2. Default `dtype` is `float`.  
 3. Use the `dtype` argument to specify a custom type.
 
+To create an array having the same `shape` and `dtpye` as an existing array but all values equal to `1`, use the `np.zeros_like()` function:
+```pycon
+>>> a = np.array([[1, 3, 5, 7], [-2, 8, 2, 1]])
+>>> a
+array([[ 1,  3,  5,  7],
+       [-2,  8,  2,  1]])
+>>> b = np.ones_like(a)
+>>> b
+>>> a
+array([[ 1,  3,  5,  7],
+       [-2,  8,  2,  1]])
+>>> b = np.ones_like(a)
+>>> b
+array([[1, 1, 1, 1],
+       [1, 1, 1, 1]])
+```
+
 **`np.ones()` works similarly, filling arrays with `1`:**
 ```pycon
 >>> a = np.ones(5)
@@ -45,6 +87,43 @@ array([1., 1., 1., 1., 1.])
 array([1, 1, 1, 1, 1])
 >>> print(type(a), len(a), a.shape, a.size, a.dtype)
 <class 'numpy.ndarray'> 5 (5,) 5 int64
+```
+
+**`np.ones_like()`** works similar to `np.zeros_like()`
+```pycon
+>>> c = np.ones(a)
+>>> c
+>>> a
+array([[ 1,  3,  5,  7],
+       [-2,  8,  2,  1]])
+>>> b = np.ones_like(a)
+>>> b
+array([[1, 1, 1, 1],
+       [1, 1, 1, 1]])
+```
+
+**`np.full(shape: tuple, fill_value)`** creates an array of the specified `shape` filled with `fill_value`. **`np.full_like(a: ndarray, fill_value)`** creates an array with the same `shape` as the specified array `a` filled with `fill_value`.
+```pycon
+>>> x = np.full((3, 4), 100)
+>>> y = np.full_like(x, 200)
+>>> y
+array([[200, 200, 200, 200],
+       [200, 200, 200, 200],
+       [200, 200, 200, 200]])
+```
+
+**`np.asarray()`** converts the input as an array. The input can be a `list`, `list` of `list`s, `list` of `tuple`s, `tuple`s, `tuple`s of `tuple`s, `tuple`s of `list`s or `ndarray`s.
+```pycon
+>>> a = [1, 2, 3]
+>>> type(a)
+<class 'list'>
+>>> a
+[1, 2, 3]
+>>> b = np.asarray(a)
+>>> print(type(b), b.shape, b.dtype)
+<class 'numpy.ndarray'> (3,) int64
+>>> b
+array([1, 2, 3])
 ```
 
 **Diagonal Arrays:**
@@ -333,7 +412,7 @@ NumPy indices are enclosed in a single pair of square brackets: `[i, j]`.
 
 * **2D:** `[row, column]`
 * **3D:** `[card, row, column]`
-* **Negative Indexing:** `-1` is the last element.
+* **Negative Indexing:** `-1` is the last element along a chosen axis.
 
 **1D Array:**
 ```pycon
