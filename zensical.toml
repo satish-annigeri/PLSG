@@ -87,6 +87,10 @@ Copyright &copy; 2026 Satish Annigeri
         { "Assignment 5" = "assignments/assignment05.md" },
         { "Assignment 6" = "assignments/assignment06.md" },
    ]},
+   { "Snippets" = [
+     "snippets/index.md",
+     { "Functions as arguments" = "snippets/snippet01.md" },
+   ]},
    { "About" = [
         "about/index.md",
         "about/conduct.md",
