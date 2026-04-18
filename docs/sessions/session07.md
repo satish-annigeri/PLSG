@@ -14,14 +14,14 @@
 
 Creating an empty array of given `shape` and `dtype` results in an array whose elements are **uninitialized**, that is, memory is allocated for the elements but their values are not set to any specific value.
 ```pycon
->>> a = np.empty((3, 3), float)
+>>> a = np.empty((2, 3), float)
 >>> print(a.ndim, a.shape, a.dtype)
 2 (2, 3) float64
 >>> a
-array([[0., 0., 0.],
-       [0., 0., 0.]])
+array([[-6.95293776e-310, -5.62781092e-131,  9.01802659e-312],
+       [ 9.01802659e-312,  6.91691904e-323,  0.00000000e+000]])
 ```
-**Note:** The elements in the example above are all zeros, but this is a coincidence. The values must be treated as **unknown** and cannot be relied upon as having any specific value.
+**Note:** The elements in the example above are not zeros, if they are, it is a coincidence. The values must be treated as **unknown** and cannot be relied upon as having any specific value.
 
 `np.empty_like()` creates an empty array having the same `shape` and `dtype` as an existing array.
 ```pycon
