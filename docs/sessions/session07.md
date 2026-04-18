@@ -177,9 +177,9 @@ array([[ 0,  0,  0,  0],
 
 ### Range-based Array Creation
 
-`np.arange()` is similar to Python's `range()`, but:
-1. It supports `float` values for `start`, `stop`, and `step`.
-2. It returns a `numpy.ndarray` instead of a `list`.
+`np.arange()` is similar to Python's `range()`, but:  
+1. It supports `float` values for `start`, `stop`, and `step`.  
+2. It returns a `numpy.ndarray` instead of a `list`.  
 
 ```pycon
 >>> a = np.arange(0, 5, 0.5)
@@ -192,7 +192,7 @@ array([0. , 0.5, 1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5])
 array([10. ,  7.5,  5. ,  2.5])
 ```
 
-**Notes:**  
+**Note**  
 1. `start` is inclusive.  
 2. `stop` is exclusive.  
 3. `step` can be a positive or negative `float`.
