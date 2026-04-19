@@ -1,6 +1,4 @@
-# Session 7
-
-#### Planned Schedule: 18-04-2026 4:00 pm to 6:00 pm
+# Session 7: 18-04-2026 4:00 pm to 6:00 pm
 
 ## Agenda
 
