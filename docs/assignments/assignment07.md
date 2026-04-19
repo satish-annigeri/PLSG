@@ -1,8 +1,10 @@
 # Assignment 7
 
-#### Corresponds to: [Session 6](../sessions/session07.md)
+#### Corresponds to: [Session 7](../sessions/session07.md)
 
-### Quiz: File Handling in Python (Text and Binary)
+### Quiz: NumPy Arrays - Creation, Basic Operations
+
+**Time Allotted:** 45 Minutes  
 
 **1. You have a list of material Young's Moduli: `E_values = [210e9, 70e9, 200e9]`. To convert this list into a NumPy array for performing calculations, which command is correct?**
 
