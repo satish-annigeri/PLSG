@@ -57,6 +57,7 @@ nav = [
           "resources/ide.md",
           "resources/about_python.md",
           "resources/prog_paradigms.md",
+          "resources/git_github.md",
      ] },
      { "Tasks" = [
           "tasks/index.md",
