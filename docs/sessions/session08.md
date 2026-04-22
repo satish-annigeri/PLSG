@@ -15,9 +15,9 @@ The [Matplotlib homepage](https://matplotlib.org/stable/) describes Matplotlib a
 !!! note "From Matplotlib home page"
     Matplotlib is a comprehensive library for creating static, animated, and interactive visualizations in Python. Matplotlib makes easy things easy and hard things possible.
 
-It relies of NumPy for the `ndarray` data structure to store the data and provides the functions to plot a wide variety of graphs. Being one of the earliest data visualization library for Python, it is very popular and widely used. There are several more recent plotting libraries for Python, but Matplotlib remains relevant and popular.
+It relies on NumPy for the `ndarray` data structure to store data and provides the functions to plot a wide variety of graphs. Being one of the earliest data visualization library for Python, it is very popular and widely used. There are several more recent plotting libraries for Python, but Matplotlib remains relevant and popular.
 
-Matplotlib will appear familiar to Matlab users as its traditional approach to generating plots parallel those of Matlab. However, the current style of using Matplotlib uses the object oriented approach and is a little different. While Matplotlib can generate several types of graphs, this introduction will restrict itself primarily to plotting line graphs and perhaps a few other realted graphs.
+Matplotlib will appear familiar to Matlab users as its traditional approach to generating plots parallel those of Matlab. However, the current style of using Matplotlib uses the object oriented approach that is a little different. While Matplotlib can generate several types of graphs, this introduction will restrict itself primarily to plotting line graphs and perhaps a few other realted graphs.
 
 ### Installing Matplotlib
 
@@ -43,7 +43,7 @@ Matplotlib is extremely well documented. It offers a [Quick start guide](https:/
 
 The typical workflow consists of:
 
-1. Import the `matplotlib.pyplot` subpackage as `plt` once in each script ot program which uses `matplotlib`.
+1. Import the `matplotlib.pyplot` subpackage as `plt` once in each script or program which uses `matplotlib`.
 2. Prepare or create the data to be plotted.
 3. Initialize a `plt.subplots()` and store the values of **figure** and **axis** returned by it.
 4. Use the **axis** to execute one or more `plot()` or `set()` methods.
