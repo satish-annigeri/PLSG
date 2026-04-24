@@ -303,8 +303,10 @@ $$
 **2. Dot Product:**  Dot product results in a scalar and is given by:
 
 $$
-A \cdot B = A_x B_x + A_y B_y + A_z B_z
+A \cdot B = |A| |B| \cos \theta =  A_x B_x + A_y B_y + A_z B_z
 $$
+
+where $\theta$ is the angle between $A$ and $B$. Applications of the dot product include determining the projection of one vector in the direction of another vector ($A \cdot \hat{B} = |A| \cdot 1 \cdot \cos \theta = |A| \cos \theta$) and determining the angle between two given vectors $\left( \theta = \cos^{-1} \left( \frac{A \cdot B}{|A| |B|} \right) \right)$.
 
 **3. Cross Product:** Cross product is a vector and is given by:
 
@@ -315,9 +317,13 @@ i & j & k \\
 A_x & A_y & A_z \\
 B_x & B_y & B_z
 \end{vmatrix} \\
-&= (A_y B_z - A_z B_y) \, i - (A_x B_z - A_z B_x) \, j + (A_x B_y - A_y B_x) \, k
+&= (A_y B_z - A_z B_y) \, i - (A_x B_z - A_z B_x) \, j + (A_x B_y - A_y B_x) \, k \\
+&= \hat{n} |A| |B| \sin \theta \\
+| A \times B | &= |A| |B| \sin \theta
 \end{align*}
 $$
+
+where $\theta$ is the angle between $A$ and $B$ and $\hat{n}$ is a unit vector normal to the plane of $A$ and $B$, positive as per the right hand rule. Magnitude of the cross product is the are of the parallelogram formed by the two vwctors. If the cross product is zer, either one or both vectors have zero magnitude or they are parallel, that is, $\theta = 0^{\circ}$ or $\theta = 180^{\circ}$.
 
 **4. Magnitude:** Magnitude is a scalar given by:
 
