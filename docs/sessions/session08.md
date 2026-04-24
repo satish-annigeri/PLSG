@@ -127,7 +127,7 @@ f_c &= \begin{cases}
 $$
 
 Define a function to calculate the stress ($f_c$) for given value of strain ($\epsilon_c$) and plot a graph of strain vs stress.
-```python
+```python linenums="1"
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -155,7 +155,7 @@ v_fc = np.vectorize(fc)
 
 Create the array `ec` to store the data points at which $f_c$ is to be calculated. Since there are two distinct portins of the graph, namely $0 \leq \epsilon_c < \epsilon_{cy}$ and $\epsilon_{cy} \leq \epsilon_c \leq \epsilon_{cu}$, generate two 1D arrays and concatenate them.
 
-```python
+```python linenums="19"
 ecy: float = 0.002
 ecu: float = 0.0035
 fck = 20.0
@@ -176,8 +176,8 @@ The output should be
 
 The plot can be generated as usual:
 
-```python
-ig, ax = plt.subplots()
+```python linenums="25"
+fig, ax = plt.subplots()
 ax.plot(ec, fc)
 ax.set_xlabel(r"$\epsilon_c$")
 ax.set_ylabel(r"$f_c$")
