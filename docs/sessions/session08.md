@@ -5,6 +5,7 @@
 1. Review of previous sessions
 2. Answers to queries
 3. Introduction to Matplotlib
+4. Python Modules
 
 ## Introduction to Matplotlib
 
@@ -210,7 +211,7 @@ The next level of organization is the **package**. A package is simply a collect
 
 There are three main sources for the tools you will use in your programs:
 
-1. **The Python Standard Library (Built-in)  **
+1. **The Python Standard Library (Built-in)**  
 Python comes "batteries included." Many modules and packages are automatically installed when you install Python. These are known as the **Standard Library**.
     * **Examples:** The `math` module for calculations or the `collections` package for advanced data types.
     * **Access:** Since they are already on your system, you can use them immediately.
