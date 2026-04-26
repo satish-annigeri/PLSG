@@ -62,11 +62,11 @@ Consider a program for a library. While the library has many parts (users, shelv
 
 In practice, a Python program defines the classes needed for a specific problem and creates instances of them. It then triggers methods to transform the data within those instances or to help different objects interact—using data from one object to generate new information for another.
 
-## Example: A Line Counting Program
+### Example: A Line Counting Program
 
 The task is to write a program to scan a specified directory for filenames with a specified pattern (such as `*.txt`) and, if found, to print the name of the file and the number of lines contained in the file.
 
-### Design
+#### Design
 
 The program has one main object: the starting directory from where to begin the search. Its attributes are:
 
@@ -84,7 +84,7 @@ Python is said to be "batteries included" because it provides a large number of 
 
 Having prepared a list of matching filenames, counting the number of lines is a process known to us from [Session 6](https://plsg.netlify.app/sessions/session06/#reading-and-writing-files).
 
-### Implementation
+#### Implementation
 
 Before we begin implementing the class, let us learn the basics of `pathlib` by trying it out in the Python REPL:
 
@@ -229,7 +229,7 @@ Files: 4, Total lines: 122
 !!! tip
     If there are no filenames matching the specified pattern, it is best to convert `flist`, which is a `map` to a `list` and check if the length of the list is `0`, and print an appropriate message if that is true.
 
-### Command Line Interfaces
+#### Command Line Interfaces
 
 Type the following code in a code editor (not in the Python REPL):
 ```python title="app.py"
@@ -403,3 +403,33 @@ Files: 1759, Total lines: 830435
 !!! warning
     Recursive listing lists the `.py` files in `.venv` and its subdirectories.
 
+
+## Pandas
+
+Pandas is a software library for the Python programming language for data manipulation and analysis. In particular, it offers data structures and operations for manipulating numerical tables and time series. It is free software released under the three-clause BSD license. The name is derived from the term "panel data", an econometrics term for data sets that include observations over multiple time periods for the same individuals, as well as a play on the phrase "Python data analysis" (See [Pandas - Wikipedia](https://en.wikipedia.org/wiki/Pandas_(software))).
+
+The library is built around two primary data structures: the Series (a one-dimensional labeled array) and the DataFrame (a two-dimensional labeled tabular structure). A DataFrame is analogous to a spreadsheet or SQL table, where columns can contain different data types (integers, strings, floats, etc.). It acts as an "invisible spreadsheet" that allows you to perform complex data operations programmatically and at scale.
+
+While it is widely known for reading and writing CSV and Microsoft Excel files, Pandas is also compatible with a vast array of formats including JSON, SQL databases, HDF5, and Apache Parquet.
+
+The typical data science workflow involves importing raw data from these formats, performing data cleaning and exploratory analysis, and then either exporting the refined data back to a file (such as .csv or .xlsx) or passing it directly into a machine learning pipeline. The structural engineer's workflow may involve reading data output by structural analysis prorgams such as STAAD.Pro, ETABS, SAP2000 etc., carry out design of sections and members and write a design summary to a file.
+
+At present [Polars](https://pola.rs/) offers a similar data structure with a different API but being much faster, is gaining ground. [Narwhals](https://narwhals-dev.github.io/narwhals/) offers a compatibility layer between dataframe libraries thereby enabling writing code once and being able to change the backend dataframe engine at any time. Pandas being the first dataframe library is still popular and is evolving to catch up with the likes of Polars.
+
+### Installing
+Install using `uv` or `pip` and test that it is installed correctly.
+
+=== "Using `uv`"
+    ```doscon
+    > uv add pandas
+    > uv run -- python -c 'import pandas; print(pandas.__version__)'
+    3.0.2
+    ```
+
+=== "Using `pip`"
+    ```doscon
+    > pip install pandas
+    > .venv\Scripts\activate
+    (.venv) > uv run -- python -c 'import pandas; print(pandas.__version__)'
+    3.0.2
+    ```
