@@ -416,7 +416,7 @@ The typical data science workflow involves importing raw data from these formats
 
 At present [Polars](https://pola.rs/) offers a similar data structure with a different API but being much faster, is gaining ground. [Narwhals](https://narwhals-dev.github.io/narwhals/) offers a compatibility layer between dataframe libraries thereby enabling writing code once and being able to change the backend dataframe engine at any time. Pandas being the first dataframe library is still popular and is evolving to catch up with the likes of Polars.
 
-### Installing
+### Install
 Install using `uv` or `pip` and test that it is installed correctly.
 
 === "Using `uv`"
@@ -430,6 +430,6 @@ Install using `uv` or `pip` and test that it is installed correctly.
     ```doscon
     > pip install pandas
     > .venv\Scripts\activate
-    (.venv) > uv run -- python -c 'import pandas; print(pandas.__version__)'
+    (.venv) > python -c 'import pandas; print(pandas.__version__)'
     3.0.2
     ```
