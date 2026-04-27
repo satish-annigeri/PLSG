@@ -479,3 +479,88 @@ Install using `uv` or `pip` and test that it is installed correctly.
     (.venv) > python -c 'import pandas; print(pandas.__version__)'
     3.0.2
     ```
+
+### Basic Example
+
+Consider the data in the following CSV file:
+```csv title="sales_data.csv"
+order_id,order_date,customer_name,category,product,quantity,unit_price,region
+1001,2023-01-15,Alice Johnson,Electronics,Headphones,1,50.00,North
+1002,2023-01-16,Bob Smith,Furniture,Office Chair,2,120.00,South
+1003,2023-01-17,Charlie Brown,Electronics,USB Cable,3,15.00,North
+1004,2023-01-18,Alice Johnson,Furniture,Desk Lamp,1,35.00,North
+1005,2023-01-19,David Miller,Clothing,T-Shirt,5,20.00,East
+1006,2023-01-20,,Clothing,Hoodie,2,45.00,West
+1007,2023-01-21,Frank White,Electronics,Smartphone,1,600.00,South
+1008,2023-01-22,Bob Smith,Clothing,T-Shirt,3,20.00,South
+1009,2023-01-23,Grace Lee,Furniture,Bookshelf,1,150.00,East
+1010,2023-01-23,Grace Lee,Furniture,Bookshelf,1,150.00,East
+
+```
+Copy the above data and paste into a text editor and save it with the name `sales_data.csv`. Type the following code into the Python REPL:
+```pycon linenums="1" hl_lines="1 2 4 5 14 16 18 22 24 34 46"
+>>> import pandas as pd       # Import pandas package
+>>> print(pd.__version__)     # Print pandas version
+3.0.2
+>>> df = pd.read_csv("sales_data.csv")     # Read data from CSV file
+>>> print(df.head())                       # Print first 5 lines
+   order_id  order_date  customer_name  ... quantity unit_price  region
+0      1001  2023-01-15  Alice Johnson  ...        1       50.0   North
+1      1002  2023-01-16      Bob Smith  ...        2      120.0   South
+2      1003  2023-01-17  Charlie Brown  ...        3       15.0   North
+3      1004  2023-01-18  Alice Johnson  ...        1       35.0   North
+4      1005  2023-01-19   David Miller  ...        5       20.0    East
+
+[5 rows x 8 columns]
+>>> len(df)            # Print the number of rows
+10
+>>> len(df.columns)    # Print the number of columns
+8
+>>> df.columns         # Print names of columns
+Index(['order_id', 'order_date', 'customer_name', 'category', 'product',
+       'quantity', 'unit_price', 'region'],
+      dtype='str')
+>>> df.index           # Print row index
+RangeIndex(start=0, stop=10, step=1)
+>>> df.dtypes          % Print dtype of each column
+order_id           int64
+order_date           str
+customer_name        str
+category             str
+product              str
+quantity           int64
+unit_price       float64
+region               str
+dtype: object
+>>> df["customer_name"]     # Print data in column with the name "customer_name"
+0    Alice Johnson
+1        Bob Smith
+2    Charlie Brown
+3    Alice Johnson
+4     David Miller
+5              NaN
+6      Frank White
+7        Bob Smith
+8        Grace Lee
+9        Grace Lee
+Name: customer_name, dtype: str
+>>> df["customer_name"].unique()     # Print unique values from the column with the name "customer_name"
+<ArrowStringArray>
+['Alice Johnson',     'Bob Smith', 'Charlie Brown',  'David Miller',
+             nan,   'Frank White',     'Grace Lee']
+Length: 7, dtype: str
+```
+
+**Note**
+
+1. **Line 1:** Import the pandas package. It is convention to assign the alias `pd` to pandas.
+2. **Line 2:** Print the version of pandas being used.
+3. **Line 4:** Read data from the CSV file **sales_data.csv** and store it in the **DataFrame** object `df`.
+4. **Line 5:** Print the first five lines of the DataFrame.
+5. **Line 14:** Print the number of rows in the DataFrame.
+6. **Line 16:** Print the number of columns in the DataFrame.
+7. **Line 18:** Print the names of the columns of the DataFrame.
+8. **Line 21:** Print the indices of the rows of the DataFrame.
+9. **Line 24:** Print the `dtype` of each column of the DataFrame.
+10. **Line 34:** Print the column with the name `customer_name`.
+11. **Line 46:** Print unique values in the column with the name `customer_name`.
