@@ -150,7 +150,7 @@ if __name__ == "__main__":
 
 **Note**
 
-1. `__init__()` is a special method which is used to initialize an object when it is first created. It merely copies the values from the arguments into the data field of the object. This calss has three data fields, namely `self.dirpath`, `self.pattern` and `self.recurse`.
+1. `__init__()` is a special method which is used to initialize an object when it is first created (C++ clalls such a function a **constructor**). It merely copies the values from the arguments into the data field of the object. This calss has three data fields, namely `self.dirpath`, `self.pattern` and `self.recurse`.
 2. The last, `self.recurse` defaults to `False` if not specified at the time of creating the instance.
 3. `__str__()` is a dunder method that is expected to return a string representation of the object.
 
@@ -212,6 +212,13 @@ if __name__ == "__main__":
     print(dir, "\n")
     dir.search_print()
 ```
+
+
+**Note**
+
+1. `enumerate(<container_object>, <start_value>=0)` returns a `tuple` consisting of an integer and an element from `<container_object>`, one element at a time, starting with `<start_value>` for the first element and defaults to `0` when not specified. That way the elements of a container object can be indexed without having to use `for i in range(len(container)):` looping index.
+2. The list of files returned by `glob()` or `rglob()` are not in alphabetical order, and may need the use of `sorted()` in case they are to be listed in alphabetical order.
+
 The output may look similar to the following:
 ```pycon
 SearchDir(/home/satish/Python/sci, *.py, False)
@@ -223,11 +230,51 @@ vector2.py (41)
 Files: 4, Total lines: 122
 ```
 
-!!! note
-    The list of files returned by `glob()` or `rglob()` are not in alphabetical order, and may need the use of `sorted()` in case they are to be listed in alphabetical order.
-
 !!! tip
-    If there are no filenames matching the specified pattern, it is best to convert `flist`, which is a `map` to a `list` and check if the length of the list is `0`, and print an appropriate message if that is true.
+    To check if there are no filenames matching the specified pattern, it is best to convert `flist`, which is a `map` to a `list` and check if the length of the list is `0`, and print an appropriate message if that is true.
+
+#### Simplify `class` definition - `dataclass`
+
+If the only purpose of `__init__()` is to initialize data into an instance, it is a good candidate for automation. That is the purpose of `dataclasses.dataclass` decorator. In addition to providing the `__init__()` method, the `dataclass` decorator provides the `__str__()` and several other dunder methods. The class definition reduces to the following:
+
+```python title="searchdir.py" linenums="1"
+from dataclasses import dataclass
+from pathlib import Path
+
+
+@dataclass
+class SerachDir:
+    path: str
+    pattern: str
+    recurse: bool = False
+
+    def linecount(self, fname):
+        with open(fname) as f:
+            lines = f.readlines()
+        return len(lines)
+
+    def search_print(self):
+        flist = self.path.rglob(self.pattern) if self.recurse else self.path.glob(self.pattern)
+        flist = list(flist)
+        if len(flist) == 0:
+            print(f"No files matching {self.pattern} found")
+            return
+
+        total_lines = 0
+        for i, f in enumerate(sorted(flist), 1):
+            num_lines = self.linecount(f)
+            total_lines += num_lines
+            print(f"{f} ({num_lines})")
+        print(f"Files: {i}, Total lines: {total_lines}")
+
+if __name__ == "__main__":
+    dir = SearchDir(Path("."), "*.py")
+    print(dir, "\n")
+    dir.search_print()
+```
+
+!!! note
+    [Pydantic]() is an alternative to `dataclass`. It raises an error if you attempt to place incompatible value into a field of a specified type. It permits assigning constraints, such as the field `age` must be an integer between `0` and `150` etc. Essentially it enforces a **schema** (a structure for the data to adhere to) and carries out **validation**.
 
 #### Command Line Interfaces
 
@@ -402,7 +449,6 @@ Files: 1759, Total lines: 830435
 ```
 !!! warning
     Recursive listing lists the `.py` files in `.venv` and its subdirectories.
-
 
 ## Pandas
 
