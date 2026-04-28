@@ -663,3 +663,12 @@ dtype: int64
 3. **Line 12:** Select column `customer_name` and fill any missing values with the value `Unknown`.
 4. **Line 20:** The missing value previously shown as `NaN` is now shown as `Unnown`.
 
+
+### Example - Grouping of foundation reactions
+
+The reactions from a STAAD.Pro analysis can be exported to Microsoft Excel format. This data can be read into a DataFrame and the data processed using Pandas. For example:
+
+1. Determine the minimum and maximum reactions.
+2. Classify reactions into groups based on dividing the interval between maximum and minimum reactions into a specified number of equal class intervals.
+3. Given the SBC, detemine the size of the isolated footing for the most severely loaded footing in each group.
+
