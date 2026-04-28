@@ -498,7 +498,7 @@ order_id,order_date,customer_name,category,product,quantity,unit_price,region
 
 ```
 Copy the above data and paste into a text editor and save it with the name `sales_data.csv`. Type the following code into the Python REPL:
-```pycon linenums="1" hl_lines="1 2 4 5 14 16 18 22 24 34 46"
+```pycon linenums="1" hl_lines="1 2 4 5 14 16 18 22 24 34"
 >>> import pandas as pd       # Import pandas package
 >>> print(pd.__version__)     # Print pandas version
 3.0.2
@@ -532,7 +532,35 @@ quantity           int64
 unit_price       float64
 region               str
 dtype: object
->>> df["customer_name"]     # Print data in column with the name "customer_name"
+>>> df.describe()
+         order_id   quantity  unit_price
+count    10.00000  10.000000   10.000000
+mean   1005.50000   2.000000  120.500000
+std       3.02765   1.333333  176.689464
+min    1001.00000   1.000000   15.000000
+25%    1003.25000   1.000000   23.750000
+50%    1005.50000   1.500000   47.500000
+75%    1007.75000   2.750000  142.500000
+max    1010.00000   5.000000  600.000000
+```
+
+**Note**
+
+1. **Line 1:** Import the pandas package. It is convention to assign the alias `pd` to pandas.
+2. **Line 2:** Print the version of pandas being used.
+3. **Line 4:** Read data from the CSV file **sales_data.csv** and store it in the **DataFrame** object `df`.
+4. **Line 5:** Print the first five lines of the DataFrame.
+5. **Line 14:** Print the number of rows in the DataFrame.
+6. **Line 16:** Print the number of columns in the DataFrame.
+7. **Line 18:** Print the names of the columns of the DataFrame.
+8. **Line 21:** Print the indices of the rows of the DataFrame.
+9. **Line 24:** Print the `dtype` of each column of the DataFrame.
+10. **Line 34:** Print a summary statistics of all columns containing numerical data.
+
+### Filtering Rows
+```pycon linenums="1" hl_lines="1 13 18 23 24"
+
+>>> df[["customer_name"]]     # Print data in column with the name "customer_name"
 0    Alice Johnson
 1        Bob Smith
 2    Charlie Brown
@@ -549,18 +577,89 @@ Name: customer_name, dtype: str
 ['Alice Johnson',     'Bob Smith', 'Charlie Brown',  'David Miller',
              nan,   'Frank White',     'Grace Lee']
 Length: 7, dtype: str
+>>> df[df["category"] == "Electronics"]
+   order_id  order_date  customer_name     category     product  quantity  unit_price region
+0      1001  2023-01-15  Alice Johnson  Electronics  Headphones         1        50.0  North
+2      1003  2023-01-17  Charlie Brown  Electronics   USB Cable         3        15.0  North
+6      1007  2023-01-21    Frank White  Electronics  Smartphone         1       600.0  South
+>>> df['total_sales'] = df['quantity'] * df['unit_price']
+>>> df
+   order_id  order_date  customer_name     category       product  quantity  unit_price region  total_sales
+0      1001  2023-01-15  Alice Johnson  Electronics    Headphones         1        50.0  North         50.0
+1      1002  2023-01-16      Bob Smith    Furniture  Office Chair         2       120.0  South        240.0
+2      1003  2023-01-17  Charlie Brown  Electronics     USB Cable         3        15.0  North         45.0
+3      1004  2023-01-18  Alice Johnson    Furniture     Desk Lamp         1        35.0  North         35.0
+4      1005  2023-01-19   David Miller     Clothing       T-Shirt         5        20.0   East        100.0
+5      1006  2023-01-20            NaN     Clothing        Hoodie         2        45.0   West         90.0
+6      1007  2023-01-21    Frank White  Electronics    Smartphone         1       600.0  South        600.0
+7      1008  2023-01-22      Bob Smith     Clothing       T-Shirt         3        20.0  South         60.0
+8      1009  2023-01-23      Grace Lee    Furniture     Bookshelf         1       150.0   East        150.0
+9      1010  2023-01-23      Grace Lee    Furniture     Bookshelf         1       150.0   East        150.0
 ```
 
 **Note**
 
-1. **Line 1:** Import the pandas package. It is convention to assign the alias `pd` to pandas.
-2. **Line 2:** Print the version of pandas being used.
-3. **Line 4:** Read data from the CSV file **sales_data.csv** and store it in the **DataFrame** object `df`.
-4. **Line 5:** Print the first five lines of the DataFrame.
-5. **Line 14:** Print the number of rows in the DataFrame.
-6. **Line 16:** Print the number of columns in the DataFrame.
-7. **Line 18:** Print the names of the columns of the DataFrame.
-8. **Line 21:** Print the indices of the rows of the DataFrame.
-9. **Line 24:** Print the `dtype` of each column of the DataFrame.
-10. **Line 34:** Print the column with the name `customer_name`.
-11. **Line 46:** Print unique values in the column with the name `customer_name`.
+1. **Line 1:** Print the column with the name `customer_name`. Note the double square brackets, they are required when selecting more than one column but not required when selecting only one column.
+2. **Line 13:** Print unique values in the column with the name `customer_name`.
+3. **Line 18:** Filter the rows based on whether the value in the column `category` is `Electronics`.
+4. **Line 23:** Create a new column named `total_sales` with the value of each row calculated by multiplying `quantity` by `unit_price`.
+
+### Grouping Values
+
+```pycon linenums="1" hl_lines="1 2"
+>>> category_revenue = df.groupby('category')['total_sales'].sum()
+>>> category_revenue
+category
+Clothing       250.0
+Electronics    695.0
+Furniture      575.0
+Name: total_sales, dtype: float64
+```
+
+**Note**
+
+1. A new DataFrame `category_revenue` is created by grouping the data by `cateory`.
+2. Select the `total_sales` column.
+3. Find the sum for each unique category.
+
+### Handlign Missing Values
+
+Handling missing values is an important step in data cleaning. In the example data above, the value in column `customer_name` in row index `5` is missing. Depending on what is the objective of the cleaning operation one of several operations could be performed:
+
+1. The entire row could be deleted.
+2. The missing value coule be replaced with `Unknown` or some similar term.
+
+The code below shows the second option:
+```pycon linenums="1" hl_lines="1 5 12 13 20"
+>>> print(df.isnull().sum()) # Shows how many empty cells are in each column
+order_id         0
+order_date       0
+customer_name    1
+category         0
+product          0
+quantity         0
+unit_price       0
+region           0
+total_sales      0
+dtype: int64
+>>> df['customer_name'] = df['customer_name'].fillna('Unknown')
+>>> df
+   order_id  order_date  customer_name     category       product  quantity  unit_price region  total_sales
+0      1001  2023-01-15  Alice Johnson  Electronics    Headphones         1        50.0  North         50.0
+1      1002  2023-01-16      Bob Smith    Furniture  Office Chair         2       120.0  South        240.0
+2      1003  2023-01-17  Charlie Brown  Electronics     USB Cable         3        15.0  North         45.0
+3      1004  2023-01-18  Alice Johnson    Furniture     Desk Lamp         1        35.0  North         35.0
+4      1005  2023-01-19   David Miller     Clothing       T-Shirt         5        20.0   East        100.0
+5      1006  2023-01-20        Unknown     Clothing        Hoodie         2        45.0   West         90.0
+6      1007  2023-01-21    Frank White  Electronics    Smartphone         1       600.0  South        600.0
+7      1008  2023-01-22      Bob Smith     Clothing       T-Shirt         3        20.0  South         60.0
+8      1009  2023-01-23      Grace Lee    Furniture     Bookshelf         1       150.0   East        150.0
+9      1010  2023-01-23      Grace Lee    Furniture     Bookshelf         1       150.0   East        150.0
+```
+**Note**
+
+1. **Line 1:** `df.isnull()` returns a DataFrame with the same shape as `df` but with values equal to `True` where the value in `df` is `Null` and `False` otherwise. The `sum()` of each column returns the sum of the values in the column considering `True` as `1` and `False` as `0`.
+2. **Line 5:** Only one value is missing in the column `customer_name`.
+3. **Line 12:** Select column `customer_name` and fill any missing values with the value `Unknown`.
+4. **Line 20:** The missing value previously shown as `NaN` is now shown as `Unnown`.
+
