@@ -666,9 +666,130 @@ dtype: int64
 
 ### Example - Grouping of foundation reactions
 
-The reactions from a STAAD.Pro analysis can be exported to Microsoft Excel format. This data can be read into a DataFrame and the data processed using Pandas. For example:
+The reactions from a STAAD.Pro analysis can be exported to Microsoft Excel format. This data can be read into a DataFrame and the data processed using Pandas. Here are the reactions when viewed in Microsoft Excel.
+
+![reactions when viewed in Microsoft Excel](../assets/reactions_xlsx_img.png)
+
+**Note**
+
+1. There are two header lines. By default, Pandas assumes the first row in the file to be column names.
+2. The second line is treated as the first row of the DataFrame. To remedy this:  
+    1. Store the first row (row index `0`) as column names,
+    2. Clean the column names by removing `kN` and `kNm`,
+    3. Discard the first row of the DataFrame, and 
+    4. Rename the row numbers starting from `0`.
+    5. Rename the columns from the stored values from first row.
+
+For example:
 
 1. Determine the minimum and maximum reactions.
 2. Classify reactions into groups based on dividing the interval between maximum and minimum reactions into a specified number of equal class intervals.
 3. Given the SBC, detemine the size of the isolated footing for the most severely loaded footing in each group.
 
+!!! tip
+    Install the `openpyxl` package if you want to read and write Microsoft Excel files.
+
+    === "Using `uv`"
+        ```doscon
+        > uv add openpyxl
+        ```
+
+    === "Usin `pip`"
+        ```doscon
+        > pip install openpyxl
+        ```
+
+#### Code
+
+Let us write two functions:
+
+1. `read_staad_reactions(fname: str) -> pd.DataFrame` to read data from an `.xlsx` file, clean up the rows to assign column names, reset the row index and set the data type for the data in columns pertaining to reaction components.
+2. `group_staad_reactions(df: pd.DataFrame, bins: int=5) -> pd.DataFrame` to group the data into bins and assign names to each group.
+3. `main()` to set up the filename, call the first function to read and clean up the data and the second function to group the data. Finally, the grouped data is saved to a Microsoft Excel `.xlsx` file.
+
+```python linenums="1"
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+
+def read_staad_reactions(fname: str) -> pd.DataFrame:
+    df = pd.read_excel(fname)
+
+    # Clean up the column names
+    col_names = df.iloc[0]    # Current row index 0 should be the names of columns
+    col_names = col_names.str.replace(" kNm", "")  # Replace kNm from column names
+    col_names = col_names.str.replace(" kN", "")   # Replace kN from column names
+    df = df.iloc[1:].reset_index(drop=True)  # Drop the first row, reindex remaining rows
+    df.columns = col_names  # Set new column names using saved values
+
+    # Set dtype of column names and selected columns
+    df.columns = df.columns.map(str)  # Set dtype of column names to str
+    cols = ["Fx", "Fy", "Fz", "Mx", "My", "Mz"]  # Select column names
+    df[cols] = df[cols].astype("float64")  # Set dtype of selected columns to float64
+    return df
+```
+**Note**
+
+1. **Lines 11-15:** Clean up columns names
+2. **Lines 18-20:** Set `dtype` of column names to `str` and of columns `Fx`, `Fy`, `Fz`, `Mx`, `My`, `Mz` to `float64`.
+3. **Line 21:** Return the cleaned DataFrame.
+
+```python linenums="22"
+# Lines 1 to 21 not shown here
+def group_staad_reactions(df: pd.DataFrame, bins: int=5) -> pd.DataFrame:
+    df["Ecc_x"] = df["Mx"] / df["Fy"]  # Eccentricity
+    df["Ecc_z"] = df["Mz"] / df["Fy"]  # Eccentricity
+
+    custom_labels = [f"F{i:02}" for i in range(1, bins+1)]
+    df['footing_type'] = pd.cut(df['Fy'], bins=bins, labels=custom_labels, include_lowest=True)
+    df_sorted = df.sort_values(["footing_type", "Fy"])
+
+    return df_sorted
+```
+**Note**
+
+1. **Lines 24-25:** Calculate eccentricity in (metres) about `x` and `y` axes.
+2. **Line 27:** Create a list with custom labels to be used for each bin.
+3. **Line 28:** Create a new column `footing_type` and populate it with custom labels after cutting the range of values in column `Fy` into `10` equal sized bins. This new column is populated with the `custom_labels` based on the interval to which the value in `Fy` belongs. **Note:** The number of items in `custom_labels` must be equal to the number of bins.
+4. **Line 29:** Sort the values on the DataFrame based on values in `footing_type` and additionally by `Fy` in case there are more than one row with the same value for `footing_type`.
+5. **Line 31:** Return the grouped and sorted DataFrame.
+
+We are now ready to write the `main()` function:
+```python linenums="32"
+# Lines 1-32 not shown
+def main(fname: str):
+    df = read_staad_reactions(fname)
+    df = group_staad_reactions(df)
+    print(df)
+
+    # Set up output filename by adding _grouped to the input filename
+    p = Path(fname)
+    fout = p.with_stem(f"{p.stem}_grouped")
+
+    # Save the cleaned, grouped, sorted DataFrame to .xlsx format
+    df.to_excel(fout, index=False)
+```
+
+**Note**
+
+1. **Line 34:** Call `group_staad_reactions()` to read the data, clean and set the column names, set the dtypes
+2. **Line 35:** Split into `5` bins by splitting the range of values in column `Fy` and assign custom labels,
+3. **Line 36:** Display the contents of the DataFrame.
+4. **Line 38-40:** Set the name of the output file.
+5. **Line 43:** Save the grouped, sorted DataFrame to output file.
+
+We are now ready to set up the initial values and call `main()`:
+```python linenums="40"
+# Lines 1-40 not shown
+if __name__ == "__main__":
+    fname = "reactions.xlsx"
+    main(fname)
+```
+
+**Note**
+
+1. **Line 41:** Use `#!python if __name__ == "__main__"` to specify the lines to execute when the file is called directly as the `__main__` file and to ignore when the file is imported as a module.
+2. **Line 42:** Set the input filename as `fname = reactions.xlsx`. If this application is converted to a CLI application, this can come from the command line argument.
+3. **Line 43:** Invoke `main()` and execute the program if called directly.
