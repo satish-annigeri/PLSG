@@ -475,6 +475,12 @@ Files: 1759, Total lines: 830435
 !!! warning "Alert"
     Recursive listing lists the `.py` files in `.venv` and its subdirectories.
 
+!!! tip "When do you need a `class`?"
+    When you find yourself writing several functions, all of of which take the same set of data, it is time to stop and think:
+
+    1. Do the frequently used set of data constitute attributes of some **thing**? If yes, that **thing** is a good candidate to be made into a `class`.
+    2. The set of functions built around the attributes are good candidates to be made into **methods** of the class.
+
 ## Pandas
 
 Pandas is a software library for the Python programming language for data manipulation and analysis. In particular, it offers data structures and operations for manipulating numerical tables and time series. It is free software released under the three-clause BSD license. The name is derived from the term "panel data", an econometrics term for data sets that include observations over multiple time periods for the same individuals, as well as a play on the phrase "Python data analysis" (See [Pandas - Wikipedia](https://en.wikipedia.org/wiki/Pandas_(software))).
