@@ -82,11 +82,11 @@ The operations to perform on the directory are:
 
 Python is said to be "batteries included" because it provides a large number of built-in and third-party packages to efficiently accomplish tasks without us having to write our own code from scratch. Searching directories for matching filename patterns is one such task. The built-in package [`pathlib`](https://docs.python.org/3/library/pathlib.html) is well-suited for this task, and we will make use of it.
 
-Having prepared a list of matching filenames, counting the number of lines is a process known to us from [Session 6](https://plsg.netlify.app/sessions/session06/#reading-and-writing-files).
+Having prepared a list of matching filenames, counting the number of lines is a process known to us from [Session 6: Reading and writing files](https://plsg.netlify.app/sessions/session06/#reading-and-writing-files).
 
 #### Implementation
 
-Before we begin implementing the class, let us learn the basics of `pathlib` by trying it out in the Python REPL:
+Before we begin implementing the class, let us learn the basics of the built-in package `pathlib`, by trying it out in the Python REPL:
 
 ```pycon
 >>> from pathlib import Path
@@ -114,10 +114,10 @@ searchdir.py
 **Note**
 
 1. `Path` is the path object imported from the `pathlib` package.
-2. A `Path` object has methods such as `absolute()` that returns the absolute path of a directory, `exists()` that returns `True` if a file or a directory with the specified path exists, `is_dir()` that returns `True` if the path is a directory, and `is_file()` that returns `True` if the path is a file.
-3. The method `glob()` returns a collection of paths that match a given pattern, such as `"*.py"`. If there are files with matching names, we can loop over them and process them one at a time. Note that `glob()` returns a generator which can be directly iterated over without having to first convert it to a list.
+2. A `Path` object has methods such as `absolute()` that returns the absolute path of a directory, `exists()` that returns `True` if a file or a directory with the specified path exists, `is_dir()` that returns `True` if the path is a directory, and `is_file()` that returns `True` if the path is a file and [many more](https://docs.python.org/3/library/pathlib.html).
+3. The method `glob()` returns a collection of paths that match a given pattern, such as `"*.py"`. If there are files with matching names, we can loop over them and process them one at a time. **Useful tip:** `glob()` returns a *generator* (not a `list`), which can be directly iterated over without having to first convert it to a list.
 
-Let us begin by naming the class `SearchDir`. Python convention is to name classes starting with a capital letter and using capital letters for each word in the name (PascalCase). This is in contrast to the `snake_case` style used for functions or in other languages. Here is the code to define our class:
+Let us begin by naming the class `SearchDir`. Python convention is to name classes starting with a capital letter and using capital letters for each word in the name (PascalCase). This is in contrast to the `snake_case` style used for functions. Here is the code to define our class:
 
 ```python linenums="1" title="searchdir.py"
 from pathlib import Path
@@ -138,27 +138,30 @@ class SearchDir:
 
 
 if __name__ == "__main__":
-    dir = SearchDir(".", "*.py")
-    print(dir)
+    dir1 = SearchDir(".", "*.py")
+    print(dir1)
+    dir2 = SearchDir(".", "*.py", False)
+    print(dir2)
 ```
 
 !!! tip
     `self` is the variable that represents an instance of the class. While it could be assigned a different name, Python convention is to name this variable `self`. It represents, at the time of defining a class, the specific instance of the object that will be created later. Since the object to be created later may have a name chosen at runtime, `self` acts as a placeholder for that name within the class definition.
 
 !!! note
-    Methods with names beginning and ending with double underscore characters (`__`) are called **dunder** (Double UNDERscore) methods. They have special meanings in the Python language and must not be used as names for regular user-defined functions or methods. We will learn more dunder methods later on.
+    Methods with names beginning and ending with double underscore characters (`__`) are called **dunder** (**D**ouble **UNDER**score) methods. They have special meanings in the Python language and must not be used as names for regular user-defined functions or methods. We will learn more dunder methods later on.
 
 **Note**
 
-1. `__init__()` is a special method which is used to initialize an object when it is first created (C++ clalls such a function a **constructor**). It merely copies the values from the arguments into the data field of the object. This calss has three data fields, namely `self.dirpath`, `self.pattern` and `self.recurse`.
-2. The last, `self.recurse` defaults to `False` if not specified at the time of creating the instance.
-3. `__str__()` is a dunder method that is expected to return a string representation of the object.
+1. `__init__()` is a special method which is used to initialize an object when it is first created (C++ clalls such a function a **constructor**). It merely copies the values from the arguments into the **data field** of the object. This calss has three data fields, namely `self.dirpath`, `self.pattern` and `self.recurse`.
+2. The last data field `self.recurse` defaults to `False` if not specified at the time of creating the instance.
+3. `__str__()` is a dunder method that is expected to return a string representation of the object. If present, `print()` uses this method to print the value of the object instead of using the default repesentation.
 
-The output of the test run must produce the following output:
+The test run must produce an output similar to the following, depending on the name of the directory in your specific case:
 
 ```pycon
 > uv run python searchdir.py
 SearchDir(/home/satish/Python/sci, *.py, True)
+SearchDir(/home/satish/Python/sci, *.py, False)
 ```
 **Note:**
 
@@ -166,7 +169,7 @@ SearchDir(/home/satish/Python/sci, *.py, True)
 2. It correctly reerpsents the path separator as the forward slah (`/`) on GNU/Linux and macOS and the backslash (`\\`). The backslash is hsown as two backslashes becuase the backslash is used as the escape sequence, such as in representing a newline (`\n`) and the backslash itself is repersented as two backslashes.
 3. The above code was run on GNU/Linux. The output will differ slightly in Windows. For example, it would be similar to `C:\\Users\\satish\\Documents\\Python\\sci` on Windows.
 
-Let us add the functionality to count the number of lines in the file and print the name of the file and the number of lines.
+Let us add the functionality to count the number of lines in the file by adding the method `linecount()` and test it.
 
 ```python linenums="13" hl_lines="5 6 7 8 13" title="serachdir.py"
     # Previous lines not shown
@@ -184,7 +187,7 @@ if __name__ == "__main__":
     print(dir.linecount("searchdir.py"))
 ```
 
-We can now add the facility to search for filenames matching a pattern and print their names along with the number of lines in the file using the method `linecount()`:
+We can now add another method `search_print()` to search for filenames matching a pattern and print their names along with the number of lines in the file using the method `linecount()`:
 
 ```python linenums="16" title="searchdir.py" hl_lines="7-19 24"
     # Previous lines not shown
@@ -235,7 +238,7 @@ Files: 4, Total lines: 122
 
 #### Simplify `class` definition - `dataclass`
 
-If the only purpose of `__init__()` is to initialize data into an instance, it is a good candidate for automation. That is the purpose of `dataclasses.dataclass` decorator. In addition to providing the `__init__()` method, the `dataclass` decorator provides the `__str__()` and several other dunder methods. The class definition reduces to the following:
+If the only purpose of `__init__()` is to initialize data into an instance, it is a good candidate for automation. That is the purpose of `dataclasses.dataclass` decorator. In addition to providing the `__init__()` method, the `dataclass` decorator from the built-in module [`dataclasses`](https://docs.python.org/3/library/dataclasses.html#module-dataclasses) provides the `__str__()` and several other dunder methods. The class definition reduces to the following:
 
 ```python title="searchdir.py" linenums="1"
 from dataclasses import dataclass
@@ -273,7 +276,12 @@ if __name__ == "__main__":
     dir.search_print()
 ```
 
-!!! note
+**Note**
+
+1. All the data fields are listed along with their data type.
+2. Data fields with default values must be listed toward the end. A data field without a default value cannot be listed after a data field having a default value (similar to function parameters).
+
+!!! tip
     [Pydantic]() is an alternative to `dataclass`. It raises an error if you attempt to place incompatible value into a field of a specified type. It permits assigning constraints, such as the field `age` must be an integer between `0` and `150` etc. Essentially it enforces a **schema** (a structure for the data to adhere to) and carries out **validation**.
 
 #### Command Line Interfaces
@@ -286,19 +294,31 @@ print(sys.argv)
 ```
 
 and run it from the command line:
-```doscon
-> uv run python app.py
-['app.py']
-> uv run python app.py one, two three
-['app.py', 'one', 'two', 'three']
-```
+
+=== "Using `uv`"
+    ```doscon
+    > uv run python app.py
+    ['app.py']
+    > uv run python app.py one, two three
+    ['app.py', 'one', 'two', 'three']
+    ```
+=== "Using `pip` on Windows"
+    ```doscon
+    > .venv\Scripts\activate
+    (.venv) > python app.py
+    ```
+=== "Using `pip` on GNU/Linux or macOS"
+    ```doscon
+    $ source .venv/bin/actiivate
+    (.venv) $ python app.py
+    ```
 
 **Note**
 
-1. `sys` is a built-in module and gives access to several system information.
+1. [`sys`](https://docs.python.org/3/library/sys.html#module-sys) is a built-in module and gives access to several system information.
 2. `sys.argv` returns a list of command line arguments typed at the command line when executing the application.
 3. The first argument is the name of the application, in this case, `app.py`
-4. All items in the `sys.argv` list are of type `str`. Arguments starting from index `1` can be treated as arguments to the application and interpreted as appropriate.
+4. All items in the `sys.argv` list are of type `str`. `sys.argv[0]` is always the name of the application itself.Arguments starting from index `1` can be treated as arguments to the application and interpreted as appropriate.
 
 Let us use `sys.argv` and assume that the arguments have the following meaning:
 
@@ -383,12 +403,17 @@ vector2.py (41)
 Files: 5, Total lines: 156
 ```
 
-Python has several libraries for argument parsing, `argparse` being one of the oldest and very comprehensive but come with a learning curve. There are more recent and simpler packages such as [Typer](https://typer.tiangolo.com/) that simplify this process. The following code does the same as the previous version of the program. Study the Typer documentation to learn more, the code below is presented without any explanation.
+Python has several libraries for argument parsing, `argparse` being one of the oldest and very comprehensive but come with a learning curve. There are more recent and simpler packages such as **Typer** that simplify this process. The following code does the same as the previous version of the program. Study the [Typer documentation](https://typer.tiangolo.com/) to learn more, the code below is presented without any explanation.
 
-Remember to install Typer with
-```doscon
-> uv add typer
-```
+Remember to install Typer with:
+=== "Using `uv`"
+    ```doscon
+    > uv add typer
+    ```
+=== "Using `pip`"
+    ```doscon
+    > pip install typer
+    ```
 
 Here is the code:
 ```python linenums="1" title="app.py"
@@ -447,7 +472,7 @@ vector.py (37)
 vector2.py (41)
 Files: 1759, Total lines: 830435
 ```
-!!! warning
+!!! warning "Alert"
     Recursive listing lists the `.py` files in `.venv` and its subdirectories.
 
 ## Pandas
@@ -793,3 +818,16 @@ if __name__ == "__main__":
 1. **Line 41:** Use `#!python if __name__ == "__main__"` to specify the lines to execute when the file is called directly as the `__main__` file and to ignore when the file is imported as a module.
 2. **Line 42:** Set the input filename as `fname = reactions.xlsx`. If this application is converted to a CLI application, this can come from the command line argument.
 3. **Line 43:** Invoke `main()` and execute the program if called directly.
+
+### Recap
+
+This session covered or mentioned several topics that are not the main topics of discussion. They are listed here as a reminder to study their documentation in detail for future use:
+
+1. The online free book [Think Python, 3ed., Allen B. Downey]() is an excellent resource for beginners and experts alike. It is worthwhile digging deep into this book.
+2. The [`pathlib`](https://docs.python.org/3/library/pathlib.html) built-in package is a comprehensive library for manipulating files paths, files and directories. It is extremely useful when automating tasks that use the file system.
+3. The [`dataclasses`](https://docs.python.org/3/library/dataclasses.html#module-dataclasses) built-in module provides the `dataclass` decorator that simplifies implementing classes.
+4. The [`sys`](https://docs.python.org/3/library/sys.html#module-sys) built-in module gives access the the system information.
+5. The [`typer`](https://typer.tiangolo.com/) external package is an excellent tool to build CLI applications.
+6. The [`pydantic`](https://pydantic.dev/docs/validation/latest/get-started/) package is a replacement for `dataclass` and is part of other packages such as [FastAPI](https://fastapi.tiangolo.com/) and [SQLModel](https://sqlmodel.tiangolo.com/) that you may find useful in the future.
+
+The [Pandas](https://pandas.pydata.org/) package is gigantic and we have not even scratched the surface. Pandas has stiff competition from [Polars](https://pola.rs/) which is worth exploring. [Narwhals](https://narwhals-dev.github.io/narwhals/) may help you use either of them and quickly switch from one to the other without having to rewrite your code.
