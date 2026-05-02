@@ -63,9 +63,10 @@ It offers a downloadable install file for Windows, GNU/Linux and macOS. After in
 
 ![Pyzo Shell configuration](../assets/pyzo_shell_config.png)
 
-1. Click on the **Add config** button on the bottom of the left side panel to create a new Shell configuration.
-2. Choose an easily identifiable **name** for this Shell configuration on the right side. Naming it the same as the directory name where the project files are stored is a good way to select a name.
-3. Select the python executable from the virtual environment for the chosen project in the **exe** text field on the right side. This example is for a GNU/Linux system. The typical path for Windows would look like `C:\Users\<username>\<project_name>\.venv\Scripts\python.exe`.
-4. Open the apllication from within the project directory and activate the Shell configuration from the list of available configurations from the **Shell** main menu item and click on the previously configured Shell for the project.
-5. The Shell configuration can be edited from the **Shell -> Edit shell configurations...** dialog.
+1. The Shell can be configured from the **Shell -> Edit shell configurations...** dialog.
+2. Click on the **Add config** button on the bottom of the left side panel to create a new Shell configuration.
+3. Choose an easily identifiable **name** for this Shell configuration on the right side. Naming it the same as the directory name where the project files are stored is a good way to select a name.
+4. Select the python executable from the virtual environment for the chosen project in the **exe** text field on the right side. This example is for a GNU/Linux system. The typical path for Windows would look like `C:\Users\<username>\<project_name>\.venv\Scripts\python.exe`.
+5. Open the apllication from within the project directory and activate the Shell configuration from the list of available configurations from the **Shell** main menu item and click on the previously configured Shell for the project.
+6. The Shell configuration can be edited from the **Shell -> Edit shell configurations...** dialog.
 
