@@ -1,4 +1,4 @@
-# Using a Code Editor
+# Code Editors
 
 You need a text editor to write Python source code. Once written, you need to execute the code, and if the output is incorrect you will have to debug and modify it. In addition, you may need to select the virtual environment you wish to use. While all of this can be done by switching between a text editor and the Command Prompt, the process is simplified by using a code editor that lets you do everything within the same program. A good code editor will also provide syntax highlighting and warn you of type errors when using type hints.
 
@@ -6,8 +6,9 @@ Here is a list of popular code editors you can try:
 
 1. [VS Code](https://code.visualstudio.com/download) or [VS Codium](https://vscodium.com/)
 2. [Spyder](https://www.spyder-ide.org/) has a GUI similar to that of MATLAB
-3. [SublimeText 4](https://www.sublimetext.com/) is not FOSS but is free to use
-4. [PyCharm Community Edition](https://www.jetbrains.com/pycharm/) is not FOSS but is free to use
+3. [Pyzo](https://pyzo.org/) is similar to Spyder IDE but very lightweight. Ha a built-in Python REPL instead of IPython.
+4. [SublimeText 4](https://www.sublimetext.com/) is not FOSS but is free to use
+5. [PyCharm Community Edition](https://www.jetbrains.com/pycharm/) is not FOSS but is free to use
 
 ## VS Code
 There are several code editors popular with Python developers, but we will use [VS Code](https://code.visualstudio.com/Download). Download and install VS Code and install the *Microsoft Python* extension. This extension enables syntax highlighting, type hints, autocompletion, selection of a virtual environment and many more features.
@@ -53,3 +54,18 @@ Some things to know about using the right Python interpreter if you have multipl
 2. Create a Spyder Project by selecting the project folder in Projects -> Open project, and set the Python interpreter to be used by that project.
 3. Ensure that the package `spyder-kernels` is installed in the virtual environment corresponding to the Python interpreter being used. Without this package, the IPython console will not open.
 4. Open new console using Consoles -> New console in environment, and choose the correct environment.
+
+## Pyzo
+
+[Pyzo](https://pyzo.org/) is a free and open source computing environment for Python. It has a built-in Python REPL for interactive computing but does not have aterminal shell. It has features similar to Spyder IDE but is very lightweight and lods up and respond quickly. It can be configured to use a specific virtual environment and the environment must be activated manually each time the application is started. As fas as I can see, it does not associate a project with a chosen virtual environment and activate it when the project is opened. While lacking the bells and whistles, it is more than adequate for any task other than development of complex multifile packages.
+
+It offers a downloadable install file for Windows, GNU/Linux and macOS. After install, configure Pyzo Shell.
+
+![Pyzo Shell configuration](../assets/pyzo_shell_config.png)
+
+1. Click on the **Add config** button on the bottom of the left side panel to create a new Shell configuration.
+2. Choose an easily identifiable **name** for this Shell configuration on the right side. Naming it the same as the directory name where the project files are stored is a good way to select a name.
+3. Select the python executable from the virtual environment for the chosen project in the **exe** text field on the right side. This example is for a GNU/Linux system. The typical path for Windows would look like `C:\Users\<username>\<project_name>\.venv\Scripts\python.exe`.
+4. Open the apllication from within the project directory and activate the Shell configuration from the list of available configurations from the **Shell** main menu item and click on the previously configured Shell for the project.
+5. The Shell configuration can be edited from the **Shell -> Edit shell configurations...** dialog.
+
