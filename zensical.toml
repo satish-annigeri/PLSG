@@ -81,6 +81,7 @@ nav = [
           { "Session 7" = "sessions/session07.md" },
           { "Session 8" = "sessions/session08.md" },
           { "Session 9" = "sessions/session09.md" },
+          { "Session 10" = "sessions/session10.md" },
      ] },
      { "Assignments" = [
           "assignments/index.md",
