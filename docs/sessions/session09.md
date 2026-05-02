@@ -297,6 +297,12 @@ Name: B, dtype: str
 >>> df["A"].sum()
 np.int64(100)
 ```
+**Note**
+
+1. The **key** in the `dict` becomes the name of the column.
+2. The **value** is a list of elements and becomes the rows of that column.
+
+### Reading data from files
 
 Pandas can read data from files in a variety of formats, including `.CSV` and `.xlsx`. Consider the data in the following CSV file named **sales_data.csv**:
 
