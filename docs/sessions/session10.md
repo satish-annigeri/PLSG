@@ -7,6 +7,7 @@
 1. Review of previous sessions
 2. Answers to queries
 3. `dataclasses.dataclass`
+4. Filtering and grouping data with Pandas
 
 ## Object Oriented Programming (contd.)
 

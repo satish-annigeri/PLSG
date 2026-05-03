@@ -5,6 +5,7 @@
 1. Review of previous sessions
 2. Answers to queries
 3. Object Oriented Programming in Python
+4. Reading and writing data with Pandas
 
 
 ## Programming Paradigms
@@ -25,7 +26,7 @@ The **object-oriented paradigm (OOP)** puts **objects** at the center of design 
 
 ---
 
-## Classes
+## Object Oriented Programming in Python
 
 In his 1976 book, *Algorithms + Data Structures = Programs*, Niklaus Wirth explained that algorithms and data structures are inherently related. 
 
