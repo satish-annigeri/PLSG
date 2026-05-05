@@ -323,7 +323,7 @@ Name: total_sales, dtype: float64
 2. Select the `total_sales` column.
 3. Find the sum for each unique category.
 
-### Handlign Missing Values
+### Handling Missing Values
 
 Handling missing values is an important step in data cleaning. In the example data above, the value in column `customer_name` in row index `5` is missing. Depending on what is the objective of the cleaning operation one of several operations could be performed:
 
