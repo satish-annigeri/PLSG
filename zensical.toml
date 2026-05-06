@@ -96,6 +96,7 @@ nav = [
      { "Snippets" = [
           "snippets/index.md",
           { "Functions as arguments" = "snippets/snippet01.md" },
+          { "Image Manipulation" = "snippets/snippet02.md" },
      ] },
      { "About" = [
           "about/index.md",
