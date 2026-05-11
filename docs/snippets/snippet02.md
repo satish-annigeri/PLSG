@@ -3,12 +3,12 @@
 [Task 6](../tasks/task20260415.md#task-for-non-structural-engineers) defined two problems, the second of which required the following two tasks to be accomplished:
 
 1. Scale a given image file to a specified positive value.
-2. Convert a given image to black & white.
+2. Convert a given image to black and white.
 
 It was suggested to use the [Pillow](https://pillow.readthedocs.io/en/stable/) package for image manipulation. Let us do the following:
 
 1. Install Pillow package from PyPI.
-2. Study the documentation to read an image from file, change resolution of an image, convert an image to black & white.
+2. Study the documentation to read an image from file, change resolution of an image, convert an image to black and white.
 3. Try out the commands from Python REPL.
 4. Develop a function to perform the specified tasks.
 5. Develop a CLI application to use the function.
