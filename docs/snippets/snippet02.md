@@ -21,10 +21,17 @@ It was suggested to use the [Pillow](https://pillow.readthedocs.io/en/stable/) p
     > uv run -- python -c "import PIL; print(PIL.__version__)"
     12.2.0
     ```
-=== "Using `pip`"
+=== "Using `pip` on Windows"
     ```doscon
-    > pip install Pillow
-    > uv run -- python -c "import PIL; print(PIL.__version__)"
+    > .venv\Scripts\activate
+    (.venv) > pip install Pillow
+    (.venv) > python -c "import PIL; print(PIL.__version__)"
+    12.2.0
+=== "Using `pip` on GNU/Linux or macOS"
+    ```doscon
+    > source .venv/bin/activate
+    (.venv) > pip install Pillow
+    (.venv) > python -c "import PIL; print(PIL.__version__)"
     12.2.0
     ```
 
