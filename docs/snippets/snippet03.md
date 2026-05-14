@@ -1,6 +1,6 @@
 # Section Properties
 
-[Task 6](../tasks/task20260415.md#task-for-non-structural-engineers) defined two problems, the first of which required the geometric properties of sections as per SP-6(1).
+[Task 6](../tasks/task20260415.md#task-for-non-structural-engineers) defined two problems, the first of which required the geometric properties of sections as per SP:6 (1)-1964.
 
 It was suggested to use the [sectionproperties](https://sectionproperties.readthedocs.io/en/stable/index.html) package for the calculations. Let us do the following:
 
@@ -11,7 +11,7 @@ It was suggested to use the [sectionproperties](https://sectionproperties.readth
 5. Develop a function to read data froma CSVV/Excel file and use the class to calculate geometric properties of sections listed therein.
 6. Develop a CLI application to use the function.
 
-## Install Pillow
+## Install `sectionproperties`
 
 === "Using `uv`"
     ```doscon
@@ -44,11 +44,11 @@ Exploring the [`sectionproperties` documentation](https://sectionproperties.read
 2. Create a mesh for the geometry.
 3. Create a section (`sectionproperties.analysis.Section`) from the geometry.
 4. Calculate geometric propertiesof the section.
-5. There is a pre-defined library of functions to create standard geometris and the one that is appropriate for steel cross sections as per SP-6(1) are `tapered_flange_i_section()` for I sections and `tapered_flange-channel` for channel sections.
+5. There is a pre-defined library of functions to create standard geometris and the one that is appropriate for steel cross sections as per SP:6 (1)-1964 are `tapered_flange_i_section()` for I sections and `tapered_flange-channel` for channel sections.
 
 ### Try sectionproperties in Python REPL
 
-Open Python REPL or (IPython REPL inside Spyder IDE), note down the size of ISMB 300 from SP-6(1)  and try the following:
+Open Python REPL or (IPython REPL inside Spyder IDE), note down the size of ISMB 300 from SP:6 (1)-1964  and try the following:
 
 ```pycon
 >>> from sectionproperties.pre.library import tapered_flange_i_section
@@ -103,27 +103,31 @@ np.float64(5626.648100857684)
 (np.float64(123.66266358883864), np.float64(28.40237203783421))
 ```
 !!! warning
-    Slope of Flange D for ISMB 300 in SP-6(1) is 98 degrees (measured with reference to the vertical direction). `alpha` of `tapered_flage_i_section()` is 8 degrees (measured with respect to horizontal direction)
+    Slope of Flange D for ISMB 300 in SP:6 (1)-1964 is 98 degrees (measured with reference to the vertical direction). `alpha` of `tapered_flage_i_section()` is 8 degrees (measured with respect to horizontal direction)
 
 ![Scaled image](../assets/ismb300.png)
 
-The area of cross section as per SP-6(1) is $56.26 \text{cm}^2$ whereas the area as calculated by `sectionproperties` is $5626.648100857684 \text{mm}^2 = 56.27 \text{cm}^2$, an error 0f $0.01 \text{cm}^2$ with respect to the value in SP-6(1).
+The area of cross section as per SP:6 (1)-1964 is $56.26 \text{cm}^2$ whereas the area as calculated by `sectionproperties` is $5626.648100857684 \text{mm}^2 = 56.27 \text{cm}^2$, an error 0f $0.01 \text{cm}^2$ with respect to the value in SP:6 (1)-1964.
 
 ### Class and Application
 
-Let us create a class to store the properties of an I section and provide methods to perform the required tasks. Let us use `dataclasses.dataclass` to simplify the creation of the class.
+Now that we know how `sectionproperties` is to be used to calculate geometric properties, let us create a **class** to store the properties of an I section and provide methods to perform the required tasks. Let us use `dataclasses.dataclass` to simplify the creation of the class.
+
+!!! note
+    When the number of attributes is large and defining a long list of parameters in a function becomes tedious, it is best to use a **class** with the attributes as the data fields of the class. This way, they are input once and all the methods of the class have direct access to the attributes without having to pass them as arguments.
+
 
 **Name of class:** `class ISection`
 
 **Object initialisation parameters:**
 
-1. Depth of the tapered flange I section `d` - $h$ in SP-6(1)
-2. Width of the tapered flange I section `b` - $b$ in SP-6(1)
-3. Mid-flange thickness of the tapered flange I section (measured at the point equidistant from the face of the web to the edge of the flange) `t_f` - $t_f$ in SP-6(1)
-4. Web thickness of the tapered flange I section `t_w` - $t_w$ in SP-6(1)
-5. Root radius of the tapered flange I section `r_r` - $r_1$ in SP-6(1)
-6. Flange radius of the tapered flange I section `r_f` - $r_2$ in SP-6(1)
-7. Flange angle of the tapered flange I section in degrees `alpha` - Slope of flange $D - 90$ degrees in SP-6(1)
+1. Depth of the tapered flange I section `d` - $h$ in SP:6 (1)-1964
+2. Width of the tapered flange I section `b` - $b$ in SP:6 (1)-1964
+3. Mid-flange thickness of the tapered flange I section (measured at the point equidistant from the face of the web to the edge of the flange) `t_f` - $t_f$ in SP:6 (1)-1964
+4. Web thickness of the tapered flange I section `t_w` - $t_w$ in SP:6 (1)-1964
+5. Root radius of the tapered flange I section `r_r` - $r_1$ in SP:6 (1)-1964
+6. Flange radius of the tapered flange I section `r_f` - $r_2$ in SP:6 (1)-1964
+7. Flange angle of the tapered flange I section in degrees `alpha` - Slope of flange $D - 90$ degrees in SP:6 (1)-1964
 8. Number of points discretising the radii `n_r` to be chosen by the user
 
 
@@ -209,7 +213,7 @@ if __name__ == "__main__":
     print(f"ryy = {ISMB300.ryy / 10:.2f} cm")
 ```
 
-The output is very close or identical to the values in SP-6(1) and is shown below:
+The output is very close or identical to the values in SP:6 (1)-1964 and is shown below:
 ```doscon
 A = 56.27 cm^2
 Ixx = 8604.3 cm^4
@@ -226,18 +230,171 @@ ryy = 2.84 cm
 2. The `__post_init__()` magic method automatically creates the geometry and the section using the fields in the initialized object.
 3. The `@property` decoratotr available through the `dataclass` allows us to write a **getter**, that is, a way to **get** a value from inside the object. Not having to write a getter function with the trailing parentheses `()` makes the method appear like a property.
 
+### Processing a set of sections
+
+Now that the class is working as expected for one section, it is time to think of reading section dimensions of a set of sections and process them one at a time using the class created previously.
+
+```csv title="isections.csv"
+designation,h,b,tf,tw,r1,r2,D
+"ISLB 300",300,150,9.4,6.7,15.0,7.5,98
+"ISMB 300",300,140,12.4,7.5,14.0,7.0,98
+"ISMB 450",450,150,17.4,9.4,15.0,7.5,98
+```
+
+**Note**
+
+1. First line is the header and contains the names of the columns. If a column name contains one or more spaces, it is best to enclose the name within double quotes `"`.
+2. Column names are as per the nomenclature in SP:6 (1)-1964.
+3. On each row, the first column is the section designation and is enclosed within double quotes as it contains a space. The other columns are all numbers and must not be enclosed in double quotes. Columns are separated by a comma `,`.
+
+Let us read the data from this file and display it:
+```pycon
+>>> import pandas as pd
+>>> df = pd.read_csv("isections.csv")
+>>> df.head()
+  designation    h    b    tf   tw    r1   r2   D
+0    ISLB 300  300  150   9.4  6.7  15.0  7.5  98
+1    ISMB 300  300  140  12.4  7.5  14.0  7.0  98
+2    ISMB 450  450  150  17.4  9.4  15.0  7.5  98
+>>> df.dtypes
+designation        str
+h                int64
+b                int64
+tf             float64
+tw             float64
+r1             float64
+r2             float64
+D                int64
+dtype: object
+>>> for idx, row in df.iterrows():
+...     print(row['h'], row['b'], row['tf'], row['tw'], row['r1'], row['r2'], row['D'])
+... 
+300 150 9.4 6.7 15.0 7.5 98
+300 140 12.4 7.5 14.0 7.0 98
+450 150 17.4 9.4 15.0 7.5 98
+>>> for idx, row in df.iterrows():
+...     print(row.to_dict())
+... 
+{'designation': 'ISLB 300', 'h': 300, 'b': 150, 'tf': 9.4, 'tw': 6.7, 'r1': 15.0, 'r2': 7.5, 'D': 98}
+{'designation': 'ISMB 300', 'h': 300, 'b': 140, 'tf': 12.4, 'tw': 7.5, 'r1': 14.0, 'r2': 7.0, 'D': 98}
+{'designation': 'ISMB 450', 'h': 450, 'b': 150, 'tf': 17.4, 'tw': 9.4, 'r1': 15.0, 'r2': 7.5, 'D': 98}
+```
+**Note**
+
+1. `df.iterrows()` returns two objects for each row:
+   1. the first is the row index which we store in `idx`
+   2. the sectiond is the row put into a `pandas.Series` object
+2. `row.to_dict()` converts the `pandas.Series` object into a dictionary with the column names as the keys.
+
+We must change the names of the columns of the DataFrame to match the input arguments to `tapered_flange_i_section()`. Further, the input argument `alpha` is obtained by subtracting 90 degrees from the values in column `D`. The column `D` can be deleted as it is no longer required.
+
+```pycon
+>>> df = df.rename(columns={"h": "d", "tf": "t_f", "tw": "t_w", "r1": "r_r", "r2": "r_f"})
+>>> df
+  designation    d    b   t_f  t_w   r_r  r_f   D
+0    ISLB 300  300  150   9.4  6.7  15.0  7.5  98
+1    ISMB 300  300  140  12.4  7.5  14.0  7.0  98
+2    ISMB 450  450  150  17.4  9.4  15.0  7.5  98
+>>> df["alpha"] = df["D"] - 90
+>>> df.head()
+  designation    d    b   t_f  t_w   r_r  r_f   D  alpha
+0    ISLB 300  300  150   9.4  6.7  15.0  7.5  98      8
+1    ISMB 300  300  140  12.4  7.5  14.0  7.0  98      8
+2    ISMB 450  450  150  17.4  9.4  15.0  7.5  98      8
+>>> df = df.drop(columns=["D"])
+>>> df.head()
+  designation    d    b   t_f  t_w   r_r  r_f  alpha
+0    ISLB 300  300  150   9.4  6.7  15.0  7.5      8
+1    ISMB 300  300  140  12.4  7.5  14.0  7.0      8
+2    ISMB 450  450  150  17.4  9.4  15.0  7.5      8
+>>> df.iloc[0, 1:8].to_dict()
+{'d': 300, 'b': 150, 't_f': 9.4, 't_w': 6.7, 'r_r': 15.0, 'r_f': 7.5, 'alpha': 8}
+>>> for idx, row in df.iterrows():
+...     print(row.iloc[1:8].to_dict())
+... 
+{'d': 300, 'b': 150, 't_f': 9.4, 't_w': 6.7, 'r_r': 15.0, 'r_f': 7.5, 'alpha': 8}
+{'d': 300, 'b': 140, 't_f': 12.4, 't_w': 7.5, 'r_r': 14.0, 'r_f': 7.0, 'alpha': 8}
+{'d': 450, 'b': 150, 't_f': 17.4, 't_w': 9.4, 'r_r': 15.0, 'r_f': 7.5, 'alpha': 8}
+```
+**Note**
+
+1. `row.iloc[0, 1:8]` lets us index columns by numbers (first column is `0`) instead of by names. In this example, we are fetching row index `0` and column indices `1` to `8` (`8` not included as per slicing logic). This returns a `pandas.Series`.
+2. `.to_dict()` convrts the `Series` to a `dict`.
+
+Data is now ready to create a ISection object using the data from each row:
+```pycon
+>>> sec = ISection(**df.iloc[0, 1:8].to_dict())
+>>> sec.area
+np.float64(4810.419826483751)
+>>> for idx, row in df.iterrows():
+...     sec = ISection(**row.iloc[1:8].to_dict())
+...     print(row["designation"], sec.area)
+... 
+ISLB 300 4810.419826483751
+ISMB 300 5627.014726939055
+ISMB 450 9227.361191639227
+```
+**Note**
+
+1. `row` is an object of type `pandas.Series`.
+2. `row.iloc[1:8]` returns the columns 1 t 7 as a `Series`.
+3. `row.iloc[1:8].to_dict()` converts these seven columns of the row into a `dict`.
+4. `**row.iloc[1:8].to_dict()` unpacks the `dict` into individual keyword arguments ready to be used in creating an object of type `ISection`.
+
+Cross checking the areas of the sections shows us that things are working as expected. Let us write the following functions:
+
+1. `clean_data(df: pd.DataFrame) -> pd.dataFrame` that takes a DataFrame as its input and carries out the following operations:
+   1. Renames the columns,
+   2. Calculates the column `alpha`,
+   3. Drops the column `D` that is no longer required, and
+   4. Returns the cleaned DataFrame.
+
+### `clean_data()` and `main()` Functions
+
+We are now ready to write the `clean_data()` and `main()` functions:
+
+```python title="secprop_app.py" linenums="1"
+import pandas as pd
+from secprop import ISection
+
+def clean_data(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.rename(columns={"h": "d", "tf": "t_f", "tw": "t_w", "r1": "r_r", "r2": "r_f"})
+    df["alpha"] = df["D"] - 90
+    df = df.drop(columns=["D"])
+    return df
+
+def main(filename: str):
+    df = pd.read_csv(filename)
+    df = clean_data(df)
+    for idx, row in df.iterrows():
+        sec = ISection(**row.iloc[1:8].to_dict())
+        print(row["designation"], sec.area / 100)
+
+
+if __name__ == "__main__":
+    main("isections.csv")
+```
+
+Run the application from the command line:
+```doscon
+>>> uv run python secprop_app.py
+```
+
+This should produce the output:
+
+```doscon
+ISLB 300 48.104198264837514
+ISMB 300 56.270147269390556
+ISMB 450 92.27361191639227
+```
 
 ### CLI Application
 
-To convert this application to a CLI application, delete the three lines below the  `#!py if __name__ == "__main__":` block and replace them with a single line `#!py typer.run(main)`.
+To convert this application to a CLI application, change the line `#!python main("isections.csv")` to `#py typer.run(main)` and we are ready to go.
 
-```python title="image_app.py" linenums="38" hl_lines="1 8"
+
+```python title="secprop_app.py" linenums="17" hl_lines="4"
 # Lines above not shown
-    except Exception as e:
-        print(f"Error: {e}")
-        raise e
-
-
 if __name__ == "__main__":
     typer.run(main)
 ```
@@ -246,71 +403,177 @@ Now test to verify that the CLI application displays help with the following com
 
 === "Using `uv`"
     ```doscon
-        > uv run -- python image_app.py --help
+        > uv run -- python secprop_app.py --help
     ```
 === "Using `venv` on Windows"
     ```doscon
     > .venv\Scripts\activate
-    (.venv) > python image_app.py
+    (.venv) > python secprop_app.py
     ```
 === "Using `venv` on GNU/Linux or macOS"
     ```doscon
     > source .venv/bin/activate
-    (.venv) > python image_app.py
+    (.venv) > python secprop_app.py
     ```
 
 This should display the following output:
 ```doscon
-                                                                                    
-    Usage: image_app.py [OPTIONS] IMG_FNAME                                        
-                                                                                    
-    ╭─ Arguments ──────────────────────────────────────────────────────────────────╮
-    │ *    img_fname      TEXT  [required]                                         │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
-    ╭─ Options ────────────────────────────────────────────────────────────────────╮
-    │ --scale                 FLOAT  [default: 1]                                  │
-    │ --bw       --no-bw             [default: no-bw]                              │
-    │ --save     --no-save           [default: no-save]                            │
-    │ --help                         Show this message and exit.                   │
-    ╰──────────────────────────────────────────────────────────────────────────────╯
+                                                                                                          
+ Usage: secprop_app.py [OPTIONS] FILENAME                                                                 
+                                                                                                          
+╭─ Arguments ────────────────────────────────────────────────────────────────────────────────────────────╮
+│ *    filename      TEXT  [required]                                                                    │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ──────────────────────────────────────────────────────────────────────────────────────────────╮
+│ --help                Show this message and exit.                                                      │
+╰────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
 Try the CLI application with the following commands:
 
 === "Using `uv`"
     ```doscon
-    > uv run -- python image_app.py sample_image01.png --scale 0.5 --save
-    > uv run -- python image_app.py sample_image01.png --bw
-    > uv run -- python image_app.py sample_image01.png --scale 0.5 --bw
+    > uv run -- python secprop_app.py isections.csv
     ```
-=== "Using `venv` on Windows, GNU/Linux or macOS"
+=== "Using `venv` on Windows"
     ```doscon
-    > python image_app.py sample_image01.png --scale 0.5 --save
-    > python image_app.py sample_image01.png --bw
-    > python image_app.py sample_image01.png --scale 0.5 --bw
+    > .venv\Scripts\activate
+    (.venv) > python secprop_app.py isections.csv
+    ```
+=== "Using `venv` on GNU/Linux or macOS"
+    ```doscon
+    > source .venv/bin/activate
+    (.venv) > python secprop_app.py isections.csv
     ```
 
 **Note**
 
-1. The first command scales the image to half its original size and saves the modified image to `sample_image01_scaled.png`.
-2. The second command converts the image to grayscale and displays the converted image on screen.
-3. The second command scales the image to half its original size, converts the image to grayscale and displays the converted image on screen.
+The command must display the results on the screen.
 
-## Lessons to remember
+### Remaining Tasks
 
-The above code is the outcome of a systematic and step-wise refinement of a series of thoughts:
+Following changes can be made to the application:
 
-1. Understand what is the expected outcome.
-2. Identify the package that can accomplish the given task and study its documentation to identify the functions that are required.
-3. Interactively try out the functions to test your own understanding of the ackage, the selected functions to carry out the task and close the gap in your understanding of the package and its usage.
-4. Design the application using the appropriate approach, procedural paradigm in this case. Thaus, identify the functions required, their signature - name, input parameters and output parameters. Ensure that each function accomplishes a single well defined task. Any time a function grows too large, it is time to design a function, and replace several lines by a single function call.
-5. Orchestrate the call to lower level functions to build higher level functions. In this example, `main()` calls `img_scale_bw()` and `img_scale_bw()` depends on `get_output_fname()` to accomplish the task of generating the name of the output file. This organisation is far simpler compared to writing the whole program without using functions at all. These are the advantages that accrue:  
-    1. Each function accomplishes a simple well defined task and can be developed and tested independently and once tested, it can be used as a black-box, unless you wish to add more functionality/features.
-    2. Complex tasks can be accomplished by relying on lower level functions to handle the simpler tasks.
-6. Test the application to ensure that all features are working as expected. In this case:  
-    1. Scale the image.
-    2. Convert the image to grayscale.
-    3. Display the modified image on screen.
-    4. Save the modified image to file with an appropriate name.
-    5. Or any combination of the above.
-7. Convert the application to a CLI application to make it usable from the command line.
+1. Check that the input file exists before attempting to read it. Raise `FileNotFoundError` exception if not found. Use `pathlib.Path` for this purpose.
+2. If the file exists, check the filename suffix and depending on whether it is `.csv` or `.xlsx` or `.xls`, read the file with `pandas.read_csv()` or `pandas.read_excel()`.
+3. Create additional columns in the DataFrame for the geometric properties and populate the rows with the calculated values, after converting to the same units as in SP:6(1)-1964.
+4. Modify the `main()` function to take a second optional parameter `output` and if provided, take it to be the name of the file to which the section dimensions along with the calculated properties are to be written. If this parameter is not given, display the results to the screen.
+5. Check if the output filename exists and raise `FileExistsError` exception and do not overwrite the existing file. If it does not exist, use `pandas.to_csv()` or `pandas.to_excel()` depending on the output filename suffix.
+
+### Finished CLI Application
+
+Here is the full CLI application for your refernce:
+
+```python title="secprop_app.py" linenums="1"
+from pathlib import Path
+
+import csv
+import pandas as pd
+from secprop import ISection
+import typer
+
+
+def clean_data(isec: pd.DataFrame):
+    # Calculate the column 'alpha'
+    isec["alpha"] = isec["D"] - 90
+    # Drop the column 'D'
+    isec = isec.drop(columns=["D"])
+    # Set n_r = 32 for all rows
+    isec["n_r"] = 32
+    # Rename columns
+    isec = isec.rename(columns={"h": "d", "tf": "t_f", "tw": "t_w", "r1": "r_r", "r2": "r_f"})
+
+    # Create new columns and populate with float 0.0
+    isec[["area", "Ixx", "Iyy", "Zxx", "Zyy", "rxx", "ryy"]] = 0.0
+    return isec
+
+def process_data(df: pd.DataFrame) -> pd.DataFrame:
+    for idx, row in df.iterrows():
+        sec_prop = row.iloc[1:8]
+        beam = ISection(**sec_prop)
+        # print(row["designation"], beam.area, beam.Ixx, beam.Iyy, beam.Zxx, beam.Zyy, beam.rxx, beam.ryy)
+        df.loc[idx, "area"] = beam.area / 100
+        df.loc[idx, "Ixx"] = beam.Ixx / 1e4
+        df.loc[idx, "Iyy"] = beam.Iyy / 1e4
+        df.loc[idx, "Zxx"] = beam.Zxx / 1e3
+        df.loc[idx, "Zyy"] = beam.Zyy / 1e3
+        df.loc[idx, "rxx"] = beam.rxx / 10
+        df.loc[idx, "ryy"] = beam.ryy / 10
+    return df
+
+def main(filename: str, output: str | None=None):
+    fname = "isections.csv"
+    p = Path(filename)
+
+    # Check if file exists
+    if not p.is_file():
+        raise FileNotFoundError
+
+    # Check that the file is of a valid type, namely CSV or Excel
+    if p.suffix.lower() not in [".csv", ".xls", ".xlsx"]:
+        raise ValueError(f"Invalid file type {p.suffix}")
+
+    # Call appropriate reading function based on file type
+    if p.suffix.lower() == ".csv":
+        isec = pd.read_csv(fname)
+    else:
+        isec = pd.read_excel(fname)
+    isec = clean_data(isec)
+    print(isec.head())
+
+    # Process the data and round all numerical columns to two decimal places
+    isec = process_data(isec).round(2)
+
+    # Display the data if output filename is not specified
+    if output is None:
+        print(f"\nSection Geometric Properties\n{'='*28}")
+        print(isec[["designation", "Ixx", "Iyy", "Zxx", "Zyy", "rxx", "ryy"]].head())
+    else:
+        pout = Path(output)
+
+        # Do not overwrite an existing file
+        if pout.is_file():
+            raise FileExistsError
+
+        # Check for a valid output file type, one of CSV or Excel
+        if pout.suffix.lower() not in [".csv", ".xlsx", ".xls"]:
+            raise ValueError(f"Invalid file type {pout.suffix}")
+
+        print(f"\nSaving data to {output}")
+        # Call the appropriate writing function based on file type
+        if pout.suffix.lower() == ".csv":
+            isec.to_csv(output, index=False, quoting=csv.QUOTE_NONNUMERIC)
+        else:
+            isec.to_excel(output)
+
+
+if __name__ == "__main__":
+    # fname = "isections.xlsx"
+    # main(fname, "isec_geomprop.csv")
+    typer.run(main)
+```
+
+You can use the CLI application as follows:
+=== "Using `uv`"
+    ```doscon
+    > uv run python secprop_app.py --help
+    > uv run python secprop_app.py isections.csv
+    > uv run python secprop_app.py isections.csv --output isec_geomprop.csv
+    > uv run python secprop_app.py isections.xlsx --output isec_geomprop.xlsx
+    ```
+=== "Using `pip` on Windows"
+    ```doscon
+    > .venv\Scripts\activate
+    (.venv) > python secprop_app.py --help
+    (.venv) > python secprop_app.py isections.csv
+    (.venv) > python secprop_app.py isections.csv --output isec_geomprop.csv
+    (.venv) > python secprop_app.py isections.xlsx --output isec_geomprop.xlsx
+    ```
+=== "Using `pip` on GNU/Linux or macOS"
+    ```doscon
+    > .venv/bin/activate
+    (.venv) > python secprop_app.py --help
+    (.venv) > python secprop_app.py isections.csv
+    (.venv) > python secprop_app.py isections.csv --output isec_geomprop.csv
+    (.venv) > python secprop_app.py isections.xlsx --output isec_geomprop.xlsx
+    ```
