@@ -577,3 +577,44 @@ You can use the CLI application as follows:
     (.venv) > python secprop_app.py isections.csv --output isec_geomprop.csv
     (.venv) > python secprop_app.py isections.xlsx --output isec_geomprop.xlsx
     ```
+
+The output of the first command is as follows:
+
+```doscon
+> uv run python secprop_app.py isections.csv
+  designation    d    b   t_f  t_w   r_r  r_f  alpha  n_r  area  Ixx  Iyy  Zxx  Zyy  rxx  ryy
+0    ISLB 300  300  150   9.4  6.7  15.0  7.5      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
+1    ISMB 300  300  140  12.4  7.5  14.0  7.0      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
+2    ISMB 450  450  150  17.4  9.4  15.0  7.5      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
+
+Section Geometric Properties
+============================
+  designation       Ixx     Iyy      Zxx     Zyy    rxx   ryy
+0    ISLB 300   7339.16  377.26   482.35   50.30  12.35  2.80
+1    ISMB 300   8605.09  453.85   573.67   64.84  12.37  2.84
+2    ISMB 450  30393.89  833.92  1350.84  111.19  18.15  3.01
+```
+
+The second command produces the following output on the screen:
+
+```doscon
+> uv run python secprop_app.py isections.csv --output isections_geomprop.csv
+  designation    d    b   t_f  t_w   r_r  r_f  alpha  n_r  area  Ixx  Iyy  Zxx  Zyy  rxx  ryy
+0    ISLB 300  300  150   9.4  6.7  15.0  7.5      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
+1    ISMB 300  300  140  12.4  7.5  14.0  7.0      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
+2    ISMB 450  450  150  17.4  9.4  15.0  7.5      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
+
+Saving data to isections_geomprop.csv
+```
+
+The contents of the output file are as follows:
+
+```csv title="isections_geomprop.csv"
+"designation","d","b","t_f","t_w","r_r","r_f","alpha","n_r","area","Ixx","Iyy","Zxx","Zyy","rxx","ryy"
+"ISLB 300",300,150,9.4,6.7,15.0,7.5,8,32,48.1,7339.16,377.26,482.35,50.3,12.35,2.8
+"ISMB 300",300,140,12.4,7.5,14.0,7.0,8,32,56.27,8605.09,453.85,573.67,64.84,12.37,2.84
+"ISMB 450",450,150,17.4,9.4,15.0,7.5,8,32,92.27,30393.89,833.92,1350.84,111.19,18.15,3.01
+```
+When opened in a spreadsheet application, it looks as follows:
+
+![](../assets/isec_geomprop.png)
