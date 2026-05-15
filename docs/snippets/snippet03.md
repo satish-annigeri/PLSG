@@ -448,9 +448,7 @@ Try the CLI application with the following commands:
     (.venv) > python secprop_app.py isections.csv
     ```
 
-**Note**
-
-The command must display the results on the screen.
+**Note:** This command must display the results on the screen.
 
 ### Remaining Tasks
 
@@ -459,8 +457,8 @@ Following changes can be made to the application:
 1. Check that the input file exists before attempting to read it. Raise `FileNotFoundError` exception if not found. Use `pathlib.Path` for this purpose.
 2. If the file exists, check the filename suffix and depending on whether it is `.csv` or `.xlsx` or `.xls`, read the file with `pandas.read_csv()` or `pandas.read_excel()`.
 3. Create additional columns in the DataFrame for the geometric properties and populate the rows with the calculated values, after converting to the same units as in SP:6(1)-1964.
-4. Modify the `main()` function to take a second optional parameter `output` and if provided, take it to be the name of the file to which the section dimensions along with the calculated properties are to be written. If this parameter is not given, display the results to the screen.
-5. Check if the output filename exists and raise `FileExistsError` exception and do not overwrite the existing file. If it does not exist, use `pandas.to_csv()` or `pandas.to_excel()` depending on the output filename suffix.
+4. Modify the `main()` function to take a second optional parameter `output` and when provided, take it to be the name of the file to which the section dimensions along with the calculated properties are to be written. If this parameter is not given, display the results to the screen.
+5. Check if the output filename exists and raise `FileExistsError` exception and do not overwrite the existing file. If it does not exist, use `pandas.to_csv()` or `pandas.to_excel()` depending on the output filename suffix, to save the data to a file.
 
 ### Finished CLI Application
 
@@ -580,7 +578,7 @@ You can use the CLI application as follows:
     (.venv) > python secprop_app.py isections.xlsx --output isec_geomprop.xlsx
     ```
 
-The output of the first command is as follows:
+The output of the first command must be as follows:
 
 ```doscon
 > uv run python secprop_app.py isections.csv
@@ -609,7 +607,7 @@ The second command produces the following output on the screen:
 Saving data to isections_geomprop.csv
 ```
 
-The contents of the output file are as follows:
+The contents of the output file must be as follows:
 
 ```csv title="isections_geomprop.csv"
 "designation","d","b","t_f","t_w","r_r","r_f","alpha","n_r","area","Ixx","Iyy","Zxx","Zyy","rxx","ryy"
@@ -617,6 +615,6 @@ The contents of the output file are as follows:
 "ISMB 300",300,140,12.4,7.5,14.0,7.0,8,32,56.27,8605.09,453.85,573.67,64.84,12.37,2.84
 "ISMB 450",450,150,17.4,9.4,15.0,7.5,8,32,92.27,30393.89,833.92,1350.84,111.19,18.15,3.01
 ```
-When opened in a spreadsheet application, it looks as follows:
+When opened in a spreadsheet application, it must look as follows:
 
 ![](../assets/isec_geomprop.png)
