@@ -371,6 +371,8 @@ The reactions from a STAAD.Pro analysis can be exported to Microsoft Excel forma
 
 ![reactions when viewed in Microsoft Excel](../assets/reactions_xlsx_img.png)
 
+[Download reactions.xlsx](https://docs.google.com/spreadsheets/d/1tT5Z4DfhBoYobV-3HFxuSZt6tDj1xsoa/edit?usp=sharing&ouid=110646875011683705253&rtpof=true&sd=true)
+
 **Note**
 
 1. There are two header lines. By default, Pandas assumes the first row in the file to be column names.
