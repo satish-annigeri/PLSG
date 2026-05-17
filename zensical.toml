@@ -58,6 +58,7 @@ nav = [
           "resources/about_python.md",
           "resources/prog_paradigms.md",
           "resources/git_github.md",
+          "resources/cli_apps.md",
      ] },
      { "Tasks" = [
           "tasks/index.md",
