@@ -154,4 +154,4 @@ To build CLI applications with multiple commands and a separate set of arguments
 
 Typer has been used in the [Session 10 `searchdir.py` example](../sessions/session10.md#command-line-interfaces) and in [Snippet 3 CLI application](../snippets/snippet03.md#cli-application).
 
-An alternative to Typer is the package [Click](https://click.palletsprojects.com/en/stable/). In fact, Typer depends on Click. While requiring a slightly steeper learning curve, Click is more versatle and capacble than Typer. 
+An alternative to Typer is the package [Click](https://click.palletsprojects.com/en/stable/). In fact, Typer depends on Click. While requiring a slightly steeper learning curve, Click is versatle and capable compared to Typer. 
