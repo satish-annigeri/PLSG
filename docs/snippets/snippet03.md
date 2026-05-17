@@ -379,7 +379,7 @@ if __name__ == "__main__":
 
 Run the application from the command line:
 ```doscon
->>> uv run python secprop_app.py
+>>> uv run -- python secprop_app.py
 ```
 
 This should produce the output:
@@ -556,10 +556,10 @@ if __name__ == "__main__":
 You can use the CLI application as follows:
 === "Using `uv`"
     ```doscon
-    > uv run python secprop_app.py --help
-    > uv run python secprop_app.py isections.csv
-    > uv run python secprop_app.py isections.csv --output isec_geomprop.csv
-    > uv run python secprop_app.py isections.xlsx --output isec_geomprop.xlsx
+    > uv run -- python secprop_app.py --help
+    > uv run -- python secprop_app.py isections.csv
+    > uv run -- python secprop_app.py isections.csv --output isec_geomprop.csv
+    > uv run -- python secprop_app.py isections.xlsx --output isec_geomprop.xlsx
     ```
 === "Using `pip` on Windows"
     ```doscon
@@ -581,7 +581,7 @@ You can use the CLI application as follows:
 The output of the first command must be as follows:
 
 ```doscon
-> uv run python secprop_app.py isections.csv
+> uv run -- python secprop_app.py isections.csv
   designation    d    b   t_f  t_w   r_r  r_f  alpha  n_r  area  Ixx  Iyy  Zxx  Zyy  rxx  ryy
 0    ISLB 300  300  150   9.4  6.7  15.0  7.5      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
 1    ISMB 300  300  140  12.4  7.5  14.0  7.0      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
@@ -598,7 +598,7 @@ Section Geometric Properties
 The second command produces the following output on the screen:
 
 ```doscon
-> uv run python secprop_app.py isections.csv --output isections_geomprop.csv
+> uv run -- python secprop_app.py isections.csv --output isections_geomprop.csv
   designation    d    b   t_f  t_w   r_r  r_f  alpha  n_r  area  Ixx  Iyy  Zxx  Zyy  rxx  ryy
 0    ISLB 300  300  150   9.4  6.7  15.0  7.5      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0
 1    ISMB 300  300  140  12.4  7.5  14.0  7.0      8   32   0.0  0.0  0.0  0.0  0.0  0.0  0.0

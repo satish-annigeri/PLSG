@@ -158,7 +158,7 @@ if __name__ == "__main__":
 The test run must produce an output similar to the following, depending on the name of the directory in your specific case:
 
 ```pycon
-> uv run python searchdir.py
+> uv run -- python searchdir.py
 SearchDir(/home/satish/Python/sci, *.py, True)
 SearchDir(/home/satish/Python/sci, *.py, False)
 ```

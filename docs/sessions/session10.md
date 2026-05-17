@@ -69,9 +69,9 @@ and run it from the command line:
 
 === "Using `uv`"
     ```doscon
-    > uv run python app.py
+    > uv run -- python app.py
     ['app.py']
-    > uv run python app.py one, two three
+    > uv run -- python app.py one, two three
     ['app.py', 'one', 'two', 'three']
     ```
 === "Using `pip` on Windows"
@@ -127,13 +127,13 @@ if __name__ == "__main__":
 
 Test this with different number of command line arguments:
 ```doscon
-> uv run python app.py
+> uv run -- python app.py
 Usage: python app.py path pattern [false]
-> uv run python app.py .
+> uv run -- python app.py .
 Usage: python app.py path pattern [false]
-> uv run python app.py . "*.py"
+> uv run -- python app.py . "*.py"
 Path: ., Pattern: .py, Recursive search: False
-> uv run python app.py . "*.py" true
+> uv run -- python app.py . "*.py" true
 Path: ., Pattern: .py, Recursive search: True
 ```
 
@@ -163,7 +163,7 @@ if __name__ == "__main__":
 
 Execute this application as follows:
 ```doscon
-> uv run python app.py . "*.py"
+> uv run -- python app.py . "*.py"
 app.py (22)
 main.py (10)
 searchdir.py (46)
@@ -196,7 +196,7 @@ if __name__ == "__main__":
 ```
 Execute the application from the command line:
 ```doscon
-> uv run python app.py
+> uv run -- python app.py
                                                                                 
  Usage: app.py [OPTIONS] PATH PATTERN                                           
                                                                                 
@@ -208,19 +208,19 @@ Execute the application from the command line:
 │ --recurse    --no-recurse      [default: no-recurse]                         │
 │ --help                         Show this message and exit.                   │
 ╰──────────────────────────────────────────────────────────────────────────────╯
-> uv run python app.py
+> uv run -- python app.py
 Usage: app.py [OPTIONS] PATH PATTERN
 Try 'app.py --help' for help.
 ╭─ Error ──────────────────────────────────────────────────────────────────────╮
 │ Missing argument 'PATH'.                                                     │
 ╰──────────────────────────────────────────────────────────────────────────────╯
-> uv run python app.py .
+> uv run -- python app.py .
 Usage: app.py [OPTIONS] PATH PATTERN
 Try 'app.py --help' for help.
 ╭─ Error ──────────────────────────────────────────────────────────────────────╮
 │ Missing argument 'PATTERN'.                                                  │
 ╰──────────────────────────────────────────────────────────────────────────────╯
-> uv run python app.py . "*.py"
+> uv run -- python app.py . "*.py"
 SearchDir(/home/satish/Python/sci, *.py, False) 
 
 app.py (12)
@@ -230,7 +230,7 @@ searchdir.py (46)
 vector.py (37)
 vector2.py (41)
 Files: 6, Total lines: 168
-> uv run python app.py . "*.py" --recurse
+> uv run -- python app.py . "*.py" --recurse
 SearchDir(/home/satish/Python/sci, *.py, False) 
 
 ...
