@@ -1,14 +1,17 @@
 # CLI Applications
 
-Command Line Interface (CLI) applications are applications that take commands and options on the command line to simplify what you want the application to do and any additional information, such as input and output filenames, Following examples may be familiar to you:
+Command Line Interface (CLI) applications are applications that take command line arguments to pass in information to the application so as to avoid interacting with the application to input information. Command line arguments include information such as input and output filenames, switches to say yes or no. Following examples may be familiar to you:
 
-`git clone https://github.com/satish-annigeri/rcdesign.git`
+1. `copy file1.csv file2.csv`
+    * `copy` is the CLI application. This application takes only command line arguments and does not have subcommands.
+    * `file1.csv` is the first argument and is assumed to be the source file that is to be copied
+    * `file2.csv` is the second command line argument and is assumed to be the name of the copy of the source file.
+2. `git clone https://github.com/satish-annigeri/rcdesign.git`
+    * `git` is the CLI application. This application has several subcommands which can be displayed with the `git --help` command.
+    * `clone` is the subcommand
+    * `https://github.com/satish-annigeri/rcdesign.git` is the argument to the subcommand and is assumed to be the repository to be cloned
 
-* `git` is the CLI application
-* `clone` is the command
-* `https://github.com/satish-annigeri/rcdesign.git` is the repository to be cloned
-
-## The Mechanism of CLI Applications
+## Catching Command Line Arguments with `sys.argv`
 
 When an application is called from the command line (Command Prompt in Windows orterminal in  GNU/Linux and macOS), the operating system shell passes on information about the command and the command line arguments to the application. Within the program, the programming language can access these command line arguments and interpret and act on them based on its own logic.
 
@@ -138,7 +141,7 @@ recurse=False
 !!! note
     It may be necessary to enclose `"*.py"` within double quotes to prevent the command shell from interpreting it wrongly.
 
-One last time:
+Let us test one last time:
 ```doscon
 > uv run -- python cli_app.py , "*.py" --recurse
 dir='.'
@@ -155,3 +158,104 @@ To build CLI applications with multiple commands and a separate set of arguments
 Typer has been used in the [Session 10 `searchdir.py` example](../sessions/session10.md#command-line-interfaces) and in [Snippet 3 CLI application](../snippets/snippet03.md#cli-application).
 
 An alternative to Typer is the package [Click](https://click.palletsprojects.com/en/stable/). In fact, Typer depends on Click. While requiring a slightly steeper learning curve, Click is versatle and capable compared to Typer. 
+
+### Example with only command line arguments and no subcommands
+
+Let us build a dummy `main()` functions as examples.
+
+A Python script **secprop_cli.py** takes the name of a input file as the first argument and an optional second argument representing the name of an output file.
+
+```py title="secprop_cli.py" linenums="1"
+import typer
+
+# Any functions that may be required by main() go here
+
+def main(input: str, output: str | None=None):
+    # This is only to demonstrate the use of command line arguments. delete later
+    print(f"{input=}, {output=}")
+
+    # Here you can call any functions required to accomplish the given task
+
+
+if __name__ == "__main__":
+    typer.run(main)
+```
+Execute the application from the command line and ask for the help page.
+```doscon
+> uv run -- python secprop_cli.app --help
+Usage: secprop_cli.py [OPTIONS] INPUT                                          
+                                                                                
+╭─ Arguments ──────────────────────────────────────────────────────────────────╮
+│ *    input      TEXT  [required]                                             │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --output        TEXT                                                         │
+│ --help                Show this message and exit.                            │
+╰──────────────────────────────────────────────────────────────────────────────╯
+> uv run -- python secprop_cli.py sections.csv
+input='sections.csv', output=None
+> uv run -- python sections,csv --output sections_geomprop.csv
+uv run -- python secprop_cli.py sections.csv --output sections_prop.csv
+input='sections.csv', output='sections_prop.csv'
+```
+
+### Example with subcommands
+
+This example is copied from [Typer documentation](https://typer.tiangolo.com/#an-example-with-two-subcommands), with one change (`Ms. ` from `goodbye()` is deleted).
+
+```py title="greet.py" linenums="1"
+import typer
+
+app = typer.Typer()
+
+
+@app.command()
+def hello(name: str):
+    print(f"Hello {name}")
+
+
+@app.command()
+def goodbye(name: str, formal: bool = False):
+    if formal:
+        print(f"Goodbye {name}. Have a good day.")
+    else:
+        print(f"Bye {name}!")
+
+
+if __name__ == "__main__":
+    app()
+```
+
+**Note**
+
+1. The name of the application is `greet.py`
+2. Th `greet.py` CLI application has two subcommands, `hello` and `goodbye`
+3. Subcommand `hello` takes one argument:
+    * Required argument `name`
+4. Subcommand `goodbye` takes two arguments:
+    * Required argument `name`
+    * Optional boolean argument `formal`, which defaults to `False` if not given.
+
+Let us try out this CLI application:
+
+```doscon
+> uv run -- python greet.py --help
+Usage: greet.py [OPTIONS] COMMAND [ARGS]...                                    
+                                                                                
+╭─ Options ────────────────────────────────────────────────────────────────────╮
+│ --install-completion          Install completion for the current shell.      │
+│ --show-completion             Show completion for the current shell, to copy │
+│                               it or customize the installation.              │
+│ --help                        Show this message and exit.                    │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────────────────────────────────────╮
+│ hello                                                                        │
+│ goodbye                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────╯
+> uv run -- python greet.py hello Raj
+Hello Raj
+> uv run -- python greet.py goodbye Raj
+Bye Raj!
+> uv run -- python greet.py goodbye Raj --formal
+Goodbye Raj. Have a good day.
+```
