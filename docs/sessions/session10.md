@@ -1,6 +1,4 @@
-# Session 10
-
-### Planned date: 09-05-2026 4:00 pm to 6:00 pm
+# Session 10: 16-05-2026 4:00 pm to 6:00 pm
 
 ## Agenda
 
