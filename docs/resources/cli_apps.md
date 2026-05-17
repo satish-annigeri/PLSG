@@ -3,13 +3,13 @@
 Command Line Interface (CLI) applications are applications that take command line arguments to pass in information to the application so as to avoid interacting with the application to input information. Command line arguments include information such as input and output filenames, switches to say yes or no. Following examples may be familiar to you:
 
 1. `copy file1.csv file2.csv`
-    * `copy` is the CLI application. This application takes only command line arguments and does not have subcommands.
+    * `copy` is the CLI application. This application takes only command line arguments and does not have commands.
     * `file1.csv` is the first argument and is assumed to be the source file that is to be copied
     * `file2.csv` is the second command line argument and is assumed to be the name of the copy of the source file.
 2. `git clone https://github.com/satish-annigeri/rcdesign.git`
-    * `git` is the CLI application. This application has several subcommands which can be displayed with the `git --help` command.
-    * `clone` is the subcommand
-    * `https://github.com/satish-annigeri/rcdesign.git` is the argument to the subcommand and is assumed to be the repository to be cloned
+    * `git` is the CLI application. This application has several commands which can be displayed with the `git --help` command.
+    * `clone` is the command
+    * `https://github.com/satish-annigeri/rcdesign.git` is the argument to the command and is assumed to be the repository to be cloned
 
 ## Catching Command Line Arguments with `sys.argv`
 
@@ -159,7 +159,7 @@ Typer has been used in the [Session 10 `searchdir.py` example](../sessions/sessi
 
 An alternative to Typer is the package [Click](https://click.palletsprojects.com/en/stable/). In fact, Typer depends on Click. While requiring a slightly steeper learning curve, Click is versatle and capable compared to Typer. 
 
-### Example with only command line arguments and no subcommands
+### Example with only command line arguments and no commands
 
 Let us build a dummy `main()` functions as examples.
 
@@ -199,7 +199,7 @@ uv run -- python secprop_cli.py sections.csv --output sections_prop.csv
 input='sections.csv', output='sections_prop.csv'
 ```
 
-### Example with subcommands
+### Example with commands
 
 This example is copied from [Typer documentation](https://typer.tiangolo.com/#an-example-with-two-subcommands), with one change (`Ms. ` from `goodbye()` is deleted).
 
@@ -230,9 +230,9 @@ if __name__ == "__main__":
 
 1. The name of the application is `greet.py`
 2. Th `greet.py` CLI application has two subcommands, `hello` and `goodbye`
-3. Subcommand `hello` takes one argument:
+3. Command `hello` takes one argument:
     * Required argument `name`
-4. Subcommand `goodbye` takes two arguments:
+4. Command `goodbye` takes two arguments:
     * Required argument `name`
     * Optional boolean argument `formal`, which defaults to `False` if not given.
 
