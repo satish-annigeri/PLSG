@@ -100,6 +100,7 @@ nav = [
           { "Functions as arguments" = "snippets/snippet01.md" },
           { "Image Manipulation" = "snippets/snippet02.md" },
           { "Section Properties" = "snippets/snippet03.md" },
+          { "Rectangular Footing" = "snippets/snippet04.md" },
      ] },
      { "About" = [
           "about/index.md",

@@ -4,6 +4,8 @@
 
 The origin of the coordinate system is assumed to be at the geometric centre of the rectangular footing. Coordinate axes are positive as shown in the figure. #L_x$ and $L_y$ do not have sign associated with them. All other quantities are positive when they are as shown in the figure. Values opposite to those shown are taken to be negative.
 
+![Isolated rectangular footing](../assets/rect_footing.jpeg)
+
 | Quantity     | Description                       | Sign Convention |
 |:-------------|:----------------------------------|:----------------|
 |$L_x$, $L_y$  | Dimensions of footing along x- and y-axis, respectively | Not applicable |
