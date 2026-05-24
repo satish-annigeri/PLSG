@@ -62,7 +62,7 @@ These steps are not unique to application development. Most tasks that need to b
 4. Comments within the code are very important and are a note to the developer as well as others who study your code. Comments clarify the intent of the code for future reference.<br><br>There are ways by which comments written in a specific way can be extracted into documentation of the source code. For Python, there are several specifications for commenting source code and software tools that can prepare documentation from them. [Zensical](https://zensical.org/) based on [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) and [Sphinx](https://www.sphinx-doc.org/en/master/index.html) are the main document generation tools. Here is a good article on the topic of [Python source code documentation](https://realpython.com/documenting-python-code/).
 
 
-## Application
+## Incremental Application Development
 
 Incremental development of the application will follow these steps:
 
@@ -107,6 +107,9 @@ Let us now add the method to calculate the required area of the footing based on
 $$
 A = \frac{\left(1 + \frac{\text{self weight factor}}{100} \right) \cdot P}{\text{SBC of foundation strata}}
 $$
+
+!!! warning "Alert"
+    As the application changes, the new or changed lines are highlighted in blue color.
 
 ```py title="rect_footing.py" linenums="12" hl_lines="4-5 11-12"
 #   Lines 1 - 12 not shown
