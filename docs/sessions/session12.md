@@ -187,3 +187,34 @@ Coverage HTML written to dir cov_html
 2. Clicking on the name of a file, for example, `test_rect_footing.py` in this case shown the file with the lines not covered by the tests with a red background.
 
 ![Test coverage of modules](../assets/test_cov_file.png)
+
+### Remaining Tasks
+
+#### Handling invalid input data
+
+One important but frequently neglected aspect of application development is to foresee all types of expected input and to raise exceptions to handle invalid data.
+
+For example, the method `def lx_ly(self, sbc: float, aspect_ratio: float, m: float = 0) -> tuple[float, float]` will fail under the following input values:
+
+1. If `sbc` is a negative number, the calculation for area will result in a negative number.
+2. If `aspect_ratio` is less than or equal to `0`, the calculations will fail.
+
+A well written application will validate the input and raise appropriate exceptions when invalid data in encountered.
+
+#### Source code comments
+
+Comments are reminders for the programmer for the future when you revisit the source code after a long gap of time. It usually happens that as long as the application is giving results, we tend to ignore the source code. After a long gap of time, we tend to forgetthe intricacies in the code. When a bug crops up, and you revisitthe code, it is useful to have comments to remind oneself the claer intent of the code.
+
+Comments are useful to other people who read your code. Since the code is new to them, the comments will clarify the intent of the programmer who wrotethe code.
+
+#### Source code documentation
+
+Python [PEP 8](https://peps.python.org/pep-0008/) is style guide for Python code. It describes the coding conventions for the Python code comprising the standard library in the main Python distribution.
+
+[PEP 257](https://peps.python.org/pep-0257/) describes Docstring conventions. Docstrings are used by the Python REPL to generate help withn the REPL. Several linters available within code editors can use these Docstrings to generate autocomplete prompts.
+
+[Google Doc Style](https://google.github.io/styleguide/pyguide.html#s3.8-comments-and-docstrings) is the convention for writing Docstrings in the source code that can be extracted by programs such as [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/), [Zensical](https://zensical.org/) or [Sphinx](https://www.sphinx-doc.org/en/master/) to generate documentation for developers who wish to understand the code and modify the source code.
+
+An alternative to the Google Doc Style is the [NumPy Doc Style](https://numpydoc.readthedocs.io/en/latest/format.html) followed by NumPy.
+
+Sourc code documentation generators extract he Docstrings and generate documentation in HTML or other formats.
