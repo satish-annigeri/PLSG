@@ -10,7 +10,7 @@
 
 ## Theory and sign conventions
 
-See [Task 8](../tasks/task08_20260518.md#problem-statement) for the problem definition and [Snippet 4](../snippets/snippet04.md) for the theory and notations and sign conventions.
+See [Task 8](../tasks/task08_20260518.md#problem-statement) for the problem definition and [Snippet 4](../snippets/snippet04.md) for the theory, notations and sign conventions.
 
 ## Steps in Application Development
 
