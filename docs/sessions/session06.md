@@ -1,4 +1,6 @@
-# Session 6: 11-04-2026 4:00 pm to 6:00 pm
+# Session 6: Working with Files and Introduction to NumPy
+
+**Date: 11-04-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

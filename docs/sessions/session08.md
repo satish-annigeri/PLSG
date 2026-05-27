@@ -1,4 +1,6 @@
-# Session 8: 25-04-2026 4:00 pm to 6:00 pm
+# Session 8: Plotting Graphs with Matplotlib
+
+**Date: 25-04-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

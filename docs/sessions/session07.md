@@ -1,4 +1,6 @@
-# Session 7: 18-04-2026 4:00 pm to 6:00 pm
+# Session 7: Working with NumPy - Part 2
+
+**Date: 18-04-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

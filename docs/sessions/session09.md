@@ -1,4 +1,6 @@
-# Session 9: 02-05-2026 4:00 pm to 6:00 pm
+# Session 9: Object Oriented Programming - Part 1
+
+**Date: 02-05-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

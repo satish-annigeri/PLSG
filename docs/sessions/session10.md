@@ -1,4 +1,6 @@
-# Session 10: 16-05-2026 4:00 pm to 6:00 pm
+# Session 10: Object Oriented Programming - Part 2
+
+**Date: 16-05-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

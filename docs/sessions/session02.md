@@ -1,5 +1,7 @@
-# Session 2: 2026-03-14 Saturday
-#### From 4:30 pm to 6:30 pm
+# Session 2: Working with Python, Objects and Memory Location
+
+**Date: 2026-03-14  4:30 pm to 6:30 pm**
+
 ## Agenda
 
 1. Review of previous session

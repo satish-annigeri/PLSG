@@ -1,4 +1,6 @@
-# Session 3: 21-03-2026 4:00 pm to 6:00 pm
+# Session 3: Python Data Types and Program Flow Control
+
+**Date: 21-03-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

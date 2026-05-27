@@ -1,4 +1,6 @@
-# Session 12: Planned Date 30-05-2026 4:00 pm to 6:00 pm
+# Session 12: Testing Python Code
+
+**Planned Date 30-05-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

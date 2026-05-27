@@ -1,4 +1,6 @@
-# Session 4: 28-03-2026 4:00 pm to 6:00 pm
+# Session 4: Formatted Output and Function Design and Testing
+
+**Date: 28-03-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

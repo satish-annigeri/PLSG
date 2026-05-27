@@ -1,4 +1,6 @@
-# Session 11: 23-05-2026 4:00 pm to 6:00 pm
+# Session 11: Design and Development of Applications
+
+**Date: 23-05-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

@@ -1,5 +1,6 @@
-# Session 1: 2026-03-07 Saturday
-#### From 4:00 pm to 6:00 pm
+# Session 1: Working with Python
+
+**Date: 2026-03-07 4:00 pm to 6:00 pm**
 
 ## Python REPL
 
