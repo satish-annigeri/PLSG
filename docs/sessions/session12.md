@@ -1,6 +1,6 @@
-# Session 12: Testing Python Code
+# Session 12: Testing Python Code and Code Coverage
 
-**Planned Date 30-05-2026 4:00 pm to 6:00 pm**
+**Planned Date: 30-05-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 
@@ -8,6 +8,8 @@
 2. Answers to queries
 3. Code testing using `pytest`
 4. Code coverage report using `pytest-cov`
+
+## Code Testing and Coverage
 
 Testing code is an integral part of software development and must not be an afterthought. While `print()` statements and debugging are constantly done during application development, that is not to be treated as testing. Testing must be:
 
@@ -189,6 +191,16 @@ Coverage HTML written to dir cov_html
 2. Clicking on the name of a file, for example, `test_rect_footing.py` in this case shown the file with the lines not covered by the tests with a red background.
 
 ![Test coverage of modules](../assets/test_cov_file.png)
+
+### Remaining Tests
+
+```py title="test_rect_footing.py" linenums="1" hl_lines="1"
+    # Lines not shown
+    assert isclose(Lx * Ly, f.area(sbc))
+
+def test_pressure():
+    assert isclose(, f.pressure(1, 1))
+```
 
 ### Remaining Tasks
 
