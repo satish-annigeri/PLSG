@@ -277,7 +277,7 @@ This program prints the following result:
 For small values of $M_x, M_y$, this rounding is sufficient to result in a safe design. For large values of $M_x, M_y$, the strategy of iteratively increasing the length of the sidex will result in a safe design fairly quickly. Nevertheless, it is a good idea to specify the maximum number of iterations and raise an exception if the specified number of iterations do not result in a safe design. Smaller the increment in the length of the side, larger the number of iterations required.
 
 ## Full Implementation
-```py title="rect_footing.py" linenums="1" hl_lines="5-6 27-34 57-72 85-87"
+```py title="rect_footing.py" linenums="1" hl_lines="5-6 32-39 62-77 93"
 from dataclasses import dataclass
 import math
 
@@ -288,7 +288,7 @@ def ceiling(x: float, m: float = 1) -> float:
 
 @dataclass
 class RectFooting:
-    P: float  # kN
+    P: float   # kN
     Mx: float  # kNm
     My: float  # kNm
     bx: float  # m
@@ -301,14 +301,10 @@ class RectFooting:
         return (1 + self.self_wt_factor / 100) * self.P / sbc
 
     def lx_ly(
-        self, sbc: float, aspect_ratio: float, m: float = 0
-    ) -> tuple[float, float]:
+        self, sbc: float, aspect_ratio: float) -> tuple[float, float]:
         area = self.area(sbc)
         Ly = math.sqrt(area / aspect_ratio)
         Lx = aspect_ratio * Ly
-        if m > 0:
-            Lx = ceiling(Lx, m)
-            Ly = ceiling(Ly, m)
         self.Lx = Lx
         self.Ly = Ly
         return Lx, Ly
@@ -344,7 +340,7 @@ class RectFooting:
         return (pmax <= sbc) and (pmin >= 0.0)
 
     def calc_size(self, sbc: float, aspect_ratio: float):
-        self.lx_ly(sbc, aspect_ratio, 0.1)
+        self.lx_ly(sbc, aspect_ratio)
         mx = my = 0.15
         maxiter = 10
         i = 0
@@ -358,14 +354,7 @@ class RectFooting:
                 break
             elif i == maxiter:
                 raise ValueError(f"Maximum iterations {i} reached")
-        return idef lx_ly_eqproj(self, m: float=0.15):
-        reqd_area = self.area(sbc)
-        bx_by = (self.bx - self.by)
-        Lx = (bx_by / 2) + math.sqrt((bx_by / 2) ** 2 + reqd_area)
-        Ly = Lx - bx_by
-        self.Lx = Lx
-        self.Ly = Ly
-        return Lx, Ly
+        return i
 
 
 if __name__ == "__main__":
@@ -373,7 +362,7 @@ if __name__ == "__main__":
     print(f)
     sbc = 130.0  # SBC in kN/m^2
     print("Area =", f.area(sbc))
-    print("Sides =", f.lx_ly(sbc, 1.0, 0.15))
+    print("Sides =", f.lx_ly(sbc, 1.0))
     print("Pressure at 1, 1 =", f.pressure(1, 1))
     print("Pressure at -1, -1 =", f.pressure(-1, -1))
     print("Pressure at corners =", f.corner_pressures())
@@ -387,14 +376,14 @@ Output of the application is shown below:
 ```doscon
 RectFooting(P=150, Mx=5.0, My=20.0, bx=0.45, by=0.23, cx=0.0, cy=0.0, self_wt_factor=10)
 Area = 1.2692307692307692
-Sides = (1.2, 1.2)
-Pressure at 1, 1 = 201.3888888888889
-Pressure at -1, -1 = 27.777777777777757
-Pressure at corners = (166.66666666666669, 201.3888888888889, 62.5, 27.77777777777777)
+Sides = (1.126601424298216, 1.126601424298216)
+Pressure at 1, 1 = 241.73553719008268
+Pressure at -1, -1 = 18.26446280991732
+Pressure at corners = (192.94070767153673, 234.9011794525612, 67.05929232846327, 25.098820547438805)
 Footing is safe = False
-Iterations = 2
-Footing size (in m): 1.5 1.5
-Pressure at corners: (100.0, 117.77777777777777, 46.66666666666666, 28.888888888888886)
+3
+1.5766014242982158 1.5766014242982158
+(89.34598371460784, 104.65634738389366, 43.41489270675038, 28.10452903746457)
 (1.241958819582572, 1.021958819582572) True
 ```
 
