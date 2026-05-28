@@ -313,6 +313,15 @@ class RectFooting:
         self.Ly = Ly
         return Lx, Ly
 
+    def lx_ly_eqproj(self):
+        reqd_area = self.area(sbc)
+        bx_by = (self.bx - self.by)
+        Lx = (bx_by / 2) + math.sqrt((bx_by / 2) ** 2 + reqd_area)
+        Ly = Lx - bx_by
+        self.Lx = Lx
+        self.Ly = Ly
+        return Lx, Ly
+
     def pressure(self, x: float, y: float) -> float:
         pz = (
             (1 + self.self_wt_factor / 100) * self.P / (self.Lx * self.Ly)
@@ -349,7 +358,14 @@ class RectFooting:
                 break
             elif i == maxiter:
                 raise ValueError(f"Maximum iterations {i} reached")
-        return i
+        return idef lx_ly_eqproj(self, m: float=0.15):
+        reqd_area = self.area(sbc)
+        bx_by = (self.bx - self.by)
+        Lx = (bx_by / 2) + math.sqrt((bx_by / 2) ** 2 + reqd_area)
+        Ly = Lx - bx_by
+        self.Lx = Lx
+        self.Ly = Ly
+        return Lx, Ly
 
 
 if __name__ == "__main__":
@@ -365,6 +381,7 @@ if __name__ == "__main__":
     print(f.calc_size(sbc, 1.0))
     print(f.Lx, f.Ly)
     print(f.corner_pressures())
+    print(f.lx_ly_eqproj(), (f.Lx - f.bx) == (f.Ly - f.by))
 ```
 Output of the application is shown below:
 ```doscon
@@ -378,6 +395,7 @@ Footing is safe = False
 Iterations = 2
 Footing size (in m): 1.5 1.5
 Pressure at corners: (100.0, 117.77777777777777, 46.66666666666666, 28.888888888888886)
+(1.241958819582572, 1.021958819582572) True
 ```
 
 
