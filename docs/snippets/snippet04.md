@@ -25,6 +25,39 @@ $$
 \end{align*}
 $$
 
+### Required Area
+Required area of the isolated rectangular footing assuming the self weight factor to be $\alpha$ is:
+
+$$
+A = \frac{\alpha \cdot P}{\text{sbc}}
+$$
+
+### Length of the Sides of the Footing
+
+#### With given Aspect Ratio
+Let he required aspect ratio of the sides $\frac{L_x}{L_y}$ be given as $r$.
+
+$$
+\begin{align*}
+    r &= \frac{L_x}{L_y} \Rightarrow L_x = r \cdot L_y \\
+    A &= L_x \cdot L_y = r \cdot L_y \cdot L_y = r \cdot L_y^2 \\
+    L_y &= \sqrt{\frac{A}{r}}
+\end{align*}
+$$
+
+#### Equal projections
+
+$$
+\begin{align*}
+    \frac{L_x - b_x}{2} &= \frac{L_y - b_y}{2} \Rightarrow = L_y = L_x - (b_x - b_y) \\
+    A &= L_x \cdot L_y = L_x \left( L_x - (b_x - b_y) \right) = L_x^2 - (b_x - b_y) \cdot L_x \\
+    L_x^2 - - (b_x - b_y) \cdot L_x - A &= 0 \\
+    L_x &= \frac{(b_x -b_y) \pm \sqrt{(b_x - b_y)^2 + 4 \cdot A}}{2} \\
+    &= \frac{b_x - b_y}{2} + \sqrt{ \left( \frac{b_x - b_y}{2} \right)^2 + A }
+\end{align*}
+$$
+
+### Pressure at a Point
 Pressure at $x, y$ due to $P, M_x$ and $M_y$:
 
 $$
