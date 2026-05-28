@@ -22,6 +22,8 @@ There are several tools that simplify the process of writinf tests and reorting 
 
 ## Code testing using `pytest`
 
+We took a brief look at [`pytest` in Session 4](https://plsg.netlify.app/sessions/session04/?h=pytest#unit-testing-using-pytest), but we will take a closer look now.
+
 [pytest](https://docs.pytest.org/en/stable/#) is a Python framework for functional testing of Python applications and libraries. It has the following features:
 
 1. Auto-discovery of test modules and functions. Modules with names startng with `test_*.py` or `_test.py` are automatically considered as containing tests and functions within these modules with names starting with `test_` are assumed to be test functions. To test libraries, one can create a separate directory containing test modules and point `pytest` to this directory.
