@@ -99,6 +99,6 @@ The directory structure of the package within the project directory is as follow
 ```doscon
 |---- Project
    |     main.py
-   |---- footings
-             rectfooting.py
+   |---- footing
+             rectangular.py
 ```
