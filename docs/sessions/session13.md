@@ -91,6 +91,10 @@ print(utils.ceiling(1.12, 0.25))  # Result 1.2
 print(utils.floor(1.12, 0.15))  # Result 1.05
 ```
 
+### Distribution of a Module
+
+There is no formal mechanism for distribution of modules unless it is distributed as a package with a single module.A single module can also be distributed through PyPI.
+
 ## Example Package
 
 Let us develop a package named `footing` which is expected to contain modules for the proportioning of different types of footings, and make the module `rect_footing.py` a part of this packgae. The easiest way to get started is to crate a new project folder, and use `uv` to initialize a project to create a **library**. Assuming you are on a Windows machine and your Python projects are in the `C:\Users\username\Projects\` directory, follow these command at the Command Prompt:
@@ -217,7 +221,7 @@ Following points are worth noting:
 3. At present, the package consists of a single module named `rectangular` and its source code resides in the file `src\footing\rectangular.py`.
 4. To import the package into any file within the project directory, it is sufficient to refer to the name of the package `footing`. For example, `RectFooting` class from the module `rectangular` in the package `footing` is imported into the test file `tests\test_rectfooting.py` using the statement `from footing.rectangular import RectFooting`.
 
-## Git Repository for the Package
+### Git Repository for the Package
 
 We took a preliminary llok at Git in [Source Code Management](../resources/git_github.md). We will now create a repository for this package on GitHub. It will serve several purposes:
 
@@ -225,5 +229,5 @@ We took a preliminary llok at Git in [Source Code Management](../resources/git_g
 2. Storage on a remote repository: This enables recreating the source code to a local repository on a different machine
 3. Distribution of the package to others: This becomes possible because `pip` and by extension `uv` can install packages from GitHub (in addition to their main purpose of installing packages from PyPI).
 
-## Building a Package for Distribution
+### Building a Package for Distribution
 If we wish to distribute the package to other users, we must build a package in a way that it can be distributed to other users and they should be able to install it and use it in their applications.
