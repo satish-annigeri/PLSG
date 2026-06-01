@@ -93,12 +93,133 @@ print(utils.floor(1.12, 0.15))  # Result 1.05
 
 ## Example Package
 
-Let us develop a package named `footing` which is expected to contain modules for the proportioning of different types of footings, starting with the simplest, namely isolated rectangular footing.
+Let us develop a package named `footing` which is expected to contain modules for the proportioning of different types of footings, and make the module `rect_footing.py` a part of this packgae. The easiest way to get started is to crate a new project folder, and use `uv` to initialize a project to create a **library**. Assuming you are on a Windows machine and your Python projects are in the `C:\Users\username\Projects\` directory, follow these command at the Command Prompt:
 
-The directory structure of the package within the project directory is as follows:
 ```doscon
-|---- Project
-   |     main.py
-   |---- footing
-             rectangular.py
+C:\Users\username\Projects > md footing
+C:\Users\username\Projects > cd footing
+C:\Users\username\Projects\footing > uv init --lib
+Initialized project `footing`
+C:\Users\username\Projects\footing > tree /f
+C:\Users\username\Projects\footing> tree /f
+Folder PATH listing for volume Windows-SSD
+Volume serial number is 000000B4 2CED:96CE
+C:.
+│   .gitignore
+│   .python-version
+│   pyproject.toml
+│   README.md
+│
+└───src
+    └───footing
+            py.typed
+            __init__.py
 ```
+
+**Note**
+
+Like any project created with `uv init` (except with `uv init --bare` option) you have the following components created by `uv`:
+
+ 1. `.git` directory for source code version management using `git`.
+ 2. `.gitignore` file, with names of directories and files patterns that are to be ignored by `git`.
+ 3. `.python-version` file containing the Python version to be used by the project. This file is managed by `uv` and must not be changed by the programmer.
+ 4. `README.md` file, is the file expected by GitHub and other online `git` web repositories such as GitLab and several others. It is in Markdown format and its contents are displayed on the front page of the repository. It serves as an introduction to the package.
+ 5. `src` directory containes the source code for the package we intend to develop.
+ 6. `src\footing` directory contains the source code for the package.
+ 7. `src\footing\__init__.py` file makes this directory a package.
+ 8. `py.typed` file tells type checkers (like mypy, pyright, pylance) that your package ships with type hints that should be trusted and enforced. You can ignore it at this point of time.
+
+Check the status of the local Git repository with the command:
+
+```doscon
+> git status
+git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        .python-version
+        README.md
+        pyproject.toml
+        src/
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+Let us copy the `rect_footing.py` from our previous application with the name `rectangular.py` into the `src\footing` directory with the command. Let us assume that the `rect_footing.py` file is in a directory named `C:\Users\username\Projects\footing_design` and assume that the destination directory is `C:\Users\username\Projects\footing\src\footing`. (change the command appropriately as needed).
+
+```doscon
+> copy C:\Users\username\Projects\footing_design\rect_footing.py C:\Users\username\footing\src\fppting\rectangular.py
+```
+
+Alternatively, use Windows File Explorer and make a copy of the file `rect_footing.py` in the original folder, rename it to `rectangular.py` and copy it to the desitnation directory.
+
+Create a directory named `tests` in the project root and copy the `test_rectfooting.py` to that directory.
+
+These are the directory tree and Git status after these changes:
+
+```doscon
+> tree /f
+C:.
+│   .gitignore
+│   .python-version
+│   pyproject.toml
+│   README.md
+│
+├───src
+│   └───footing
+│           py.typed
+│           rectangular.py
+│           __init__.py
+│
+└───tests
+        test_rectfooting.py
+> git status
+On branch main
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .gitignore
+        .python-version
+        README.md
+        pyproject.toml
+        src/
+        tests/
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+We can now run the tests using `pytest`:
+
+```doscon
+uv run -- pytest tests
+================================================= test session starts =================================================
+platform win32 -- Python 3.14.0, pytest-9.0.3, pluggy-1.6.0
+rootdir: C:\Users\satish\Documents\Python\footing
+configfile: pyproject.toml
+plugins: cov-7.1.0
+collected 2 items
+
+tests\test_rectfooting.py ..                                                                                     [100%]
+
+================================================== 2 passed in 0.06s ==================================================
+```
+
+Following points are worth noting:
+
+1. The package we inted to develop is named `footing` and its source code resides in the directory `src\footing` within the project directory.
+2. The file `src\footing\__init__.py` must be present for the directory to be considered as a package.
+3. At present, the package consists of a single module named `rectangular` and its source code resides in the file `src\footing\rectangular.py`.
+4. To import the package into any file within the project directory, it is sufficient to refer to the name of the package `footing`. For example, `RectFooting` class from the module `rectangular` in the package `footing` is imported into the test file `tests\test_rectfooting.py` using the statement `from footing.rectangular import RectFooting`.
+
+## Git Repository for the Package
+
+We took a preliminary llok at Git in [Using `git`Source ](../resources/git_github.md). We will now create a repository for this package. It will serve the dual purpose of managing the source code as well as distribution of the package, because `pip` and by extension `uv` can install packages from GitHub (in addition to their main purpose of installing packages from PyPI).
+
+## Building a Package for Distribution
+If we wish to distribute the package to other users, we must build a package in a way that it can be distributed to other users and they should be able to install it and use it in their applications.
