@@ -219,7 +219,7 @@ Following points are worth noting:
 
 ## Git Repository for the Package
 
-We took a preliminary llok at Git in [Using `git`Source ](../resources/git_github.md). We will now create a repository for this package. It will serve the dual purpose of managing the source code as well as distribution of the package, because `pip` and by extension `uv` can install packages from GitHub (in addition to their main purpose of installing packages from PyPI).
+We took a preliminary llok at Git in [Source Code Management](../resources/git_github.md). We will now create a repository for this package. It will serve the dual purpose of managing the source code as well as distribution of the package, because `pip` and by extension `uv` can install packages from GitHub (in addition to their main purpose of installing packages from PyPI).
 
 ## Building a Package for Distribution
 If we wish to distribute the package to other users, we must build a package in a way that it can be distributed to other users and they should be able to install it and use it in their applications.
