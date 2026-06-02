@@ -101,7 +101,6 @@ C:\Users\username\Projects > cd footing
 C:\Users\username\Projects\footing > uv init --lib
 Initialized project `footing`
 C:\Users\username\Projects\footing > tree /f
-C:\Users\username\Projects\footing> tree /f
 Folder PATH listing for volume Windows-SSD
 Volume serial number is 000000B4 2CED:96CE
 C:.
@@ -149,15 +148,14 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 ```
 
-Let us copy the `rect_footing.py` from our previous application with the name `rectangular.py` into the `src\footing` directory with the command. Let us assume that the `rect_footing.py` file is in a directory named `C:\Users\username\Projects\footing_design` and assume that the destination directory is `C:\Users\username\Projects\footing\src\footing`. (change the command appropriately as needed).
+Now do the following:
 
+1. Copy the `rect_footing.py` from our previous application with the name `rectangular.py` into the `src\footing` directory with the command. Assuming the `rect_footing.py` file to be in a directory named `C:\Users\username\Projects\footing_design` and the destination directory is `C:\Users\username\Projects\footing\src\footing`. (change the command appropriately as needed).
 ```doscon
 > copy C:\Users\username\Projects\footing_design\rect_footing.py C:\Users\username\footing\src\fppting\rectangular.py
 ```
-
 Alternatively, use Windows File Explorer and make a copy of the file `rect_footing.py` in the original folder, rename it to `rectangular.py` and copy it to the desitnation directory.
-
-Create a directory named `tests` in the project root and copy the `test_rectfooting.py` to that directory.
+2. Create a directory named `tests` in the project root and copy the `test_rectfooting.py` to that directory.
 
 These are the directory tree and Git status after these changes:
 
@@ -240,29 +238,14 @@ Here are the requirements that must be met:
 6. A unique module or package name
 7. Upload tool
 
-`uv` manages steps 1 to 4, although it requires an external backend build tool such as [`flit``](https://flit.pypa.io/en/stable/). You can install `flit` as a part of the virtual environment, but it is a good idea to install it as a `uv` tool so that a single installation is available to all Python projects and can be updated and managed at one place. The command to install `flit` is as follows:
+`uv` manages steps 1 to 4. By default `uv` uses `uv_build` as its build backend, but can work with other backends such as [`flit`](https://flit.pypa.io/en/stable/#) or `hatchling` from [Hatch](https://hatch.pypa.io/latest/). Hatch is a more capable and flexible tool compared to both `flit` and `uv_build` and is preferred for complex projects.
 
-```doscon
-> uv tool install flit
-Resolved 10 packages in 1.09s
-Prepared 10 packages in 2.78s
-Installed 10 packages in 1.63s
- + certifi==2026.5.20
- + charset-normalizer==3.4.7
- + docutils==0.23
- + flit==3.12.0
- + flit-core==3.12.0
- + idna==3.17
- + pip==26.1.2
- + requests==2.34.2
- + tomli-w==1.2.0
- + urllib3==2.7.0
-Installed 1 executable: flit
-> flit --version
-Flit 3.12.0
-```
-This installs `flit` in an isolated virtual environment of its own and makes it accessible on the command line. Subsequently, it can be updated with the command:
-```doscon
-> uv tool update flit
-```
-You don't have to directly use `flit`, `uv` will use it behind the scene to package the code into a distributable module or package.
+Study the contents of the following files:
+
+1. `pyproject.toml` is the project configuration file. Specifically study the project meta-data and dependency group. This file is normally managed by `uv` and must be changed manually only when necessary.
+2. 'README.md` file is currently empty. It becomes the opening page of the repository on GitHub. Add content to this file to introduce the package to the visitors to the GitHub repository. It must be in Markdown format.
+3. `.gitignore` filename and directory name patternswhich are not to be tracked for changes. You can add more patterns if you wish Git ignore them.
+4. `.python-version` contains the version of Python to be used by the project. This file is managed by `uv` and must not be changed manually.
+5. `uv.lock` if present, contains the details of the versions of all installed packages to enable recreation of the project on a different machine. This file is managed by `uv` and must **never** be changed manually.
+6. `src\footing\__init__.py` file is the file required to consider the `src\footing` directory as a package. It can be empty, but if it contains valid Python code, the code will be executed once when imported into an application. In the default `__init__.py` file created by `uv`, there is a function named `hello()` which can be safely deleted. An empty `__init__.py` is allowed.
+
