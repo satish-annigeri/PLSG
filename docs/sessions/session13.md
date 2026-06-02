@@ -91,10 +91,6 @@ print(utils.ceiling(1.12, 0.25))  # Result 1.2
 print(utils.floor(1.12, 0.15))  # Result 1.05
 ```
 
-### Distribution of a Module
-
-There is no formal mechanism for distribution of modules unless it is distributed as a package with a single module.A single module can also be distributed through PyPI.
-
 ## Example Package
 
 Let us develop a package named `footing` which is expected to contain modules for the proportioning of different types of footings, and make the module `rect_footing.py` a part of this packgae. The easiest way to get started is to crate a new project folder, and use `uv` to initialize a project to create a **library**. Assuming you are on a Windows machine and your Python projects are in the `C:\Users\username\Projects\` directory, follow these command at the Command Prompt:
@@ -229,5 +225,19 @@ We took a preliminary llok at Git in [Source Code Management](../resources/git_g
 2. Storage on a remote repository: This enables recreating the source code to a local repository on a different machine
 3. Distribution of the package to others: This becomes possible because `pip` and by extension `uv` can install packages from GitHub (in addition to their main purpose of installing packages from PyPI).
 
-### Building a Package for Distribution
-If we wish to distribute the package to other users, we must build a package in a way that it can be distributed to other users and they should be able to install it and use it in their applications.
+## Building a Module or a Package for Distribution
+If you wish to distribute the module or the package to other users, you must build a package in a way that it can be distributed to other users and they should be able to install it and use it in their applications. A package can be distributed directly from the GitHub repository, assuming one has access to it, or from PyPI [(Python Packaging Index)](https://pypi.org/).
+
+Distributing from GitHub is simple and straightforward as `uv` or `pip` understand how to request, download and install from a Git repository. Distributing via PyPI requires additional steps such as building a distributable package, optionally testing the package on [Test PyPI](https://test.pypi.org/) before uploading to PyPI, following security requirements, a PyPI account and API token etc.
+
+Here are the requirements that must be met:
+
+1. A valid project structure
+2. A `pyproject.toml` with PEP 621 metadata
+3. A build backend to build a **wheel** (`.whl`) or a **source distribution (sdist)**
+4. Build artifacts, **sdist + wheel**
+5. A PyPI account and API token
+6. A unique module or package name
+7. Upload tool
+
+`uv` manages steps 1 to 4, although it requires an external backend build tool such as [`flit``](https://flit.pypa.io/en/stable/).
