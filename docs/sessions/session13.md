@@ -240,4 +240,29 @@ Here are the requirements that must be met:
 6. A unique module or package name
 7. Upload tool
 
-`uv` manages steps 1 to 4, although it requires an external backend build tool such as [`flit``](https://flit.pypa.io/en/stable/).
+`uv` manages steps 1 to 4, although it requires an external backend build tool such as [`flit``](https://flit.pypa.io/en/stable/). You can install `flit` as a part of the virtual environment, but it is a good idea to install it as a `uv` tool so that a single installation is available to all Python projects and can be updated and managed at one place. The command to install `flit` is as follows:
+
+```doscon
+> uv tool install flit
+Resolved 10 packages in 1.09s
+Prepared 10 packages in 2.78s
+Installed 10 packages in 1.63s
+ + certifi==2026.5.20
+ + charset-normalizer==3.4.7
+ + docutils==0.23
+ + flit==3.12.0
+ + flit-core==3.12.0
+ + idna==3.17
+ + pip==26.1.2
+ + requests==2.34.2
+ + tomli-w==1.2.0
+ + urllib3==2.7.0
+Installed 1 executable: flit
+> flit --version
+Flit 3.12.0
+```
+This installs `flit` in an isolated virtual environment of its own and makes it accessible on the command line. Subsequently, it can be updated with the command:
+```doscon
+> uv tool update flit
+```
+You don't have to directly use `flit`, `uv` will use it behind the scene to package the code into a distributable module or package.
