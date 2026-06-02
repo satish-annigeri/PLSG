@@ -243,7 +243,7 @@ Here are the requirements that must be met:
 Study the contents of the following files:
 
 1. `pyproject.toml` is the project configuration file. Specifically study the project meta-data and dependency group. This file is normally managed by `uv` and must be changed manually only when necessary.
-2. 'README.md` file is currently empty. It becomes the opening page of the repository on GitHub. Add content to this file to introduce the package to the visitors to the GitHub repository. It must be in Markdown format.
+2. The default `README.md` file created by `uv` is empty. It becomes the opening page of the repository on GitHub. Add content to this file to introduce the package to the visitors to the GitHub repository. It must be in Markdown format.
 3. `.gitignore` filename and directory name patternswhich are not to be tracked for changes. You can add more patterns if you wish Git ignore them.
 4. `.python-version` contains the version of Python to be used by the project. This file is managed by `uv` and must not be changed manually.
 5. `uv.lock` if present, contains the details of the versions of all installed packages to enable recreation of the project on a different machine. This file is managed by `uv` and must **never** be changed manually.
