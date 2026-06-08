@@ -1,6 +1,6 @@
 # Session 12: Testing Python Code and Code Coverage
 
-**Planned Date: 30-05-2026 4:00 pm to 6:00 pm**
+**Date: 30-05-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 

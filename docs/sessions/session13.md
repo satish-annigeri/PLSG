@@ -1,6 +1,6 @@
 # Session 13: Modules and Packages
 
-**Planned Date: 06-06-2026 4:00 pm to 6:00 pm**
+**Date: 06-06-2026 4:00 pm to 6:00 pm**
 
 ## Agenda
 
