@@ -18,3 +18,6 @@ One way to answer this question is to make a list of all the things the package 
 1. Will the package to only design or also do detailing?
 2. Does *design* mean - design of an entire structure, design of components of a structure, design of cross sections of an individual member?
 3. Does designing a beam include design for bending, shear and torsion at selected locations along its length or exclude design for torsion?
+
+Having thought about these aspects, now write what would be the README.md page of your package. You can imagine that the package is ready and is capable of doing everything you expect it to do and write a short description telling others what it can do.
+
