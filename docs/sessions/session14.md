@@ -9,7 +9,7 @@
 3. What is the starting point for the design?
 4. Should I design everything fist before I begin implementation?
 
-# What should the package do?
+## What should the package do?
 
 This is an important question to answer. It defines the scope of the work we are about to undertake. It also helps us think about the components of the software that must be implemented to meet the expected outcomes.
 
